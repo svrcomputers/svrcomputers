@@ -22,7 +22,7 @@
             --dark: #2c3e50;
             --success: #27ae60;
             --gold: #ffd700;
-            --subtitle-color: #f8f9fa; /* Changed to a lighter color for better visibility */
+            --subtitle-color: #f8f9fa;
         }
 
         body {
@@ -38,6 +38,25 @@
             padding: 0 20px;
         }
 
+        /* Top Bar with Live Date & Time */
+        .top-bar {
+            background: var(--dark);
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .datetime {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
         /* Header Styles */
         header {
             background: var(--primary);
@@ -51,61 +70,40 @@
 
         .header-content {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
+            gap: 20px;
             position: relative;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
+        .logo-text-only {
+            margin-right: auto;
+            text-align: left;
         }
 
-        .logo-img {
-            width: 80px;
-            height: 80px;
-            margin-right: 15px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+        .logo-text-only .iso-badge {
+            background: var(--gold);
+            color: var(--dark);
+            padding: 3px 3px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 3px;
+            display: inline-block;
         }
 
-        .logo-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .logo h1 {
+        .logo-text-only h1 {
             font-size: 1.8rem;
             line-height: 1.2;
         }
 
         .logo-subtitle {
             display: block;
-            font-size: 0.9rem;
-            font-weight: 700; /* Made bold */
-            color: var(--subtitle-color); /* Updated to use new color variable */
-            margin-top: 3px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Added shadow for better contrast */
-        }
-
-        .logo-icon {
-            font-size: 2rem;
-            color: var(--secondary);
-        }
-
-        .iso-badge {
-            background: var(--gold);
-            color: var(--dark);
-            padding: 5px 10px;
-            border-radius: 3px;
             font-size: 0.7rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: inline-block;
+            font-weight: 700;
+            color: var(--subtitle-color);
+            margin-top: 3px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         nav ul {
@@ -407,7 +405,7 @@
 
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
         }
@@ -507,93 +505,6 @@
             margin-bottom: 5px;
         }
 
-        /* Social Events Section */
-        .social-events {
-            padding: 80px 0;
-            background: var(--light);
-        }
-
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .event-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .event-img {
-            height: 200px;
-            background-color: #ddd;
-            background-position: center;
-            background-size: cover;
-        }
-
-        .event-content {
-            padding: 20px;
-        }
-
-        .event-content h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .event-content p {
-            margin-bottom: 15px;
-            color: #666;
-        }
-
-        /* Certificate Verification Section */
-        .certificate-verify {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .verify-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--light);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .verify-form {
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .result-container {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
         /* Certifications Section */
         .certifications {
             padding: 80px 0;
@@ -668,6 +579,26 @@
             font-size: 1rem;
         }
 
+        /* About Content */
+        .about-content { padding: 80px 0; background: white; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .about-text h2 { color: var(--primary); margin-bottom: 20px; }
+        .about-text p { margin-bottom: 15px; color: #555; }
+        .about-img img { width: 100%; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+
+        .mission-vision { padding: 60px 0; background: var(--light); }
+        .mv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .mv-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; }
+        .mv-card i { font-size: 2.5rem; color: var(--secondary); margin-bottom: 15px; }
+/* Add this CSS */
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 15px;   /* optional – adds spacing between fields */
+}
         .form-group textarea {
             min-height: 100px;
             resize: vertical;
@@ -835,16 +766,16 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
-               flex-direction: row;
+                flex-direction: row;
                 text-align: left;
             }
 
-            .logo {
+            .logo-text-only {
                 margin-bottom: 0;
             }
 
             nav ul {
-               display: none;
+                display: none;
                 position: absolute;
                 top: 100%;
                 left: 0;
@@ -856,7 +787,8 @@
                 margin-top: 0;
                 box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
             }
- 	nav ul.show {
+
+            nav ul.show {
                 display: flex;
             }
 
@@ -864,7 +796,7 @@
                 margin: 15px 0;
             }
 
-              .mobile-menu-btn {
+            .mobile-menu-btn {
                 display: block;
                 position: static;
             }
@@ -884,9 +816,13 @@
                 right: 20px;
                 font-size: 24px;
             }
-            
+
             .enrollment-container, .sravan-container {
                 grid-template-columns: 1fr;
+            }
+
+            .top-bar {
+                font-size: 0.8rem;
             }
         }
 
@@ -900,7 +836,6 @@
             .testimonial-grid,
             .video-container,
             .activities-grid,
-            .events-grid,
             .certs-grid,
             .contact-grid,
             .footer-grid {
@@ -914,6 +849,14 @@
     </style>
 </head>
 <body>
+
+    <!-- Top Bar with Live Date & Time -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="datetime" id="datetime"></div>
+        </div>
+    </div>
+
     <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/918500172644" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
@@ -923,25 +866,23 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">
-                    <div class="logo-img">
-                        <!-- Added logo image -->
-                     <!--   <img src="svrwebsite/images/logo.png" alt="SVR Computer Education Logo"> -->
-                    </div>
-                    <div>
-                        <div class="iso-badge">ISO 9001:2015 CERTIFIED</div>
-                        <h1>SVR COMPUTER EDUCATION<br><span class="logo-subtitle">Software Training and Development Center</span></h1>
-                    </div>
+                <!-- Logo Text Only -->
+                <div class="logo-text-only">
+                    <div class="iso-badge">AN ISO 9001:2015 CERTIFIED ORGANIZATION</div>
+                    <h1>SVR COMPUTERS<br><span class="logo-subtitle">Software Training and Development Center</span></h1>
                 </div>
+
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
                 </button>
+
                 <nav>
                     <ul>
                         <li><a href="#home">Home</a></li>
+	      <li><a href="#about">About Us</a></li>
                         <li><a href="#courses">Courses</a></li>
-                       <li><a href="#testimonials">Testimonials</a></li>
-                       <li><a href="development.html">Development Center</a></li> 
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="development.html">Development Center</a></li>
                         <li><a href="#enrollment">Enroll Now</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
@@ -962,11 +903,57 @@
             </div>
         </div>
     </section>
-<marquee direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
- <a href="development.html" style="color:blue; text-decoration:none;">
-    🚀 Visit our Development Center Page   </a>
-  💻 SVR Innovations – Software & Project Development Wing
-</marquee>
+ <H2>  <a href="development.html" style="color:blue; text-decoration:none;">
+            Visit our Development Center Page   </a>
+        SVR Innovations – Software & Project Development Wing </H2>
+    
+        <!-- About Content -->
+    <section class="about-content" >
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>Our Journey</h2>
+                    <p>Founded in 2021 by <strong>Mr. Aruri Sravan</strong>, SVR Computer Education has grown from a small training center to a leading IT education institute in Hanamkonda.</p>
+                    <p>With a vision to bridge the gap between academic learning and industry requirements, we focus on practical, hands-on training that prepares students for real-world challenges.</p>
+                    <p>Over <strong>500+ students</strong> have successfully completed our courses and are now working in top IT companies across India.</p>
+
+<p> <b>🌍 Our Promise </b></p>
+
+At SVR Computer Education, every student is important to us.
+We are committed to delivering personalized attention, quality learning, and continuous support — helping you achieve your educational and professional goals with confidence.</p>
+
+                </div>
+                <div class="about-img">
+                    <img src="svrwebsite/images/asravan.jpeg" alt="Sravan Sir - Founder">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <div class="container">
+            <div class="mv-grid">
+                <div class="mv-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Our Mission</h3>
+                    <p>To provide affordable, high-quality IT education with 100% practical training and placement support.</p>
+                </div>
+                <div class="mv-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Our Vision</h3>
+                    <p>To be the most trusted IT training institute in Telangana, producing job-ready professionals.</p>
+                </div>
+                <div class="mv-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Our Values</h3>
+                    <p>Excellence, Integrity, Innovation, and Student Success.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- Courses Section -->
     <section class="courses" id="courses">
         <div class="container">
@@ -1021,8 +1008,6 @@
                 </div>
                 <div class="course-card">
                     <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-
-
                     <div class="course-content">
                         <h3>Java Programming</h3>
                         <p>Learn Java programming language for building cross-platform applications and web services.</p>
@@ -1076,9 +1061,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- New Courses Added -->
                 <div class="course-card">
-                   <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
                     <div class="course-content">
                         <h3>Databases (SQL/Oracle/MySQL)</h3>
                         <p>Learn database design, implementation, and management with popular database systems.</p>
@@ -1153,7 +1137,7 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
+   <!-- Testimonials Section -->
     <section class="testimonials" id="testimonials">
         <div class="container">
             <div class="section-title">
@@ -1585,7 +1569,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <h3>SVR Computer Education</h3>
+                    <h3>SVR COMPUTERS</h3>
                     <p>Providing quality IT education and training since 2021. Empowering students with skills for the digital age.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -1683,6 +1667,44 @@
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
                 
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    <script>
+        // Live Date & Time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('en-IN', options);
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
