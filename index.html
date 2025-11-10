@@ -845,6 +845,65 @@
             .hero {
                 padding: 60px 0;
             }
+
+ /* Navbar style */
+    nav {
+      background-color: #004aad;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Hamburger button */
+    .menu-btn {
+      display: none;
+      font-size: 28px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Mobile view */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #004aad;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
         }
     </style>
 </head>
@@ -1452,8 +1511,9 @@ We are committed to delivering personalized attention, quality learning, and con
                     <p>Flexible batch timings available to suit your schedule.</p>
                 </div>
                 <div class="enrollment-form">
+<p> <b>Note : For faster/quickly assistance , please call us directly  @ 8500172644  instead of sending messages. </p>
                     <h3>Enquiry Form</h3>
-                    <form>
+                    <form action="https://formsubmit.co/svrcomputers.training@gmail.com" method="POST">
                         <div class="form-group">
                             <input type="text" placeholder="Your Name" required>
                         </div>
@@ -1526,7 +1586,7 @@ We are committed to delivering personalized attention, quality learning, and con
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form>
+                     <form action="https://formsubmit.co/svrcomputers.training@gmail.com" method="POST">
                         <div class="form-group">
                             <input type="text" placeholder="Your Name" required>
                         </div>
