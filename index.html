@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>SVR Computer Education - Software Training and Development Center</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -84,17 +84,17 @@
         .logo-text-only .iso-badge {
             background: var(--gold);
             color: var(--dark);
-            padding: 2px 2px;
-            border-radius: 1px;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-size: 0.7rem;
             font-weight: bold;
-            margin-bottom: 0px;
             display: inline-block;
+            margin-bottom: 6px;
         }
 
         .logo-text-only h1 {
             font-size: 1.9rem;
-            line-height: 1.0;
+            line-height: 1.2;
         }
 
         .logo-subtitle {
@@ -102,8 +102,7 @@
             font-size: 0.75rem;
             font-weight: 700;
             color: var(--subtitle-color);
-            margin-top: 1px;
-            
+            margin-top: 4px;
         }
 
         nav ul {
@@ -570,6 +569,7 @@
             text-align: center;
         }
 
+        .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
@@ -577,28 +577,9 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 1rem;
+            margin-bottom: 15px;
         }
 
-        /* About Content */
-        .about-content { padding: 80px 0; background: white; }
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-        .about-text h2 { color: var(--primary); margin-bottom: 20px; }
-        .about-text p { margin-bottom: 15px; color: #555; }
-        .about-img img { width: 100%; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-
-        .mission-vision { padding: 60px 0; background: var(--light); }
-        .mv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .mv-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; }
-        .mv-card i { font-size: 2.5rem; color: var(--secondary); margin-bottom: 15px; }
-/* Add this CSS */
-.form-group input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    margin-bottom: 15px;   /* optional – adds spacing between fields */
-}
         .form-group textarea {
             min-height: 100px;
             resize: vertical;
@@ -681,6 +662,33 @@
             transform: scale(1.1);
         }
 
+        /* AI Chatbot Floating Button */
+        .ai-chat-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 120px;
+            right: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .ai-chat-float:hover {
+            background-color: var(--secondary);
+            transform: scale(1.1);
+        }
+
         /* Footer */
         footer {
             background: var(--dark);
@@ -691,7 +699,7 @@
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
+            gap: 30px;
             margin-bottom: 40px;
         }
 
@@ -706,15 +714,13 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 10px;
+            width: 40px;
             height: 3px;
             background: var(--secondary);
         }
 
         .footer-links {
             list-style: none;
-            max-height: 200px;
-            overflow-y: auto;
         }
 
         .footer-links li {
@@ -733,26 +739,14 @@
 
         .social-links {
             display: flex;
+            gap: 15px;
             margin-top: 20px;
         }
 
         .social-links a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            margin-right: 10px;
             color: white;
             text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .social-links a:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
+            font-size: 1.2rem;
         }
 
         .copyright {
@@ -763,17 +757,151 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Design */
+        /* Mission Vision */
+        .mission-vision {
+            padding: 60px 0;
+            background: var(--light);
+        }
+
+        .mv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .mv-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .mv-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        /* AI Modal */
+        .ai-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ai-modal-content {
+            width: 100%;
+            max-width: 450px;
+            height: 90vh;
+            background: #e5ddd5;
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .ai-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-header h3 {
+            font-size: 1.2rem;
+        }
+
+        .ai-close {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .ai-chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ai-message {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .ai-message.user {
+            align-self: flex-end;
+            background: #dcf8c6;
+            border-bottom-right-radius: 4px;
+        }
+
+        .ai-message.bot {
+            align-self: flex-start;
+            background: white;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .ai-typing {
+            display: none;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 18px;
+            width: fit-content;
+            margin-left: 15px;
+        }
+
+        .ai-input-area {
+            padding: 10px;
+            background: #f0f2f5;
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .ai-send {
+            background: var(--primary);
+            border: none;
+            width: 50px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: row;
-                text-align: left;
+                flex-wrap: wrap;
             }
-
-            .logo-text-only {
-                margin-bottom: 0;
-            }
-
             nav ul {
                 display: none;
                 position: absolute;
@@ -784,31 +912,19 @@
                 flex-direction: column;
                 align-items: center;
                 padding: 20px 0;
-                margin-top: 0;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
             }
-
             nav ul.show {
                 display: flex;
             }
-
             nav ul li {
                 margin: 15px 0;
             }
-
             .mobile-menu-btn {
                 display: block;
-                position: static;
             }
-
             .hero h2 {
                 font-size: 2rem;
             }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
             .whatsapp-float {
                 width: 50px;
                 height: 50px;
@@ -816,39 +932,17 @@
                 right: 20px;
                 font-size: 24px;
             }
-
-            .enrollment-container, .sravan-container {
+            .ai-chat-float {
+                width: 50px;
+                height: 50px;
+                bottom: 85px;
+                right: 20px;
+                font-size: 24px;
+            }
+            .enrollment-container,
+            .sravan-container {
                 grid-template-columns: 1fr;
             }
-
-            .top-bar {
-                font-size: 0.8rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .section-title h2 {
-                font-size: 1.8rem;
-            }
-
-            .course-grid,
-            .feature-grid,
-            .testimonial-grid,
-            .video-container,
-            .activities-grid,
-            .certs-grid,
-            .contact-grid,
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero {
-                padding: 60px 0;
-            }
-
-
-
-   
         }
     </style>
 </head>
@@ -866,26 +960,26 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- AI Chatbot Floating Button (Icon instead of link) -->
+    <button class="ai-chat-float" id="openAiChatBtn">
+        <i class="fas fa-robot"></i>
+    </button>
+
     <!-- Header -->
-
     <header>
-
         <div class="container">
             <div class="header-content">
-                <!-- Logo Text Only -->
                 <div class="logo-text-only">
                     <div class="iso-badge">AN ISO 9001:2015 CERTIFIED ORGANIZATION</div>
-                  <h1>SVR COMPUTERS<br><span class="logo-subtitle"> Software Training and Development Center </span></h1> 
+                    <h1>SVR COMPUTERS<br><span class="logo-subtitle">Software Training and Development Center</span></h1>
                 </div>
-
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
                 </button>
-
                 <nav>
                     <ul>
                         <li><a href="#home">Home</a></li>
-	      <li><a href="#about">About Us</a></li>
+                        <li><a href="#about">About Us</a></li>
                         <li><a href="#courses">Courses</a></li>
                         <li><a href="#testimonials">Testimonials</a></li>
                         <li><a href="development.html">Development Center</a></li>
@@ -895,17 +989,14 @@
                 </nav>
             </div>
         </div>
-<marquee behavior="scroll" direction="left" scrollamount="6">
-    <p>
-      <a href="development.html" style="color:pink; text-decoration:none;">
-        Click here to Visit our Development Center Page-SVR Innovations-Software & Project Development Wing
-      </a>
-    </p>
- </marquee> 
-	 
-	<p> <a href="svrchatbot.html" style="color:white;"> Chat with our AI Assistant </a>  </p>	 
-	
-     </header>
+        <marquee behavior="scroll" direction="left" scrollamount="6">
+            <p>
+                <a href="development.html" style="color:pink; text-decoration:none;">
+                    Click here to Visit our Development Center Page-SVR Innovations-Software & Project Development Wing
+                </a>
+            </p>
+        </marquee>
+    </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -919,27 +1010,21 @@
             </div>
         </div>
     </section>
- 
-    
-        <!-- About Content -->
+
+    <!-- About Content -->
     <section class="sravan-section" id="about">
         <div class="container">
             <div class="sravan-container">
                 <div class="sravan-img">
-                    <img src="svrwebsite/images/sravan1.jpeg" alt="Sravan">
+                    <img src="https://placehold.co/600x400/2c3e50/white?text=Sravan+Sir" alt="Sravan">
                 </div>
                 <div class="sravan-content">
                     <h2>Our Journey</h2>
                     <p>Founded in 2021 by <strong>Mr. Aruri Sravan</strong>, SVR Computer Education has grown from a small training center to a leading IT education institute in Hanamkonda.</p>
                     <p>With a vision to bridge the gap between academic learning and industry requirements, we focus on practical, hands-on training that prepares students for real-world challenges.</p>
                     <p>Over <strong>500+ students</strong> have successfully completed our courses and are now working in top IT companies across India.</p>
-
-<p> <b>🌍 Our Promise </b></p>
-
-At SVR Computer Education, every student is important to us.
-We are committed to delivering personalized attention, quality learning, and continuous support — helping you achieve your educational and professional goals with confidence.</p>
-
-               
+                    <p><b>🌍 Our Promise</b></p>
+                    <p>At SVR Computer Education, every student is important to us. We are committed to delivering personalized attention, quality learning, and continuous support — helping you achieve your educational and professional goals with confidence.</p>
                 </div>
             </div>
         </div>
@@ -968,183 +1053,40 @@ We are committed to delivering personalized attention, quality learning, and con
         </div>
     </section>
 
-
     <!-- Courses Section -->
     <section class="courses" id="courses">
         <div class="container">
             <div class="section-title">
                 <h2>Our Courses</h2>
             </div>
-
-            <div class="course-grid">
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>DCA (Diploma in Computer Applications)</h3>
-                        <p>Comprehensive course covering computer fundamentals, MS Office, and basic programming.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 3 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Beginner</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>PGDCA (Post Graduate Diploma in Computer Applications)</h3>
-                        <p>Advanced diploma covering programming, database management, and software engineering.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 6 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Tally + GST</h3>
-                        <p>Learn accounting with Tally software and Goods and Services Tax implementation.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 3 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Beginner</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>C & C++ Programming</h3>
-                        <p>Master the fundamentals of programming with C and object-oriented programming with C++.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 4 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Java Programming</h3>
-                        <p>Learn Java programming language for building cross-platform applications and web services.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 5 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1526379095098-d400fd0bf935?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Python Programming</h3>
-                        <p>Learn Python for web development, data analysis, artificial intelligence, and more.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 4 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Beginner</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Web Development</h3>
-                        <p>Learn to build responsive websites using HTML, CSS, JavaScript and modern frameworks.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 6 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Advanced</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1546054454-aa26e2b734c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Data Science</h3>
-                        <p>Master data analysis, visualization, and machine learning algorithms with Python.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 8 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Mobile App Development</h3>
-                        <p>Build native and cross-platform mobile applications for iOS and Android.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 6 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Advanced</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Databases (SQL/Oracle/MySQL)</h3>
-                        <p>Learn database design, implementation, and management with popular database systems.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 4 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Full Stack Development</h3>
-                        <p>Master both front-end and back-end development to build complete web applications.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 8 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Advanced</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-                    <div class="course-content">
-                        <h3>Data Analytics</h3>
-                        <p>Learn to analyze and visualize data to extract meaningful insights for decision making.</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> 5 Months</span>
-                            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="course-grid" id="courseGrid"></div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features" id="features">
+    <section class="features">
         <div class="container">
             <div class="section-title">
                 <h2>Why Choose SVR</h2>
             </div>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-chalkboard-teacher"></i></div>
                     <h3>Expert Instructors</h3>
                     <p>Learn from industry professionals with years of teaching and practical experience.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3>Hands-on Training</h3>
                     <p>Get practical experience with real-world projects and assignments.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-certificate"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-certificate"></i></div>
                     <h3>Industry Recognized Certification</h3>
                     <p>Receive certificates that are valued by employers in the IT industry.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-briefcase"></i></div>
                     <h3>Placement Assistance</h3>
                     <p>We help you prepare for interviews and connect with potential employers.</p>
                 </div>
@@ -1152,110 +1094,18 @@ We are committed to delivering personalized attention, quality learning, and con
         </div>
     </section>
 
-   <!-- Testimonials Section -->
+    <!-- Testimonials Section -->
     <section class="testimonials" id="testimonials">
         <div class="container">
             <div class="section-title">
                 <h2>What Students Say's About us</h2>
             </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"I completed the PGDCA course at SVR and it completely transformed my career. The instructors were very supportive and the hands-on training 		helped me secure a job ."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/priyanka.png" alt="Priyanka">
-                        </div>
-                        <div class="author-info">
-                            <h4>Priyanka</h4>
-                            <p>PGDCA Student</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"The Java Programming course at SVR gave me the skills I needed to become a software developer. The course content was up-to-date and the projects 		were challenging and relevant."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/sai.png" alt="Sai">
-                        </div>
-                        <div class="author-info">
-                            <h4>Sai </h4>
-                            <p>Java Programming Student</p>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-<div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"The PGDCA course gave me complete computer application knowledge, building a strong foundation for my future."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/ajuba.png" alt="Sai">
-                        </div>
-                        <div class="author-info">
-                            <h4>Ajuba </h4>
-                            <p>PGDCA  Student</p>
-                        </div>
-                    </div>
-                </div>
-
-
-
-<div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"SVR Computers’ DCA course helped me gain essential computer skills that I now use every day with confidence."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/nandini.png" alt="Sai">
-                        </div>
-                        <div class="author-info">
-                            <h4>Nandini </h4>
-                            <p>DCA Student</p>
-                        </div>
-                    </div>
-                </div>
-<div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"SVR Computers made Python easy with practical examples and projects. Now I can apply it in real-world tasks confidently."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/anudeep.jpeg" alt="Sai">
-                        </div>
-                        <div class="author-info">
-                            <h4>Anudeep </h4>
-                            <p>Python Student</p>
-                        </div>
-                    </div>
-                </div>
-
-<div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"I joined the C Programming course at SVR Computer Education with very little knowledge of programming. The way concepts were explained step by step, with real-time examples and practical exercises, made learning so easy and enjoyable. I especially liked the focus on writing clean code and solving problems logically.."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/bharghavi.png" alt="Sai">
-                        </div>
-                        <div class="author-info">
-                            <h4>Bharghavi </h4>
-                            <p>C Programming Student</p>
-                        </div>
-                    </div>
-                </div>
-               
+            <div class="testimonial-grid" id="testimonialGrid"></div>
+        </div>
     </section>
 
     <!-- Video Section -->
-    <section class="video-section" id="videos">
+    <section class="video-section">
         <div class="container">
             <div class="section-title">
                 <h2>Training Videos</h2>
@@ -1263,9 +1113,8 @@ We are committed to delivering personalized attention, quality learning, and con
             <div class="video-container">
                 <div class="video-card">
                     <div class="video-wrapper">
-                        <!-- Added actual video element -->
-                        <video controls poster="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">
-                            <source src="svrwebsite/images/video1.mp4" type="video/mp4">
+                        <video controls poster="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=500">
+                            <source src="#" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -1276,10 +1125,8 @@ We are committed to delivering personalized attention, quality learning, and con
                 </div>
                 <div class="video-card">
                     <div class="video-wrapper">
-                        <!-- Added actual video element -->
-                        <video controls poster="https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">
-                            <source src="svrwebsite/images/video2.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
+                        <video controls poster="https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=500">
+                            <source src="#" type="video/mp4">
                         </video>
                     </div>
                     <div class="video-content">
@@ -1289,10 +1136,8 @@ We are committed to delivering personalized attention, quality learning, and con
                 </div>
                 <div class="video-card">
                     <div class="video-wrapper">
-                        <!-- Added actual video element -->
-                        <video controls poster="https://images.unsplash.com/photo-1542744094-3a31f272c490?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">
-                            <source src="svrwebsite/images/video3.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
+                        <video controls poster="https://images.unsplash.com/photo-1542744094-3a31f272c490?w=500">
+                            <source src="#" type="video/mp4">
                         </video>
                     </div>
                     <div class="video-content">
@@ -1304,20 +1149,16 @@ We are committed to delivering personalized attention, quality learning, and con
         </div>
     </section>
 
-  
-
-    
-
     <!-- Sravan Section -->
-    <section class="sravan-section" id="about">
+    <section class="sravan-section">
         <div class="container">
             <div class="sravan-container">
                 <div class="sravan-img">
-                    <img src="svrwebsite/images/asravan.jpeg" alt="Sravan">
+                    <img src="https://placehold.co/600x400/2c3e50/white?text=Aruri+Sravan" alt="Sravan">
                 </div>
                 <div class="sravan-content">
-                    <h3>Learn With Sravan Sir  </h3>
-                    <p><b> Mr ARURI SRAVAN,</b> Completed his <b>Master's in Information Systems </b>, is the founder and lead Software Trainer  at SVR Computers. With over 15 years of experience in the IT industry and education sector, he is passionate about empowering students with practical IT skills.</p>
+                    <h3>Learn With Sravan Sir</h3>
+                    <p><b>Mr ARURI SRAVAN,</b> Completed his <b>Master's in Information Systems</b>, is the founder and lead Software Trainer at SVR Computers. With over 15 years of experience in the IT industry and education sector, he is passionate about empowering students with practical IT skills.</p>
                     <p>His expertise includes programming languages like Java, Python, and C++, database management, web development, and software engineering principles.</p>
                     <p>Under his guidance, hundreds of students have successfully launched their careers in the IT industry.</p>
                     <a href="#contact" class="btn">Get in Touch</a>
@@ -1327,129 +1168,34 @@ We are committed to delivering personalized attention, quality learning, and con
     </section>
 
     <!-- Activities Section -->
-    <section class="activities" id="activities">
+    <section class="activities">
         <div class="container">
             <div class="section-title">
                 <h2>Center Activities</h2>
             </div>
-            <div class="activities-grid">
-                <div class="activity-card">
-                    <img src="svrwebsite/images/6.jpeg" alt="Classroom Training" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Classroom Training</h3>
-                        <p>Interactive sessions with experienced instructors</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/lab.jpg" alt="Lab Sessions" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Lab Sessions</h3>
-                        <p>Hands-on practice with modern computer systems</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/2.jpeg" alt="Group Discussions" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Group Discussions</h3>
-                        <p>Collaborative learning environment</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/7.jpeg" alt="Project Work" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Project Work</h3>
-                        <p>Real-world application of learned concepts</p>
-                    </div>
-                </div>
-
-
-<div class="activity-card">
-                    <img src="svrwebsite/images/13.jpeg" alt="Project Work" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>On Job Training </h3>
-                        <p>We are proud to conduct internships that bridge the gap between academic knowledge and professional skills.</p>
-                    </div>
-                </div>
-
-
-<div class="activity-card">
-                    <img src="svrwebsite/images/12.jpeg" alt="Project Work" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>On Job Training </h3>
-                        <p>Through our internship programs, students gain hands-on experience and practical knowledge beyond classroom learning.</p>
-                    </div>
-                </div>
-	<div class="activity-card">
-                    <img src="svrwebsite/images/05.jpeg" alt="Project Work" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Project Completion</h3>
-                        <p>With NIT Warangal Students</p>
-                    </div>
-                </div>
-	<div class="activity-card">
-                    <img src="svrwebsite/images/2.jpg" alt="Project Work" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Project Completion</h3>
-                        <p>Get Together</p>
-                    </div>
-                </div>
-	<div class="activity-card">
-                    <img src="svrwebsite/images/9.jpeg" alt="Project Work" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Free Distribution of Ganesh idols</h3>
-                        <p>Echo Friendly Environment </p>
-                    </div>
-                </div>
-	<div class="activity-card">
-                    <img src="svrwebsite/images/8.jpeg" alt="Project Work" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Free Distribution of Ganesh idols</h3>
-                        <p>Echo Friendly Environment </p>
-                    </div>
-                </div>
-	<div class="activity-card">
-                    <img src="svrwebsite/images/10.jpeg" alt="Project Work" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Food Donation Camp</h3>
-                        <p>for Disabled </p>
-                    </div>
-                </div>
-<div class="activity-card">
-                    <img src="svrwebsite/images/11.jpeg" alt="Project Work" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Food Donation Camp</h3>
-                        <p>for Disabled </p>
-                    </div>
-                </div>
-            </div>
+            <div class="activities-grid" id="activitiesGrid"></div>
         </div>
     </section>
 
     <!-- Certifications Section -->
-    <section class="certifications" id="certifications">
+    <section class="certifications">
         <div class="container">
             <div class="section-title">
                 <h2>Our Certifications</h2>
             </div>
             <div class="certs-grid">
                 <div class="cert-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
+                    <div class="cert-icon"><i class="fas fa-award"></i></div>
                     <h3>ISO 9001:2015 Certified</h3>
                     <p>Quality management system certified</p>
                 </div>
                 <div class="cert-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
+                    <div class="cert-icon"><i class="fas fa-graduation-cap"></i></div>
                     <h3>Government Recognized</h3>
                     <p>Approved by JNCTE (Jawaharlal Nehru Council for Technical Education)</p>
                 </div>
                 <div class="cert-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
+                    <div class="cert-icon"><i class="fas fa-handshake"></i></div>
                     <h3>Industry Partnerships</h3>
                     <p>Collaboration with leading IT companies</p>
                 </div>
@@ -1465,22 +1211,22 @@ We are committed to delivering personalized attention, quality learning, and con
                     <h2>Start Your IT Career Today</h2>
                     <p>Join hundreds of successful students who have transformed their careers with our industry-relevant courses. Our expert instructors and hands-on approach will give you the skills you need to succeed in the IT industry.</p>
                     <p>Flexible batch timings available to suit your schedule.</p>
+                    <p><b>Note : For faster/quickly assistance , please call us directly @ 8500172644 instead of sending messages.</b></p>
                 </div>
                 <div class="enrollment-form">
-<p> <b>Note : For faster/quickly assistance , please call us directly  @ 8500172644  instead of sending messages. </p>
                     <h3>Enquiry Form</h3>
                     <form action="https://formsubmit.co/svrcomputers.training@gmail.com" method="POST">
                         <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
+                            <input type="text" name="name" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
+                            <input type="email" name="email" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" placeholder="Your Phone" required>
+                            <input type="tel" name="phone" placeholder="Your Phone" required>
                         </div>
                         <div class="form-group">
-                            <select required>
+                            <select name="course" required>
                                 <option value="" disabled selected>Select Course</option>
                                 <option value="dca">DCA</option>
                                 <option value="pgdca">PGDCA</option>
@@ -1497,7 +1243,7 @@ We are committed to delivering personalized attention, quality learning, and con
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Your Message"></textarea>
+                            <textarea name="message" placeholder="Your Message"></textarea>
                         </div>
                         <button type="submit" class="btn btn-accent">Submit Enquiry</button>
                     </form>
@@ -1516,22 +1262,10 @@ We are committed to delivering personalized attention, quality learning, and con
                 <div class="contact-info">
                     <h3>Get in Touch</h3>
                     <ul class="contact-details">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span># 1-9-1266, Beside DIG Building Lane <br> Julywada Junction <br> Hanamkonda 506001</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <span>+91 8500172644</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <span>svrcomputers.training@gmail.com</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-clock"></i>
-                            <span>Monday - Saturday: 7:00 AM - 8:00 PM</span>
-                        </li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span># 1-9-1266, Beside DIG Building Lane <br> Julywada Junction <br> Hanamkonda 506001</span></li>
+                        <li><i class="fas fa-phone"></i> <span>+91 8500172644</span></li>
+                        <li><i class="fas fa-envelope"></i> <span>svrcomputers.training@gmail.com</span></li>
+                        <li><i class="fas fa-clock"></i> <span>Monday - Saturday: 7:00 AM - 8:00 PM</span></li>
                     </ul>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -1542,22 +1276,12 @@ We are committed to delivering personalized attention, quality learning, and con
                     </div>
                 </div>
                 <div class="contact-form">
-                     <form action="https://formsubmit.co/svrcomputers.training@gmail.com" method="POST">
-                        <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" placeholder="Your Phone" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="Subject" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Your Message" required></textarea>
-                        </div>
+                    <form action="https://formsubmit.co/svrcomputers.training@gmail.com" method="POST">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <input type="tel" name="phone" placeholder="Your Phone" required>
+                        <input type="text" name="subject" placeholder="Subject" required>
+                        <textarea name="message" placeholder="Your Message" required></textarea>
                         <button type="submit" class="btn">Send Message</button>
                     </form>
                 </div>
@@ -1590,27 +1314,11 @@ We are committed to delivering personalized attention, quality learning, and con
                         <li><a href="#contact">Contact Us</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Courses</h3>
-                    <ul class="footer-links">
-                        <li><a href="#courses">DCA</a></li>
-                        <li><a href="#courses">PGDCA</a></li>
-                        <li><a href="#courses">Tally + GST</a></li>
-                        <li><a href="#courses">C & C++ Programming</a></li>
-                        <li><a href="#courses">Java Programming</a></li>
-                        <li><a href="#courses">Python Programming</a></li>
-                        <li><a href="#courses">Web Development</a></li>
-                        <li><a href="#courses">Data Science</a></li>
-                        <li><a href="#courses">Mobile App Development</a></li>
-                        <li><a href="#courses">Databases (SQL/Oracle/MySQL)</a></li>
-                        <li><a href="#courses">Full Stack Development</a></li>
-                        <li><a href="#courses">Data Analytics</a></li>
-                    </ul>
-                </div>
+              
                 <div class="footer-column">
                     <h3>Contact Info</h3>
                     <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> # 1-9-1266, Beside DIG Building Lane  Julywada Junction <br> Hanamkonda 506001</li>
+                        <li><i class="fas fa-map-marker-alt"></i> # 1-9-1266, Beside DIG Building Lane Julywada Junction Hanamkonda 506001</li>
                         <li><i class="fas fa-phone"></i> +91 8500172644</li>
                         <li><i class="fas fa-envelope"></i> svrcomputers.training@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Mon-Sat: 7AM - 8PM</li>
@@ -1623,73 +1331,27 @@ We are committed to delivering personalized attention, quality learning, and con
         </div>
     </footer>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('show');
-        });
+    <!-- AI Chatbot Modal -->
+    <div id="aiModal" class="ai-modal">
+        <div class="ai-modal-content">
+            <div class="ai-header">
+                <h3><i class="fas fa-robot"></i> SVR AI Assistant</h3>
+                <button class="ai-close" id="closeAiModal">&times;</button>
+            </div>
+            <div id="aiChatBox" class="ai-chat-box"></div>
+            <div id="aiTyping" class="ai-typing">Typing...</div>
+            <div class="ai-input-area">
+                <input type="text" id="aiUserInput" class="ai-input" placeholder="Ask about courses, fees, director...">
+                <button id="aiSendBtn" class="ai-send"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
 
-        // Certificate verification function
-        function verifyCertificate() {
-            const regNumber = document.getElementById('reg-number').value;
-            const resultContainer = document.getElementById('result-container');
-            const studentDetails = document.getElementById('student-details');
-            
-            if (regNumber) {
-                // Simulate verification (in a real scenario, this would connect to a database)
-                const sampleData = {
-                    name: "Rajesh Kumar",
-                    course: "DCA",
-                    completionDate: "June 15, 2023",
-                    grade: "A+",
-                    certificateId: "SVR2023DCA042"
-                };
-                
-                studentDetails.innerHTML = `
-                    <p><strong>Name:</strong> ${sampleData.name}</p>
-                    <p><strong>Course:</strong> ${sampleData.course}</p>
-                    <p><strong>Completion Date:</strong> ${sampleData.completionDate}</p>
-                    <p><strong>Grade:</strong> ${sampleData.grade}</p>
-                    <p><strong>Certificate ID:</strong> ${sampleData.certificateId}</p>
-                    <p style="color: var(--success); margin-top: 15px;"><i class="fas fa-check-circle"></i> This certificate is verified.</p>
-                `;
-                
-                resultContainer.style.display = 'block';
-            } else {
-                alert('Please enter a registration number');
-            }
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
     <script>
         // Live Date & Time
         function updateDateTime() {
             const now = new Date();
-            const options = { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            };
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
             document.getElementById('datetime').textContent = now.toLocaleDateString('en-IN', options);
         }
         updateDateTime();
@@ -1702,19 +1364,178 @@ We are committed to delivering personalized attention, quality learning, and con
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
                 }
             });
         });
+
+        // Course Data (12 courses as in original)
+        const courses = [
+            { title: "DCA (Diploma in Computer Applications)", desc: "Comprehensive course covering computer fundamentals, MS Office, and basic programming.", duration: "3 Months", level: "Beginner", img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500" },
+            { title: "PGDCA (Post Graduate Diploma in Computer Applications)", desc: "Advanced diploma covering programming, database management, and software engineering.", duration: "6 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500" },
+            { title: "Tally + GST", desc: "Learn accounting with Tally software and Goods and Services Tax implementation.", duration: "3 Months", level: "Beginner", img: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=500" },
+            { title: "C & C++ Programming", desc: "Master the fundamentals of programming with C and object-oriented programming with C++.", duration: "4 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500" },
+            { title: "Java Programming", desc: "Learn Java programming language for building cross-platform applications and web services.", duration: "5 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500" },
+            { title: "Python Programming", desc: "Learn Python for web development, data analysis, artificial intelligence, and more.", duration: "4 Months", level: "Beginner", img: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=500" },
+            { title: "Web Development", desc: "Learn to build responsive websites using HTML, CSS, JavaScript and modern frameworks.", duration: "6 Months", level: "Advanced", img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500" },
+            { title: "Data Science", desc: "Master data analysis, visualization, and machine learning algorithms with Python.", duration: "8 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=500" },
+            { title: "Mobile App Development", desc: "Build native and cross-platform mobile applications for iOS and Android.", duration: "6 Months", level: "Advanced", img: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=500" },
+            { title: "Databases (SQL/Oracle/MySQL)", desc: "Learn database design, implementation, and management with popular database systems.", duration: "4 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500" },
+            { title: "Full Stack Development", desc: "Master both front-end and back-end development to build complete web applications.", duration: "8 Months", level: "Advanced", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500" },
+            { title: "Data Analytics", desc: "Learn to analyze and visualize data to extract meaningful insights for decision making.", duration: "5 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500" }
+        ];
+
+        const courseGrid = document.getElementById('courseGrid');
+        courses.forEach(c => {
+            courseGrid.innerHTML += `
+                <div class="course-card">
+                    <div class="course-img" style="background-image: url('${c.img}'); background-size: cover; background-position: center;"></div>
+                    <div class="course-content">
+                        <h3>${c.title}</h3>
+                        <p>${c.desc}</p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> ${c.duration}</span>
+                            <span><i class="fas fa-user-graduate"></i> ${c.level}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Testimonials Data
+        const testimonials = [
+            { name: "Priyanka", course: "PGDCA Student", text: "I completed the PGDCA course at SVR and it completely transformed my career. The instructors were very supportive and the hands-on training helped me secure a job.", img: "https://randomuser.me/api/portraits/women/1.jpg" },
+            { name: "Sai", course: "Java Programming Student", text: "The Java Programming course at SVR gave me the skills I needed to become a software developer.", img: "https://randomuser.me/api/portraits/men/2.jpg" },
+            { name: "Ajuba", course: "PGDCA Student", text: "The PGDCA course gave me complete computer application knowledge, building a strong foundation for my future.", img: "https://randomuser.me/api/portraits/women/3.jpg" },
+            { name: "Nandini", course: "DCA Student", text: "SVR Computers' DCA course helped me gain essential computer skills that I now use every day with confidence.", img: "https://randomuser.me/api/portraits/women/4.jpg" },
+            { name: "Anudeep", course: "Python Student", text: "SVR Computers made Python easy with practical examples and projects. Now I can apply it in real-world tasks confidently.", img: "https://randomuser.me/api/portraits/men/5.jpg" },
+            { name: "Bharghavi", course: "C Programming Student", text: "I joined the C Programming course with very little knowledge. The way concepts were explained step by step made learning so easy.", img: "https://randomuser.me/api/portraits/women/6.jpg" }
+        ];
+
+        const testimonialGrid = document.getElementById('testimonialGrid');
+        testimonials.forEach(t => {
+            testimonialGrid.innerHTML += `
+                <div class="testimonial-card">
+                    <div class="testimonial-text"><p>${t.text}</p></div>
+                    <div class="testimonial-author">
+                        <div class="author-img"><img src="${t.img}" alt="${t.name}"></div>
+                        <div class="author-info"><h4>${t.name}</h4><p>${t.course}</p></div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Activities Data
+        const activities = [
+            "Classroom Training", "Lab Sessions", "Group Discussions", "Project Work", "On Job Training", "On Job Training", "Project Completion", "Project Completion", "Free Distribution of Ganesh idols", "Free Distribution of Ganesh idols", "Food Donation Camp", "Food Donation Camp"
+        ];
+        const activitiesGrid = document.getElementById('activitiesGrid');
+        activities.forEach(act => {
+            activitiesGrid.innerHTML += `
+                <div class="activity-card">
+                    <div class="activity-overlay">
+                        <h3>${act}</h3>
+                        <p>Center Activity</p>
+                    </div>
+                </div>
+            `;
+        });
+
+        // ========== AI CHATBOT (Fully Functional) ==========
+        const instituteData = {
+            greetings: { keys: ['hi', 'hello', 'namaste', 'hey', 'good morning', 'help'], reply: '👋 Welcome to **SVR COMPUTERS**! We have been providing quality computer education since 2020. You can ask about our courses, fees, timings, faculty, placements, certifications, and more. How can I help you today?' },
+            director: { keys: ['director', 'owner', 'founder', 'head', 'ceo', 'aruri', 'sravan'], reply: '👨‍💼 **About Our Director / Principal Trainer:**\n\n**Name:** Aruri Sravan\n**Experience:** 15+ years in computer education & training\n**Qualification:** B.C.A, M.Sc.IS (Information Systems)\n**Expertise:** Programming (C, C++, Java, Python), Databases, Web Development, AI Fundamentals\n\n📞 Contact: 8500172644' },
+            trainer: { keys: ['teacher', 'trainer', 'faculty', 'instructor', 'staff', 'mentor'], reply: '👨‍🏫 **Our Trainers & Faculty:**\n\n• **Director & Trainer:** Aruri Sravan (15+ years exp.) – DCA, PGDCA, C, C++, Java, Python, DBMS, AI\n\n📞 Contact for demo: 8500172644' },
+            about: { keys: ['about', 'institute', 'information', 'svr', 'details', 'history'], reply: '🏢 **About SVR COMPUTERS:**\n\n• Established in **2020** (5+ years of excellence)\n• **500+** students trained successfully\n• Director: **Aruri Sravan** (M.Sc Information Systems)\n• **100% practical training** with live projects\n• **Placement assistance** with top companies\n• Located at **Julywada Junction, Hanamkonda**\n\n📞 Contact: 8500172644' },
+            courses: { keys: ['course', 'courses', 'computer course', 'all courses', 'available'], reply: '📚 **Courses Available at SVR COMPUTERS:**\n\n• **DCA** - Diploma in Computer Applications (3 months)\n• **PGDCA** - Post Graduate Diploma (6 months)\n• **TALLY** - Accounting Software with GST (3 months)\n• **MS-OFFICE** - Word, Excel, PowerPoint (2 months)\n• **C Language** - Programming Fundamentals (2 months)\n• **C++** - Object Oriented Programming (2 months)\n• **JAVA** - Core & Advanced Java (4 months)\n• **PYTHON** - Data Science & Development (4 months)\n• **FULL STACK DEVELOPMENT** - HTML, CSS, JavaScript, PHP (6 months)\n• **DATABASE** - Oracle, MySQL (3 months)\n• **SQL** - Structured Query Language (2 months)\n• **AI** - Artificial Intelligence Basics (3 months)\n\n📞 Contact: **8500172644**' },
+            dca: { keys: ['dca', 'diploma computer applications'], reply: '💻 **DCA (Diploma in Computer Applications)**\n\n• **Duration:** 3 Months\n• **Eligibility:** 10th Pass\n• **Syllabus:** Computer Fundamentals, MS-Office, Tally, Internet, C Programming\n• 📞 For more details: 8500172644' },
+            pgdca: { keys: ['pgdca', 'post graduate diploma'], reply: '🎓 **PGDCA (Post Graduate Diploma in Computer Applications)**\n\n• **Duration:** 6 Months\n• **Eligibility:** Any Degree\n• **Syllabus:** Advanced Programming (C, C++, Java), DBMS, Networking, Web Design, Project Work\n• 📞 For more details: 8500172644' },
+            tally: { keys: ['tally', 'accounting', 'gst'], reply: '📊 **TALLY ERP9 + GST**\n\n• **Duration:** 3 Months\n• **Syllabus:** Accounting Basics, Ledgers, Vouchers, Inventory, GST Returns, Payroll\n• -\n📞 For more details: 8500172644' },
+            java: { keys: ['java', 'core java'], reply: '☕ **JAVA Programming**\n\n• **Duration:** 4 Months\n• **Topics:** Core Java, OOPs, Multithreading, Collections, JDBC, Servlets, JSP\n• 📞 For more details: 8500172644' },
+            python: { keys: ['python', 'py'], reply: '🐍 **PYTHON Programming**\n\n• **Duration:** 4 Months\n• **Topics:** Basics, OOPs, Django/Flask, Data Analysis, NumPy, Pandas\n• 📞 For more details: 8500172644' },
+            fullstack: { keys: ['full stack', 'fullstack', 'web development', 'html', 'css', 'javascript', 'php'], reply: '🌐 **FULL STACK DEVELOPMENT**\n\n• **Duration:** 6 Months\n• **Frontend:** HTML5, CSS3, JavaScript, Bootstrap\n• **Backend:** PHP, MySQL\n• 📞 For more details: 8500172644' },
+            fees: { keys: ['fee', 'fees', 'cost', 'price', 'charges'], reply: '💰 **Fee Structure:**\n\n• Fee Structure will be different for different course for details pls \n📞 Contact: 8500172644' },
+            timings: { keys: ['time', 'timings', 'batch timings', 'schedule'], reply: '⏰ **Batch Timings:**\n\n• **Morning:** 6:00 AM - 8:00 AM\n• **Day:** 10:00 AM - 1:00 PM\n• **Evening:** 4:00 PM - 8:00 PM\n• **Weekend Batch:** Saturday & Sunday\n\n📞 Contact: 8500172644' },
+            placements: { keys: ['placement', 'placements', 'job', 'career'], reply: '💼 **Placement & Career Support:**\n\n• **100% placement assistance**\n• Resume building workshops\n• Mock interviews with industry experts\n• Internship opportunities\n\n📞 Contact: 8500172644' },
+            contact: { keys: ['contact', 'phone', 'mobile', 'call', 'number'], reply: '📞 **Contact Information:**\n\n• **Phone Number:** 8500172644\n• **WhatsApp:** 8500172644\n• **Email:** svrcomputers.training@gmail.com\n\n**Office Hours:** 9:00 AM - 8:00 PM (Monday to Saturday)' },
+            address: { keys: ['address', 'location', 'where', 'visit', 'julywada'], reply: '📍 **Our Address:**\n**SVR COMPUTERS**\n**Julywada Junction,**\nHanamkonda, Warangal - 506001\n**Landmark:** Near Julywada Junction\n📞 For directions: 8500172644' },
+            thanks: { keys: ['thanks', 'thank you', 'bye', 'goodbye', 'ok', 'okay'], reply: '🙏 Thank you for contacting **SVR COMPUTERS**! Have a great day! 🌟\n\n📞 **24/7 Support:** 8500172644' }
+        };
+
+        const unavailableCourses = ['hardware', 'networking', 'aws', 'cloud', 'devops', 'ethical hacking', 'cyber security'];
+
+        function getAIResponse(text) {
+            const lowerText = text.toLowerCase().trim();
+            
+            for (let uc of unavailableCourses) {
+                if (lowerText.includes(uc)) {
+                    return `😔 Sorry, **${uc.toUpperCase()}** course is currently not available at SVR COMPUTERS.\n\n✅ **Courses we offer:** DCA, PGDCA, TALLY, MS-OFFICE, C, C++, JAVA, PYTHON, WEB DEVELOPMENT, DATABASE, SQL, AI.\n📞 **8500172644**`;
+                }
+            }
+            
+            if (lowerText.includes('your name') || lowerText.includes('who are you')) {
+                return '🤖 I am **SVR COMPUTERS AI Assistant**, your virtual helper for all queries. How may I assist you?';
+            }
+            
+            if (lowerText.includes('thanks') || lowerText.includes('thank you') || lowerText === 'ok' || lowerText === 'okay' || lowerText.includes('bye') || lowerText.includes('goodbye')) {
+                return instituteData.thanks.reply;
+            }
+            
+            for (const category in instituteData) {
+                if (instituteData[category].keys && instituteData[category].keys.some(key => lowerText.includes(key))) {
+                    return instituteData[category].reply;
+                }
+            }
+            
+            return 'Sorry, I could not understand your question. At **SVR COMPUTERS**, we offer DCA, PGDCA, TALLY, C, C++, JAVA, PYTHON, WEB DEVELOPMENT, DATABASE, SQL, and AI courses. Please ask about courses, fees, timings, placements, or contact **8500172644**.';
+        }
+
+        // AI Modal Logic
+        const modal = document.getElementById('aiModal');
+        const openBtn = document.getElementById('openAiChatBtn');
+        const closeBtn = document.getElementById('closeAiModal');
+        const aiChatBox = document.getElementById('aiChatBox');
+        const aiUserInput = document.getElementById('aiUserInput');
+        const aiSendBtn = document.getElementById('aiSendBtn');
+        const aiTyping = document.getElementById('aiTyping');
+
+        function appendAIMessage(sender, text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `ai-message ${sender}`;
+            msgDiv.innerHTML = text.replace(/\n/g, '<br>');
+            aiChatBox.appendChild(msgDiv);
+            aiChatBox.scrollTop = aiChatBox.scrollHeight;
+        }
+
+        function sendAIMessage() {
+            const msg = aiUserInput.value.trim();
+            if (!msg) return;
+            appendAIMessage('user', msg);
+            aiUserInput.value = '';
+            aiTyping.style.display = 'block';
+            setTimeout(() => {
+                aiTyping.style.display = 'none';
+                const reply = getAIResponse(msg);
+                appendAIMessage('bot', reply);
+            }, 600);
+        }
+
+        openBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            if (aiChatBox.children.length === 0) {
+                appendAIMessage('bot', '👋 Welcome to **SVR COMPUTERS AI Assistant**! Ask me about courses, fees, timings, director, placements, and more. How can I help you?');
+            }
+        });
+        closeBtn.addEventListener('click', () => modal.style.display = 'none');
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+        aiSendBtn.addEventListener('click', sendAIMessage);
+        aiUserInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendAIMessage(); });
     </script>
 </body>
 </html>
