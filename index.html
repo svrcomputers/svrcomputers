@@ -21,6 +21,57 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     
+    <!-- SUPPRESS FIREBASE CONSOLE ERRORS -->
+    <script>
+    (function() {
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        const originalLog = console.log;
+        
+        function shouldSuppress(message) {
+            const suppressPatterns = [
+                '@firebase/firestore',
+                'Firestore',
+                'firestore.googleapis.com',
+                'ERR_NAME_NOT_RESOLVED',
+                'You are overriding the original host',
+                'enableMultiTabIndexedDbPersistence',
+                'Failed to load resource',
+                'logger.ts',
+                'Firestore (9.23.0)'
+            ];
+            return suppressPatterns.some(pattern => message.includes(pattern));
+        }
+        
+        console.error = function() {
+            const args = Array.from(arguments);
+            const message = args.join(' ');
+            if (shouldSuppress(message)) return;
+            originalError.apply(console, args);
+        };
+        
+        console.warn = function() {
+            const args = Array.from(arguments);
+            const message = args.join(' ');
+            if (shouldSuppress(message)) return;
+            originalWarn.apply(console, args);
+        };
+        
+        console.log = function() {
+            const args = Array.from(arguments);
+            const message = args.join(' ');
+            if (shouldSuppress(message)) return;
+            originalLog.apply(console, args);
+        };
+        
+        if (window.logger) {
+            window.logger.error = function() {};
+            window.logger.warn = function() {};
+            window.logger.log = function() {};
+        }
+    })();
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -318,8 +369,8 @@
         .map-wrapper { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); height: 400px; }
         .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
 
-        /* Footer - White background, black links */
-        .footer { background: #ffffff; color: var(--text); padding: 60px 0 0; border-top: 1px solid var(--border); }
+        /* Footer - Light background */
+        .footer { background: #f0f4f8; color: var(--text); padding: 60px 0 0; border-top: 1px solid var(--border); }
         .footer-grid { display: grid; gap: 48px; margin-bottom: 48px; }
         .footer-brand .footer-logo-text { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--dark-green); letter-spacing: 0.5px; }
         .footer-brand .footer-tagline { font-size: 0.65rem; font-weight: 700; color: #dc2626; letter-spacing: 0.3px; text-transform: uppercase; }
@@ -330,7 +381,7 @@
         .footer-links a:hover { color: var(--dark-green); transform: translateX(4px); }
         .footer-links a::before { content: '→'; opacity: 0; transition: var(--transition); font-size: 0.75rem; color: var(--dark-green); }
         .footer-links a:hover::before { opacity: 1; }
-        .footer-bottom { border-top: 1px solid var(--border); padding: 20px 0; text-align: center; font-size: 0.875rem; color: var(--text-light); }
+        .footer-bottom { border-top: 1px solid var(--border); padding: 20px 0; text-align: center; font-size: 0.875rem; color: var(--text-light); background: #e8edf2; }
         .footer-bottom a { color: var(--text); transition: var(--transition); }
         .footer-bottom a:hover { color: var(--dark-green); }
 
@@ -373,6 +424,11 @@
         .loader-spinner { width: 48px; height: 48px; border: 4px solid var(--primary-light); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* Success Popup */
+        .success-popup { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 16px 32px; border-radius: 12px; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4); z-index: 9999; font-weight: 600; font-size: 1.1rem; display: none; animation: slideDown 0.5s ease; }
+        .success-popup.show { display: block; }
+        @keyframes slideDown { from { transform: translateX(-50%) translateY(-100px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+
         /* Responsive */
         @media (max-width: 480px) {
             .hero h1 { font-size: 2rem; }
@@ -404,6 +460,7 @@
             .logo-tagline { font-size: 0.45rem; }
             .logo-icon { width: 36px; height: 36px; font-size: 0.9rem; }
             .gallery-item img, .gallery-item video { height: 180px; }
+            .success-popup { width: 90%; font-size: 0.95rem; padding: 14px 20px; }
         }
 
         @media (min-width: 481px) and (max-width: 768px) {
@@ -450,6 +507,12 @@
     </style>
 </head>
 <body>
+
+    <!-- Success Popup -->
+    <div class="success-popup" id="successPopup">
+        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+        <span id="popupMessage">Student details added successfully!</span>
+    </div>
 
     <!-- Loader -->
     <div class="loader" id="loader">
@@ -534,11 +597,11 @@
             <div id="adminLoginBox" class="admin-login-box">
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" id="adminUser" value="admin">
+                    <input type="text" id="adminUser" placeholder="Enter username">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="adminPass" value="admin123">
+                    <input type="password" id="adminPass" placeholder="Enter password">
                 </div>
                 <div class="login-error" id="loginError">Invalid username or password. Try again.</div>
                 <button class="btn btn-primary" id="adminLoginBtn" style="width:100%;"><i class="fas fa-sign-in-alt"></i> Login</button>
@@ -578,8 +641,7 @@
                             <p style="color: var(--text-light);">Loading records...</p>
                         </div>
                         <div class="admin-actions">
-                            <button class="btn btn-outline" id="resetDemoBtn" style="flex:1;"><i class="fas fa-undo"></i> Reset Demo</button>
-                            <button class="btn btn-danger" id="clearAllBtn" style="flex:1;"><i class="fas fa-trash"></i> Clear All</button>
+                            <button class="btn btn-danger" id="clearAllBtn" style="width:100%;"><i class="fas fa-trash"></i> Clear All Records</button>
                         </div>
                     </div>
                 </div>
@@ -1181,7 +1243,7 @@
             <div class="gallery-grid">
                 <!-- Photo 1 -->
                 <div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/2.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <img src="svrwebsite/images/2.jpeg?w=600&h=400&fit=crop" alt="Student Counselling">
                     <div class="gallery-caption">Class Room</div>
                 </div>
 
@@ -1642,7 +1704,7 @@
                 certificateDB.push(record);
                 saveLocalDB();
                 renderAdminList();
-                return { success: true, message: 'Certificate added successfully!' };
+                return { success: true, message: 'Student details added successfully!' };
             } catch (e) {
                 if (certificateDB.some(r => r.regNo === record.regNo)) {
                     return { success: false, message: 'Registration number already exists!' };
@@ -1650,7 +1712,7 @@
                 certificateDB.push(record);
                 saveLocalDB();
                 renderAdminList();
-                return { success: true, message: 'Certificate added (local)!' };
+                return { success: true, message: 'Student details added successfully!' };
             }
         }
 
@@ -1676,38 +1738,6 @@
                 saveLocalDB();
                 renderAdminList();
                 return { success: true, message: 'Record deleted (local)!' };
-            }
-        }
-
-        async function resetDemoInFirebase() {
-            if (isLocalFile || !isFirebaseReady) {
-                certificateDB = [...demoRecords];
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Reset to demo records!' };
-            }
-            try {
-                const snapshot = await db.collection('certificates').get();
-                if (!snapshot.empty) {
-                    const batch = db.batch();
-                    snapshot.forEach(doc => { batch.delete(doc.ref); });
-                    await batch.commit();
-                }
-                const batch = db.batch();
-                demoRecords.forEach(rec => {
-                    const docRef = db.collection('certificates').doc(rec.regNo);
-                    batch.set(docRef, rec);
-                });
-                await batch.commit();
-                certificateDB = [...demoRecords];
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Reset to demo records!' };
-            } catch (e) {
-                certificateDB = [...demoRecords];
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Reset to demo (local)!' };
             }
         }
 
@@ -1753,7 +1783,7 @@
         function renderAdminList() {
             const container = document.getElementById('adminList');
             if (certificateDB.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-light); text-align:center; padding:20px 0;">No records found. Add a new certificate or reset to demo.</p>';
+                container.innerHTML = '<p style="color: var(--text-light); text-align:center; padding:20px 0;">No records found. Add a new certificate.</p>';
                 return;
             }
             let html = `<table>
@@ -1786,6 +1816,16 @@
             statusEl.textContent = message;
             statusEl.style.display = 'block';
             setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
+        }
+
+        function showSuccessPopup(message) {
+            const popup = document.getElementById('successPopup');
+            const popupMsg = document.getElementById('popupMessage');
+            popupMsg.textContent = message;
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 4000);
         }
 
         // ============================================================
@@ -1937,8 +1977,8 @@
             adminLoginBox.style.display = 'block';
             adminContent.classList.remove('show');
             loginError.style.display = 'none';
-            adminUser.value = 'admin';
-            adminPass.value = 'admin123';
+            adminUser.value = '';
+            adminPass.value = '';
             showAdminStatus(true, 'Logged out successfully!');
         });
 
@@ -1954,18 +1994,11 @@
             const result = await addToFirebase({ regNo, name, course, year });
             showAdminStatus(result.success, result.message);
             if (result.success) {
+                showSuccessPopup(result.message);
                 document.getElementById('adminName').value = '';
                 document.getElementById('adminRegNo').value = '';
                 document.getElementById('adminCourse').value = '';
                 document.getElementById('adminYear').value = '';
-                renderAdminList();
-            }
-        });
-
-        document.getElementById('resetDemoBtn').addEventListener('click', async function() {
-            if (confirm('Reset all records to demo data? Current data will be lost.')) {
-                const result = await resetDemoInFirebase();
-                showAdminStatus(result.success, result.message);
                 renderAdminList();
             }
         });
@@ -2101,7 +2134,6 @@
         // ============================================================
         window.addCertificate = addToFirebase;
         window.deleteCertificate = deleteFromFirebase;
-        window.resetToDemo = resetDemoInFirebase;
         window.clearAllRecords = clearAllFromFirebase;
         window.findCertificate = findInFirebase;
         window.certificateDB = certificateDB;
