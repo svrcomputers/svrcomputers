@@ -1591,6 +1591,7 @@
 
         let db;
         let isFirebaseReady = false;
+        let firebaseInitAttempted = false;
         let certificateDB = [];
 
         const demoRecords = [
@@ -1602,44 +1603,75 @@
             { regNo: 'SVR2024005', name: 'Rahul', course: 'Web Development', year: '2024' }
         ];
 
-        if (!isLocalFile) {
+        // ============================================================
+        // FIREBASE INITIALIZATION - FIXED
+        // ============================================================
+        function initFirebase() {
+            if (firebaseInitAttempted) return;
+            firebaseInitAttempted = true;
+
+            if (isLocalFile) {
+                console.log('Running locally - using localStorage only');
+                loadLocalDB();
+                renderAdminList();
+                return;
+            }
+
             try {
-                firebase.initializeApp(firebaseConfig);
+                // Initialize Firebase
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
                 db = firebase.firestore();
-                db.settings({ cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED });
                 
-                db.enablePersistence({ synchronizeTabs: true })
-                    .then(() => {
+                // Enable offline persistence with proper error handling
+                db.enablePersistence({ 
+                    synchronizeTabs: true,
+                    experimentalForceOwningTab: true 
+                })
+                .then(() => {
+                    console.log('Firebase persistence enabled');
+                    isFirebaseReady = true;
+                    loadFromFirebase();
+                })
+                .catch((err) => {
+                    console.warn('Persistence failed, continuing with online mode:', err);
+                    isFirebaseReady = true;
+                    loadFromFirebase();
+                });
+
+                // Also set ready after a timeout in case persistence hangs
+                setTimeout(() => {
+                    if (!isFirebaseReady) {
                         isFirebaseReady = true;
                         loadFromFirebase();
-                    })
-                    .catch((err) => {
-                        isFirebaseReady = true;
-                        loadFromFirebase();
-                    });
+                    }
+                }, 3000);
+
             } catch (e) {
+                console.warn('Firebase init failed, using localStorage:', e);
                 loadLocalDB();
                 renderAdminList();
             }
-        } else {
-            loadLocalDB();
-            renderAdminList();
         }
 
+        // ============================================================
+        // DATA LOADING FUNCTIONS - FIXED
+        // ============================================================
         function loadLocalDB() {
-            const stored = localStorage.getItem('svr_cert_db');
-            if (stored) {
-                try {
+            try {
+                const stored = localStorage.getItem('svr_cert_db');
+                if (stored) {
                     certificateDB = JSON.parse(stored);
-                    if (certificateDB.length === 0) {
+                    if (!Array.isArray(certificateDB) || certificateDB.length === 0) {
                         certificateDB = [...demoRecords];
                         saveLocalDB();
                     }
-                } catch (e) {
+                } else {
                     certificateDB = [...demoRecords];
                     saveLocalDB();
                 }
-            } else {
+            } catch (e) {
                 certificateDB = [...demoRecords];
                 saveLocalDB();
             }
@@ -1649,140 +1681,238 @@
         function saveLocalDB() {
             try {
                 localStorage.setItem('svr_cert_db', JSON.stringify(certificateDB));
-            } catch (e) {}
+            } catch (e) {
+                console.warn('Could not save to localStorage:', e);
+            }
         }
 
         async function loadFromFirebase() {
-            if (!isFirebaseReady || isLocalFile) {
+            if (isLocalFile || !db) {
                 loadLocalDB();
+                renderAdminList();
                 return;
             }
+
             try {
+                // Try to get data from Firebase
                 const snapshot = await db.collection('certificates')
                     .orderBy('regNo')
                     .limit(500)
                     .get();
                 
                 if (snapshot.empty) {
-                    const batch = db.batch();
-                    demoRecords.forEach(rec => {
-                        const docRef = db.collection('certificates').doc(rec.regNo);
-                        batch.set(docRef, rec);
-                    });
-                    await batch.commit();
-                    certificateDB = [...demoRecords];
-                    saveLocalDB();
+                    // If no data in Firebase, seed with demo data
+                    try {
+                        const batch = db.batch();
+                        demoRecords.forEach(rec => {
+                            const docRef = db.collection('certificates').doc(rec.regNo);
+                            batch.set(docRef, rec);
+                        });
+                        await batch.commit();
+                        certificateDB = [...demoRecords];
+                        saveLocalDB();
+                    } catch (seedErr) {
+                        console.warn('Could not seed Firebase, using localStorage:', seedErr);
+                        loadLocalDB();
+                    }
                 } else {
+                    // Load data from Firebase
                     certificateDB = [];
                     snapshot.forEach(doc => {
-                        certificateDB.push(doc.data());
+                        const data = doc.data();
+                        if (data.regNo && data.name && data.course) {
+                            certificateDB.push(data);
+                        }
                     });
                     saveLocalDB();
                 }
                 renderAdminList();
             } catch (e) {
+                console.warn('Firebase load failed, using localStorage:', e);
                 loadLocalDB();
             }
         }
 
+        // ============================================================
+        // CRUD OPERATIONS - FIXED
+        // ============================================================
         async function addToFirebase(record) {
-            if (isLocalFile || !isFirebaseReady) {
-                if (certificateDB.some(r => r.regNo === record.regNo)) {
-                    return { success: false, message: 'Registration number already exists!' };
-                }
-                certificateDB.push(record);
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Certificate added successfully!' };
+            // Normalize regNo to uppercase for consistency
+            const normalizedRegNo = record.regNo.toUpperCase().trim();
+            const finalRecord = { ...record, regNo: normalizedRegNo };
+
+            // Check local first for duplicates
+            if (certificateDB.some(r => r.regNo === normalizedRegNo)) {
+                return { success: false, message: 'Registration number already exists!' };
             }
-            try {
-                const doc = await db.collection('certificates').doc(record.regNo).get();
-                if (doc.exists) {
-                    return { success: false, message: 'Registration number already exists!' };
+
+            // Try Firebase first if available
+            if (!isLocalFile && db && isFirebaseReady) {
+                try {
+                    const doc = await db.collection('certificates').doc(normalizedRegNo).get();
+                    if (doc.exists) {
+                        return { success: false, message: 'Registration number already exists in database!' };
+                    }
+                    await db.collection('certificates').doc(normalizedRegNo).set(finalRecord);
+                    certificateDB.push(finalRecord);
+                    saveLocalDB();
+                    renderAdminList();
+                    return { success: true, message: 'Student details added successfully to cloud!' };
+                } catch (e) {
+                    console.warn('Firebase add failed, falling back to local:', e);
+                    // Fall through to local
                 }
-                await db.collection('certificates').doc(record.regNo).set(record);
-                certificateDB.push(record);
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Student details added successfully!' };
-            } catch (e) {
-                if (certificateDB.some(r => r.regNo === record.regNo)) {
-                    return { success: false, message: 'Registration number already exists!' };
-                }
-                certificateDB.push(record);
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Student details added successfully!' };
             }
+
+            // Local fallback
+            if (certificateDB.some(r => r.regNo === normalizedRegNo)) {
+                return { success: false, message: 'Registration number already exists!' };
+            }
+            certificateDB.push(finalRecord);
+            saveLocalDB();
+            renderAdminList();
+            return { success: true, message: 'Student details added successfully (local)!' };
         }
 
         async function deleteFromFirebase(regNo) {
-            if (isLocalFile || !isFirebaseReady) {
-                const index = certificateDB.findIndex(r => r.regNo === regNo);
-                if (index === -1) return { success: false, message: 'Record not found!' };
-                certificateDB.splice(index, 1);
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Record deleted!' };
+            const normalizedRegNo = regNo.toUpperCase().trim();
+
+            if (!isLocalFile && db && isFirebaseReady) {
+                try {
+                    await db.collection('certificates').doc(normalizedRegNo).delete();
+                    const index = certificateDB.findIndex(r => r.regNo === normalizedRegNo);
+                    if (index !== -1) certificateDB.splice(index, 1);
+                    saveLocalDB();
+                    renderAdminList();
+                    return { success: true, message: 'Record deleted from cloud!' };
+                } catch (e) {
+                    console.warn('Firebase delete failed, trying local:', e);
+                }
             }
-            try {
-                await db.collection('certificates').doc(regNo).delete();
-                const index = certificateDB.findIndex(r => r.regNo === regNo);
-                if (index !== -1) certificateDB.splice(index, 1);
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Record deleted!' };
-            } catch (e) {
-                const index = certificateDB.findIndex(r => r.regNo === regNo);
-                if (index !== -1) certificateDB.splice(index, 1);
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Record deleted (local)!' };
-            }
+
+            // Local fallback
+            const index = certificateDB.findIndex(r => r.regNo === normalizedRegNo);
+            if (index === -1) return { success: false, message: 'Record not found!' };
+            certificateDB.splice(index, 1);
+            saveLocalDB();
+            renderAdminList();
+            return { success: true, message: 'Record deleted (local)!' };
         }
 
         async function clearAllFromFirebase() {
-            if (isLocalFile || !isFirebaseReady) {
-                certificateDB = [];
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'All records cleared!' };
-            }
-            try {
-                const snapshot = await db.collection('certificates').get();
-                if (!snapshot.empty) {
-                    const batch = db.batch();
-                    snapshot.forEach(doc => { batch.delete(doc.ref); });
-                    await batch.commit();
+            if (!isLocalFile && db && isFirebaseReady) {
+                try {
+                    const snapshot = await db.collection('certificates').get();
+                    if (!snapshot.empty) {
+                        const batch = db.batch();
+                        snapshot.forEach(doc => { batch.delete(doc.ref); });
+                        await batch.commit();
+                    }
+                    certificateDB = [];
+                    saveLocalDB();
+                    renderAdminList();
+                    return { success: true, message: 'All records cleared from cloud!' };
+                } catch (e) {
+                    console.warn('Firebase clear failed, falling back:', e);
                 }
-                certificateDB = [];
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'All records cleared!' };
-            } catch (e) {
-                certificateDB = [];
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'All records cleared (local)!' };
             }
+
+            certificateDB = [];
+            saveLocalDB();
+            renderAdminList();
+            return { success: true, message: 'All records cleared (local)!' };
         }
 
+        // ============================================================
+        // FIND CERTIFICATE - FIXED (Most Important)
+        // ============================================================
         async function findInFirebase(regNo) {
-            if (isLocalFile || !isFirebaseReady) {
-                return certificateDB.find(r => r.regNo.toLowerCase() === regNo.toLowerCase());
+            const normalizedRegNo = regNo.toUpperCase().trim();
+            
+            // First check local cache (fast)
+            const localResult = certificateDB.find(r => r.regNo === normalizedRegNo);
+            if (localResult) {
+                return localResult;
             }
+
+            // If not in cache, try Firebase
+            if (!isLocalFile && db && isFirebaseReady) {
+                try {
+                    // Try to get from Firebase directly
+                    const doc = await db.collection('certificates').doc(normalizedRegNo).get();
+                    if (doc.exists) {
+                        const data = doc.data();
+                        // Update local cache
+                        if (!certificateDB.some(r => r.regNo === data.regNo)) {
+                            certificateDB.push(data);
+                            saveLocalDB();
+                            renderAdminList();
+                        }
+                        return data;
+                    }
+                    
+                    // If not found by doc ID, try searching all records (case insensitive)
+                    const snapshot = await db.collection('certificates')
+                        .where('regNo', '==', normalizedRegNo)
+                        .get();
+                    
+                    if (!snapshot.empty) {
+                        const data = snapshot.docs[0].data();
+                        if (!certificateDB.some(r => r.regNo === data.regNo)) {
+                            certificateDB.push(data);
+                            saveLocalDB();
+                            renderAdminList();
+                        }
+                        return data;
+                    }
+                } catch (e) {
+                    console.warn('Firebase find failed:', e);
+                }
+            }
+
+            // Final check in local DB
+            return certificateDB.find(r => r.regNo === normalizedRegNo);
+        }
+
+        // ============================================================
+        // REFRESH DATA FROM FIREBASE
+        // ============================================================
+        async function refreshDataFromFirebase() {
+            if (isLocalFile || !db || !isFirebaseReady) {
+                loadLocalDB();
+                renderAdminList();
+                return;
+            }
+
             try {
-                const doc = await db.collection('certificates').doc(regNo).get();
-                if (doc.exists) { return doc.data(); }
-                return null;
+                const snapshot = await db.collection('certificates')
+                    .orderBy('regNo')
+                    .limit(500)
+                    .get();
+                
+                if (!snapshot.empty) {
+                    certificateDB = [];
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        if (data.regNo && data.name && data.course) {
+                            certificateDB.push(data);
+                        }
+                    });
+                    saveLocalDB();
+                    renderAdminList();
+                }
             } catch (e) {
-                return certificateDB.find(r => r.regNo.toLowerCase() === regNo.toLowerCase());
+                console.warn('Refresh failed:', e);
+                loadLocalDB();
             }
         }
 
+        // ============================================================
+        // RENDER ADMIN LIST
+        // ============================================================
         function renderAdminList() {
             const container = document.getElementById('adminList');
-            if (certificateDB.length === 0) {
+            if (!certificateDB || certificateDB.length === 0) {
                 container.innerHTML = '<p style="color: var(--text-light); text-align:center; padding:20px 0;">No records found. Add a new certificate.</p>';
                 return;
             }
@@ -1810,6 +1940,9 @@
             });
         }
 
+        // ============================================================
+        // UI HELPERS
+        // ============================================================
         function showAdminStatus(success, message) {
             const statusEl = document.getElementById('adminStatus');
             statusEl.className = 'admin-status ' + (success ? 'success' : 'error');
@@ -1829,317 +1962,350 @@
         }
 
         // ============================================================
-        // LOADER
+        // INITIALIZE EVERYTHING
         // ============================================================
-        window.addEventListener('load', () => {
+        document.addEventListener('DOMContentLoaded', function() {
+            initFirebase();
+
+            // ============================================================
+            // LOADER
+            // ============================================================
             setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 500);
-        });
 
-        // ============================================================
-        // HEADER SCROLL EFFECT
-        // ============================================================
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { header.classList.add('scrolled'); } 
-            else { header.classList.remove('scrolled'); }
-        });
-
-        // ============================================================
-        // MOBILE MENU
-        // ============================================================
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileNav = document.getElementById('mobileNav');
-        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
-        const mobileNavClose = document.getElementById('mobileNavClose');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-
-        function openMobileNav() {
-            mobileNav.classList.add('active');
-            mobileNavOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeMobileNav() {
-            mobileNav.classList.remove('active');
-            mobileNavOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        mobileMenuBtn.addEventListener('click', openMobileNav);
-        mobileNavClose.addEventListener('click', closeMobileNav);
-        mobileNavOverlay.addEventListener('click', closeMobileNav);
-        mobileNavLinks.forEach(link => link.addEventListener('click', closeMobileNav));
-
-        document.getElementById('mobileAdminOpen').addEventListener('click', function(e) {
-            e.preventDefault();
-            closeMobileNav();
-            setTimeout(() => { document.getElementById('adminOverlay').classList.add('active'); }, 400);
-        });
-
-        // ============================================================
-        // INTERSECTION OBSERVER - ANIMATIONS
-        // ============================================================
-        const animElements = document.querySelectorAll('.fade-in, .scale-in, .slide-left, .slide-right');
-        const animObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+            // ============================================================
+            // HEADER SCROLL EFFECT
+            // ============================================================
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) { header.classList.add('scrolled'); } 
+                else { header.classList.remove('scrolled'); }
             });
-        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-        animElements.forEach(el => animObserver.observe(el));
 
-        // ============================================================
-        // COUNTER ANIMATION
-        // ============================================================
-        const counters = document.querySelectorAll('.hero-stat-number');
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = parseInt(entry.target.getAttribute('data-count'));
-                    let current = 0;
-                    const increment = target / 50;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= target) {
-                            entry.target.textContent = target + '+';
-                            clearInterval(timer);
-                        } else {
-                            entry.target.textContent = Math.floor(current);
-                        }
-                    }, 30);
-                    counterObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        counters.forEach(counter => counterObserver.observe(counter));
+            // ============================================================
+            // MOBILE MENU
+            // ============================================================
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+            const mobileNavClose = document.getElementById('mobileNavClose');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-        // ============================================================
-        // SMOOTH SCROLL
-        // ============================================================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-            });
-        });
+            function openMobileNav() {
+                mobileNav.classList.add('active');
+                mobileNavOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
 
-        // ============================================================
-        // ADMIN PANEL
-        // ============================================================
-        const adminOverlay = document.getElementById('adminOverlay');
-        const adminLoginBox = document.getElementById('adminLoginBox');
-        const adminContent = document.getElementById('adminContent');
-        const loginError = document.getElementById('loginError');
-        const adminUser = document.getElementById('adminUser');
-        const adminPass = document.getElementById('adminPass');
-        let isAdminLoggedIn = false;
-
-        document.getElementById('adminOpenBtn').addEventListener('click', function() {
-            adminOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        document.getElementById('adminCloseBtn').addEventListener('click', function() {
-            adminOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        adminOverlay.addEventListener('click', function(e) {
-            if (e.target === this) {
-                adminOverlay.classList.remove('active');
+            function closeMobileNav() {
+                mobileNav.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
                 document.body.style.overflow = '';
             }
-        });
 
-        document.getElementById('adminLoginBtn').addEventListener('click', function() {
-            const user = adminUser.value.trim();
-            const pass = adminPass.value.trim();
-            if (user === 'admin' && pass === 'admin123') {
-                isAdminLoggedIn = true;
+            mobileMenuBtn.addEventListener('click', openMobileNav);
+            mobileNavClose.addEventListener('click', closeMobileNav);
+            mobileNavOverlay.addEventListener('click', closeMobileNav);
+            mobileNavLinks.forEach(link => link.addEventListener('click', closeMobileNav));
+
+            document.getElementById('mobileAdminOpen').addEventListener('click', function(e) {
+                e.preventDefault();
+                closeMobileNav();
+                setTimeout(() => { document.getElementById('adminOverlay').classList.add('active'); }, 400);
+            });
+
+            // ============================================================
+            // INTERSECTION OBSERVER - ANIMATIONS
+            // ============================================================
+            const animElements = document.querySelectorAll('.fade-in, .scale-in, .slide-left, .slide-right');
+            const animObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+            animElements.forEach(el => animObserver.observe(el));
+
+            // ============================================================
+            // COUNTER ANIMATION
+            // ============================================================
+            const counters = document.querySelectorAll('.hero-stat-number');
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.getAttribute('data-count'));
+                        let current = 0;
+                        const increment = target / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                entry.target.textContent = target + '+';
+                                clearInterval(timer);
+                            } else {
+                                entry.target.textContent = Math.floor(current);
+                            }
+                        }, 30);
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            counters.forEach(counter => counterObserver.observe(counter));
+
+            // ============================================================
+            // SMOOTH SCROLL
+            // ============================================================
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+                });
+            });
+
+            // ============================================================
+            // ADMIN PANEL
+            // ============================================================
+            const adminOverlay = document.getElementById('adminOverlay');
+            const adminLoginBox = document.getElementById('adminLoginBox');
+            const adminContent = document.getElementById('adminContent');
+            const loginError = document.getElementById('loginError');
+            const adminUser = document.getElementById('adminUser');
+            const adminPass = document.getElementById('adminPass');
+            let isAdminLoggedIn = false;
+
+            document.getElementById('adminOpenBtn').addEventListener('click', function() {
+                adminOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            document.getElementById('adminCloseBtn').addEventListener('click', function() {
+                adminOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            adminOverlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    adminOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            document.getElementById('adminLoginBtn').addEventListener('click', function() {
+                const user = adminUser.value.trim();
+                const pass = adminPass.value.trim();
+                if (user === 'admin' && pass === 'admin123') {
+                    isAdminLoggedIn = true;
+                    loginError.style.display = 'none';
+                    adminLoginBox.style.display = 'none';
+                    adminContent.classList.add('show');
+                    // Refresh data when admin logs in
+                    refreshDataFromFirebase();
+                    renderAdminList();
+                    showAdminStatus(true, 'Logged in successfully!');
+                } else {
+                    loginError.style.display = 'block';
+                }
+            });
+
+            adminPass.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') { document.getElementById('adminLoginBtn').click(); }
+            });
+
+            document.getElementById('adminLogoutBtn').addEventListener('click', function() {
+                isAdminLoggedIn = false;
+                adminLoginBox.style.display = 'block';
+                adminContent.classList.remove('show');
                 loginError.style.display = 'none';
-                adminLoginBox.style.display = 'none';
-                adminContent.classList.add('show');
-                renderAdminList();
-                showAdminStatus(true, 'Logged in successfully!');
-            } else {
-                loginError.style.display = 'block';
-            }
-        });
+                adminUser.value = '';
+                adminPass.value = '';
+                showAdminStatus(true, 'Logged out successfully!');
+            });
 
-        adminPass.addEventListener('keyup', function(e) {
-            if (e.key === 'Enter') { document.getElementById('adminLoginBtn').click(); }
-        });
-
-        document.getElementById('adminLogoutBtn').addEventListener('click', function() {
-            isAdminLoggedIn = false;
-            adminLoginBox.style.display = 'block';
-            adminContent.classList.remove('show');
-            loginError.style.display = 'none';
-            adminUser.value = '';
-            adminPass.value = '';
-            showAdminStatus(true, 'Logged out successfully!');
-        });
-
-        document.getElementById('addRecordBtn').addEventListener('click', async function() {
-            const name = document.getElementById('adminName').value.trim();
-            const regNo = document.getElementById('adminRegNo').value.trim();
-            const course = document.getElementById('adminCourse').value.trim();
-            const year = document.getElementById('adminYear').value.trim() || '2025';
-            if (!name || !regNo || !course) {
-                showAdminStatus(false, 'Please fill Name, Registration No, and Course.');
-                return;
-            }
-            const result = await addToFirebase({ regNo, name, course, year });
-            showAdminStatus(result.success, result.message);
-            if (result.success) {
-                showSuccessPopup(result.message);
-                document.getElementById('adminName').value = '';
-                document.getElementById('adminRegNo').value = '';
-                document.getElementById('adminCourse').value = '';
-                document.getElementById('adminYear').value = '';
-                renderAdminList();
-            }
-        });
-
-        document.getElementById('clearAllBtn').addEventListener('click', async function() {
-            if (confirm('Delete ALL records? This cannot be undone!')) {
-                const result = await clearAllFromFirebase();
+            document.getElementById('addRecordBtn').addEventListener('click', async function() {
+                const name = document.getElementById('adminName').value.trim();
+                const regNo = document.getElementById('adminRegNo').value.trim().toUpperCase();
+                const course = document.getElementById('adminCourse').value.trim();
+                const year = document.getElementById('adminYear').value.trim() || '2025';
+                if (!name || !regNo || !course) {
+                    showAdminStatus(false, 'Please fill Name, Registration No, and Course.');
+                    return;
+                }
+                const result = await addToFirebase({ regNo, name, course, year });
                 showAdminStatus(result.success, result.message);
-                renderAdminList();
-            }
-        });
-
-        // ============================================================
-        // VERIFY CERTIFICATE
-        // ============================================================
-        document.getElementById('verifyBtn').addEventListener('click', async function() {
-            const input = document.getElementById('certNumber').value.trim();
-            const resultDiv = document.getElementById('verifyResult');
-            if (!input) {
-                resultDiv.className = 'verify-result error';
-                resultDiv.innerHTML = `<div class="result-icon">⚠️</div><h4>Please enter a registration number</h4><p>Enter the number provided on your certificate.</p>`;
-                return;
-            }
-            const found = await findInFirebase(input);
-            if (found) {
-                resultDiv.className = 'verify-result success';
-                resultDiv.innerHTML = `
-                    <div class="result-icon">✅</div>
-                    <h4>Certificate Verified</h4>
-                    <p><strong>Name:</strong> ${found.name}</p>
-                    <p><strong>Course:</strong> ${found.course}</p>
-                    <p><strong>Year:</strong> ${found.year}</p>
-                    <p><strong>Registration No:</strong> ${found.regNo}</p>
-                    <p style="margin-top:12px;font-size:0.9rem;color:#065f46;">This certificate is issued by SVR Computer Education.</p>
-                `;
-            } else {
-                resultDiv.className = 'verify-result error';
-                resultDiv.innerHTML = `
-                    <div class="result-icon">❌</div>
-                    <h4>Certificate Not Found</h4>
-                    <p>No record found for registration number <strong>${input}</strong>. Please contact SVR Computer Education for assistance.</p>
-                `;
-            }
-        });
-
-        document.getElementById('certNumber').addEventListener('keyup', function(e) {
-            if (e.key === 'Enter') { document.getElementById('verifyBtn').click(); }
-        });
-
-        // ============================================================
-        // CHATBOT
-        // ============================================================
-        const chatbotToggle = document.getElementById('chatbotToggle');
-        const chatbotWindow = document.getElementById('chatbotWindow');
-        const chatbotClose = document.getElementById('chatbotClose');
-        const chatbotMessages = document.getElementById('chatbotMessages');
-        const chatbotInput = document.getElementById('chatbotInput');
-        const chatbotSend = document.getElementById('chatbotSend');
-
-        const qaData = [
-            { keywords: ['hello','hi','hey','greetings'], answer: 'Hello! Welcome to SVR Computer Education. How can I help you today?' },
-            { keywords: ['course','courses','programs','offer'], answer: 'We offer Java, Python, Web Development, C Programming, PGDCA, and DCA courses. All are industry-focused with hands-on training.' },
-            { keywords: ['fee','fees','cost','price','amount'], answer: 'Our course fees are very affordable and competitive. Please contact us at 8500172644 or visit our institute for detailed fee structure.' },
-            { keywords: ['admission','enroll','join','register'], answer: 'Admissions are open! You can visit our center, call us at 8500172644, or chat with us on WhatsApp to start your enrollment.' },
-            { keywords: ['duration','time','months','long'], answer: 'Course durations vary: C (1.5 months), Python (2 months), Java & Web Dev (3 months), DCA (3 months), PGDCA (6 months).' },
-            { keywords: ['placement','job','career','opportunity'], answer: 'We provide 100% placement assistance with interview preparation, resume building, and connections to leading IT companies.' },
-            { keywords: ['certificate','certification','verify'], answer: 'All our courses are ISO 9001:2015 certified. You can verify your certificate using the "Verify Certificate" section on our website.' },
-            { keywords: ['timing','batch','schedule','class'], answer: 'We offer flexible batch timings including morning, afternoon, and weekend batches to suit your schedule.' },
-            { keywords: ['location','address','where','find'], answer: 'We are located in Hanamkonda, Telangana. You can find the exact address in the Contact section.' },
-            { keywords: ['contact','phone','email','reach'], answer: 'You can reach us at +91 85001 72644, email info@svrcomputers.in, or chat with us on WhatsApp.' },
-            { keywords: ['teacher','faculty','instructor','trainer'], answer: 'Our instructors are industry experts with 15+ years of teaching and practical experience in top IT companies.' },
-            { keywords: ['project','practical','hands-on'], answer: 'We focus on practical, hands-on training with real-world projects and live coding sessions every day.' },
-            { keywords: ['thanks','thank you','awesome','great'], answer: 'You\'re welcome! Feel free to ask if you have more questions. We\'re here to help!' },
-            { keywords: ['default'], answer: 'That\'s a great question! For specific details, I\'d recommend contacting our support team at +91 85001 72644 or visiting our center. We\'re always happy to help!' }
-        ];
-
-        function getBotResponse(userMsg) {
-            const lower = userMsg.toLowerCase();
-            for (let item of qaData) {
-                if (item.keywords === 'default') continue;
-                for (let kw of item.keywords) {
-                    if (lower.includes(kw)) { return item.answer; }
+                if (result.success) {
+                    showSuccessPopup(result.message);
+                    document.getElementById('adminName').value = '';
+                    document.getElementById('adminRegNo').value = '';
+                    document.getElementById('adminCourse').value = '';
+                    document.getElementById('adminYear').value = '';
+                    renderAdminList();
                 }
-            }
-            const def = qaData.find(i => i.keywords === 'default');
-            return def ? def.answer : 'I\'m here to help! Please contact us directly for more information.';
-        }
+            });
 
-        function addMessage(text, sender) {
-            const div = document.createElement('div');
-            div.className = `chatbot-message ${sender}`;
-            div.innerHTML = `<div class="bubble">${text}</div>`;
-            chatbotMessages.appendChild(div);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-        }
-
-        function handleChatSend() {
-            const msg = chatbotInput.value.trim();
-            if (!msg) return;
-            addMessage(msg, 'user');
-            chatbotInput.value = '';
-            setTimeout(() => {
-                const reply = getBotResponse(msg);
-                addMessage(reply, 'bot');
-            }, 400);
-        }
-
-        chatbotToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            chatbotWindow.classList.toggle('open');
-        });
-
-        chatbotClose.addEventListener('click', function(e) {
-            e.stopPropagation();
-            chatbotWindow.classList.remove('open');
-        });
-
-        chatbotSend.addEventListener('click', handleChatSend);
-        chatbotInput.addEventListener('keyup', function(e) {
-            if (e.key === 'Enter') { handleChatSend(); }
-        });
-
-        document.addEventListener('click', function(e) {
-            if (chatbotWindow.classList.contains('open')) {
-                if (!chatbotWindow.contains(e.target) && e.target !== chatbotToggle) {
-                    chatbotWindow.classList.remove('open');
+            document.getElementById('clearAllBtn').addEventListener('click', async function() {
+                if (confirm('Delete ALL records? This cannot be undone!')) {
+                    const result = await clearAllFromFirebase();
+                    showAdminStatus(result.success, result.message);
+                    renderAdminList();
                 }
-            }
-        });
+            });
 
-        // ============================================================
-        // EXPOSE FUNCTIONS FOR CONSOLE
-        // ============================================================
-        window.addCertificate = addToFirebase;
-        window.deleteCertificate = deleteFromFirebase;
-        window.clearAllRecords = clearAllFromFirebase;
-        window.findCertificate = findInFirebase;
-        window.certificateDB = certificateDB;
-        window.renderAdminList = renderAdminList;
-        window.isFirebaseReady = isFirebaseReady;
-        window.isLocalFile = isLocalFile;
+            // ============================================================
+            // VERIFY CERTIFICATE - FIXED
+            // ============================================================
+            document.getElementById('verifyBtn').addEventListener('click', async function() {
+                const input = document.getElementById('certNumber').value.trim();
+                const resultDiv = document.getElementById('verifyResult');
+                
+                if (!input) {
+                    resultDiv.className = 'verify-result error';
+                    resultDiv.innerHTML = `<div class="result-icon">⚠️</div><h4>Please enter a registration number</h4><p>Enter the number provided on your certificate.</p>`;
+                    return;
+                }
+
+                // Show loading state
+                resultDiv.className = 'verify-result';
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `<div style="text-align:center;padding:10px;"><i class="fas fa-spinner fa-spin"></i> Searching...</div>`;
+
+                try {
+                    // First, try to refresh data from Firebase to ensure latest data
+                    if (!isLocalFile && db && isFirebaseReady) {
+                        await refreshDataFromFirebase();
+                    }
+
+                    const found = await findInFirebase(input);
+                    
+                    if (found) {
+                        resultDiv.className = 'verify-result success';
+                        resultDiv.innerHTML = `
+                            <div class="result-icon">✅</div>
+                            <h4>Certificate Verified</h4>
+                            <p><strong>Name:</strong> ${found.name}</p>
+                            <p><strong>Course:</strong> ${found.course}</p>
+                            <p><strong>Year:</strong> ${found.year || '2025'}</p>
+                            <p><strong>Registration No:</strong> ${found.regNo}</p>
+                            <p style="margin-top:12px;font-size:0.9rem;color:#065f46;">This certificate is issued by SVR Computer Education.</p>
+                        `;
+                    } else {
+                        resultDiv.className = 'verify-result error';
+                        resultDiv.innerHTML = `
+                            <div class="result-icon">❌</div>
+                            <h4>Certificate Not Found</h4>
+                            <p>No record found for registration number <strong>${input}</strong>.</p>
+                            <p style="margin-top:8px;font-size:0.9rem;">Please contact SVR Computer Education for assistance.</p>
+                            <p style="margin-top:4px;font-size:0.85rem;color:#64748b;">📞 +91 85001 72644</p>
+                        `;
+                    }
+                } catch (error) {
+                    console.error('Verification error:', error);
+                    resultDiv.className = 'verify-result error';
+                    resultDiv.innerHTML = `
+                        <div class="result-icon">⚠️</div>
+                        <h4>Verification Error</h4>
+                        <p>There was a problem verifying the certificate. Please try again or contact support.</p>
+                    `;
+                }
+            });
+
+            document.getElementById('certNumber').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') { document.getElementById('verifyBtn').click(); }
+            });
+
+            // ============================================================
+            // CHATBOT
+            // ============================================================
+            const chatbotToggle = document.getElementById('chatbotToggle');
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            const chatbotClose = document.getElementById('chatbotClose');
+            const chatbotMessages = document.getElementById('chatbotMessages');
+            const chatbotInput = document.getElementById('chatbotInput');
+            const chatbotSend = document.getElementById('chatbotSend');
+
+            const qaData = [
+                { keywords: ['hello','hi','hey','greetings'], answer: 'Hello! Welcome to SVR Computer Education. How can I help you today?' },
+                { keywords: ['course','courses','programs','offer'], answer: 'We offer Java, Python, Web Development, C Programming, PGDCA, and DCA courses. All are industry-focused with hands-on training.' },
+                { keywords: ['fee','fees','cost','price','amount'], answer: 'Our course fees are very affordable and competitive. Please contact us at 8500172644 or visit our institute for detailed fee structure.' },
+                { keywords: ['admission','enroll','join','register'], answer: 'Admissions are open! You can visit our center, call us at 8500172644, or chat with us on WhatsApp to start your enrollment.' },
+                { keywords: ['duration','time','months','long'], answer: 'Course durations vary: C (1.5 months), Python (2 months), Java & Web Dev (3 months), DCA (3 months), PGDCA (6 months).' },
+                { keywords: ['placement','job','career','opportunity'], answer: 'We provide 100% placement assistance with interview preparation, resume building, and connections to leading IT companies.' },
+                { keywords: ['certificate','certification','verify'], answer: 'All our courses are ISO 9001:2015 certified. You can verify your certificate using the "Verify Certificate" section on our website.' },
+                { keywords: ['timing','batch','schedule','class'], answer: 'We offer flexible batch timings including morning, afternoon, and weekend batches to suit your schedule.' },
+                { keywords: ['location','address','where','find'], answer: 'We are located in Hanamkonda, Telangana. You can find the exact address in the Contact section.' },
+                { keywords: ['contact','phone','email','reach'], answer: 'You can reach us at +91 85001 72644, email svrcomputertraining@gmail.com, or chat with us on WhatsApp.' },
+                { keywords: ['teacher','faculty','instructor','trainer'], answer: 'Our instructors are industry experts with 15+ years of teaching and practical experience in top IT companies.' },
+                { keywords: ['project','practical','hands-on'], answer: 'We focus on practical, hands-on training with real-world projects and live coding sessions every day.' },
+                { keywords: ['thanks','thank you','awesome','great'], answer: 'You\'re welcome! Feel free to ask if you have more questions. We\'re here to help!' },
+                { keywords: ['default'], answer: 'That\'s a great question! For specific details, I\'d recommend contacting our support team at +91 85001 72644 or visiting our center. We\'re always happy to help!' }
+            ];
+
+            function getBotResponse(userMsg) {
+                const lower = userMsg.toLowerCase();
+                for (let item of qaData) {
+                    if (item.keywords === 'default') continue;
+                    for (let kw of item.keywords) {
+                        if (lower.includes(kw)) { return item.answer; }
+                    }
+                }
+                const def = qaData.find(i => i.keywords === 'default');
+                return def ? def.answer : 'I\'m here to help! Please contact us directly for more information.';
+            }
+
+            function addMessage(text, sender) {
+                const div = document.createElement('div');
+                div.className = `chatbot-message ${sender}`;
+                div.innerHTML = `<div class="bubble">${text}</div>`;
+                chatbotMessages.appendChild(div);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+
+            function handleChatSend() {
+                const msg = chatbotInput.value.trim();
+                if (!msg) return;
+                addMessage(msg, 'user');
+                chatbotInput.value = '';
+                setTimeout(() => {
+                    const reply = getBotResponse(msg);
+                    addMessage(reply, 'bot');
+                }, 400);
+            }
+
+            chatbotToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                chatbotWindow.classList.toggle('open');
+            });
+
+            chatbotClose.addEventListener('click', function(e) {
+                e.stopPropagation();
+                chatbotWindow.classList.remove('open');
+            });
+
+            chatbotSend.addEventListener('click', handleChatSend);
+            chatbotInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') { handleChatSend(); }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (chatbotWindow.classList.contains('open')) {
+                    if (!chatbotWindow.contains(e.target) && e.target !== chatbotToggle) {
+                        chatbotWindow.classList.remove('open');
+                    }
+                }
+            });
+
+            // ============================================================
+            // EXPOSE FUNCTIONS FOR CONSOLE (Debugging)
+            // ============================================================
+            window.addCertificate = addToFirebase;
+            window.deleteCertificate = deleteFromFirebase;
+            window.clearAllRecords = clearAllFromFirebase;
+            window.findCertificate = findInFirebase;
+            window.certificateDB = () => certificateDB;
+            window.renderAdminList = renderAdminList;
+            window.refreshData = refreshDataFromFirebase;
+            window.isFirebaseReady = () => isFirebaseReady;
+            window.isLocalFile = isLocalFile;
+        });
     </script>
 </body>
 </html>
