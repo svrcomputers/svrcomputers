@@ -1,1675 +1,2113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVR Computer Education - Software Training and Development Center</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVR Computer Education | IT Training & Software Development Center</title>
+    <meta name="description" content="ISO 9001:2015 Certified IT Training Institute in Hanamkonda. Expert-led courses in Java, Python, Web Development, DCA, PGDCA with placement assistance." />
+    <meta name="keywords" content="IT Training, Java Course, Python Course, Web Development, DCA, PGDCA, Hanamkonda, Telangana, Software Training, SVR Computers" />
+    <meta name="author" content="SVR Computer Education" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://svrcomputers.in" />
+    <meta property="og:title" content="SVR Computer Education - IT Training Center" />
+    <meta property="og:description" content="Leading IT education institute in Hanamkonda with 500+ successful students. ISO 9001:2015 Certified." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://svrcomputers.in" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SVR Computer Education - IT Training Center" />
+    <meta name="twitter:description" content="ISO 9001:2015 Certified IT Training Institute in Hanamkonda. Expert-led courses in Java, Python, Web Development, DCA, PGDCA." />
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
     <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --success: #27ae60;
-            --gold: #ffd700;
-            --subtitle-color: #f8f9fa;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --accent-light: #fef3c7;
+            --success: #10b981;
+            --text: #334155;
+            --text-light: #64748b;
+            --bg: #ffffff;
+            --bg-alt: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --dark-green: #0b5e3a;
         }
 
-        body {
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        body { font-family: 'Inter', sans-serif; color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; line-height: 1.2; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 700; color: var(--secondary); margin-bottom: 16px; }
+        .section-header p { font-size: 1.125rem; color: var(--text-light); max-width: 600px; margin: 0 auto; }
 
-        /* Top Bar with Live Date & Time */
-        .top-bar {
-            background: var(--dark);
-            color: white;
-            padding: 8px 0;
-            font-size: 0.9rem;
-            text-align: center;
-        }
+        .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; }
+        .badge-primary { background: var(--primary-light); color: var(--primary); }
+        .badge-accent { background: var(--accent-light); color: #92400e; }
 
-        .top-bar .container {
-            display: flex;
-            justify-content: center;
-        }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 32px; border-radius: var(--radius); font-weight: 600; font-size: 1rem; transition: var(--transition); border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5); }
+        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+        .btn-white { background: white; color: var(--primary); box-shadow: var(--shadow); }
+        .btn-white:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-success { background: var(--success); color: white; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); }
+        .btn-success:hover { background: #059669; transform: translateY(-2px); }
+        .btn-danger { background: #dc2626; color: white; box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4); }
+        .btn-danger:hover { background: #b91c1c; transform: translateY(-2px); }
+        .btn-dark-green { background: var(--dark-green); color: white; box-shadow: 0 4px 14px rgba(11, 94, 58, 0.4); }
+        .btn-dark-green:hover { background: #094a2e; transform: translateY(-2px); }
 
-        .datetime {
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
+        /* Header */
+        .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); transition: var(--transition); }
+        .header.scrolled { box-shadow: var(--shadow); }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { width: 44px; height: 44px; background: var(--dark-green); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.1rem; font-weight: 800; flex-shrink: 0; }
+        .logo-text-group { display: flex; flex-direction: column; justify-content: center; line-height: 1.2; }
+        .logo-text { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--dark-green); letter-spacing: 0.5px; }
+        .logo-tagline { font-size: 0.55rem; font-weight: 700; color: #dc2626; letter-spacing: 0.3px; text-transform: uppercase; }
+        .nav-desktop { display: none; }
+        .nav-desktop ul { display: flex; align-items: center; gap: 24px; }
+        .nav-desktop a { font-weight: 500; color: var(--text); transition: var(--transition); position: relative; font-size: 0.9rem; }
+        .nav-desktop a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--dark-green); transition: var(--transition); }
+        .nav-desktop a:hover { color: var(--dark-green); }
+        .nav-desktop a:hover::after { width: 100%; }
+        .nav-cta { display: none; }
+        .mobile-menu-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: none; background: var(--bg-alt); border-radius: 10px; cursor: pointer; font-size: 1.25rem; color: var(--secondary); }
 
-        /* Header Styles */
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: flex-end;
+        .verify-scroll-link {
+            display: inline-flex;
             align-items: center;
-            gap: 20px;
-            position: relative;
+            gap: 8px;
+            color: var(--dark-green) !important;
+            font-weight: 600 !important;
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        .verify-scroll-link i {
+            animation: scrollArrow 1.5s ease-in-out infinite;
+        }
+        @keyframes scrollArrow {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(6px); }
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
-        .logo-text-only {
-            margin-right: auto;
-            text-align: left;
-        }
+        .mobile-nav { position: fixed; top: 0; right: -100%; width: 300px; height: 100vh; background: white; z-index: 1001; padding: 24px; transition: var(--transition); box-shadow: -10px 0 30px rgba(0,0,0,0.1); overflow-y: auto; }
+        .mobile-nav.active { right: 0; }
+        .mobile-nav-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; opacity: 0; visibility: hidden; transition: var(--transition); }
+        .mobile-nav-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+        .mobile-nav-close { width: 40px; height: 40px; border: none; background: var(--bg-alt); border-radius: 10px; cursor: pointer; font-size: 1.25rem; }
+        .mobile-nav ul { display: flex; flex-direction: column; gap: 4px; }
+        .mobile-nav a { display: block; padding: 14px 16px; border-radius: 10px; font-weight: 500; transition: var(--transition); }
+        .mobile-nav a:hover { background: var(--primary-light); color: var(--primary); }
+        .mobile-nav .btn { margin-top: 16px; width: 100%; }
 
-        .logo-text-only .iso-badge {
-            background: var(--gold);
-            color: var(--dark);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            margin-bottom: 6px;
-            display: inline-block;
-        }
+        /* Hero */
+        .hero { position: relative; padding: 130px 0 80px; background: var(--secondary); overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; opacity: 0.1; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .hero-grid { display: grid; gap: 48px; align-items: center; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 9999px; color: #94a3b8; font-size: 0.875rem; margin-bottom: 24px; backdrop-filter: blur(8px); }
+        .hero-badge i { color: var(--accent); }
+        .hero h1 { font-size: 2.5rem; font-weight: 800; color: white; margin-bottom: 20px; line-height: 1.1; }
+        .hero h1 .highlight { color: var(--accent); position: relative; }
+        .hero p { font-size: 1.125rem; color: #94a3b8; margin-bottom: 32px; max-width: 540px; line-height: 1.7; }
+        .hero-buttons { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 48px; }
+        .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .hero-stat { text-align: center; }
+        .hero-stat-number { font-family: 'Poppins', sans-serif; font-size: 1.875rem; font-weight: 700; color: white; }
+        .hero-stat-label { font-size: 0.875rem; color: #94a3b8; margin-top: 4px; }
+        .hero-visual { position: relative; }
+        .hero-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 24px; position: relative; overflow: hidden; }
+        .hero-card::before { content: ''; position: absolute; top: -50%; right: -50%; width: 200px; height: 200px; background: var(--primary); opacity: 0.2; border-radius: 50%; filter: blur(60px); }
+        .hero-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; position: relative; z-index: 1; }
+        .hero-card-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; }
+        .hero-card-info h4 { color: white; font-size: 1rem; }
+        .hero-card-info p { color: #94a3b8; font-size: 0.875rem; margin: 0; }
+        .code-block { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 16px; font-family: 'Courier New', monospace; font-size: 0.8125rem; color: #e2e8f0; line-height: 1.6; position: relative; z-index: 1; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #4ade80; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .comment { color: #64748b; }
+        .floating-badge { position: absolute; background: white; border-radius: var(--radius); padding: 12px 16px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 10px; animation: float 3s ease-in-out infinite; }
+        .floating-badge-1 { top: -20px; right: 20px; animation-delay: 0s; }
+        .floating-badge-2 { bottom: 20px; left: -20px; animation-delay: 1.5s; }
+        .floating-badge-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .floating-badge-1 .floating-badge-icon { background: #dcfce7; color: var(--success); }
+        .floating-badge-2 .floating-badge-icon { background: #dbeafe; color: var(--primary); }
+        .floating-badge-text { font-size: 0.8125rem; font-weight: 600; color: var(--secondary); }
+        .floating-badge-text span { display: block; font-size: 0.75rem; font-weight: 400; color: var(--text-light); }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        .logo-text-only h1 {
-            font-size: 1.9rem;
-            line-height: 1.2;
-        }
+        /* Trusted */
+        .trusted { padding: 40px 0; background: var(--bg-alt); border-bottom: 1px solid var(--border); }
+        .trusted-label { text-align: center; font-size: 0.875rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 24px; }
+        .trusted-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px; opacity: 0.6; }
+        .trusted-item { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.25rem; color: var(--text-light); }
 
-        .logo-subtitle {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--subtitle-color);
-            margin-top: 4px;
-        }
+        /* About */
+        .about { padding: 100px 0; background: var(--bg); }
+        .about-grid { display: grid; gap: 64px; align-items: center; }
+        .about-image { position: relative; }
+        .about-image-main { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); position: relative; z-index: 1; }
+        .about-image-main img { width: 100%; height: 600px; object-fit: cover; }
+        .about-image-accent { position: absolute; bottom: -24px; right: -24px; width: 200px; height: 200px; background: var(--primary); border-radius: var(--radius-lg); opacity: 0.1; z-index: 0; }
+        .about-image-accent-2 { position: absolute; top: -24px; left: -24px; width: 150px; height: 150px; background: var(--accent); border-radius: var(--radius-lg); opacity: 0.1; z-index: 0; }
+        .about-content h2 { font-size: 2.25rem; font-weight: 700; color: var(--secondary); margin-bottom: 20px; }
+        .about-content > p { color: var(--text-light); margin-bottom: 32px; line-height: 1.8; }
+        .about-features { display: grid; gap: 20px; }
+        .about-feature { display: flex; align-items: flex-start; gap: 16px; }
+        .about-feature-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.25rem; flex-shrink: 0; }
+        .about-feature h4 { font-size: 1.125rem; color: var(--secondary); margin-bottom: 4px; }
+        .about-feature p { font-size: 0.9375rem; color: var(--text-light); }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
+        /* Courses */
+        .courses { padding: 100px 0; background: var(--bg-alt); }
+        .courses-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        .course-card { background: white; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid var(--border); }
+        .course-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
+        .course-card-header { padding: 24px 24px 0; display: flex; justify-content: space-between; align-items: flex-start; }
+        .course-card-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; background: var(--bg-alt); }
+        .course-card-icon img { width: 40px; height: 40px; object-fit: contain; }
+        .course-card-badge { padding: 6px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+        .course-card-body { padding: 20px 24px 24px; }
+        .course-card-body h3 { font-size: 1.1rem; color: var(--secondary); margin-bottom: 8px; }
+        .course-card-body p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 16px; line-height: 1.6; }
+        .course-card-meta { display: flex; gap: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+        .course-card-meta-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-light); }
+        .course-card-meta-item i { color: var(--primary); }
 
-        nav ul li {
-            margin-left: 25px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: var(--secondary);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary);
-            transition: width 0.3s;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--secondary);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-accent {
-            background: var(--accent);
-        }
-
-        .btn-accent:hover {
-            background: #c0392b;
-        }
-
-        .btn-whatsapp {
-            background: #25D366;
-        }
-
-        .btn-whatsapp:hover {
-            background: #128C7E;
-        }
-
-        /* Courses Section */
-        .section-title {
-            text-align: center;
-            margin: 50px 0 30px;
-            position: relative;
-        }
-
-        .section-title h2 {
-            font-size: 2.2rem;
-            color: var(--primary);
-            display: inline-block;
-            padding-bottom: 10px;
-            position: relative;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--secondary);
-        }
-
-        .courses {
-            padding: 50px 0;
-        }
-
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .course-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .course-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .course-img {
-            height: 200px;
-            background-color: #ddd;
-            background-position: center;
-            background-size: cover;
-        }
-
-        .course-content {
-            padding: 20px;
-        }
-
-        .course-content h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .course-content p {
-            margin-bottom: 15px;
-            color: #666;
-        }
-
-        .course-meta {
-            display: flex;
-            justify-content: space-between;
-            color: #777;
-            font-size: 0.9rem;
-        }
-
-        /* Features Section */
-        .features {
-            background: var(--light);
-            padding: 80px 0;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 30px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
+        /* Why Choose */
+        .why-choose { padding: 100px 0; background: var(--bg); }
+        .why-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+        .why-card { background: var(--bg-alt); border-radius: var(--radius-lg); padding: 32px; transition: var(--transition); border: 2px solid transparent; }
+        .why-card:hover { border-color: var(--primary-light); transform: translateY(-4px); box-shadow: var(--shadow); }
+        .why-card-icon { width: 64px; height: 64px; border-radius: 16px; background: white; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin-bottom: 20px; box-shadow: var(--shadow); }
+        .why-card h3 { font-size: 1.25rem; color: var(--secondary); margin-bottom: 10px; }
+        .why-card p { color: var(--text-light); line-height: 1.7; }
 
         /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .testimonial-card {
-            padding: 30px;
-            background: var(--light);
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            position: relative;
-        }
-
-        .testimonial-card::before {
-            content: '\201C';
-            font-size: 4rem;
-            color: var(--secondary);
-            opacity: 0.3;
-            position: absolute;
-            top: 10px;
-            left: 20px;
-        }
-
-        .testimonial-text {
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-
-        .author-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            overflow: hidden;
-        }
-
-        .author-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .author-info h4 {
-            color: var(--primary);
-        }
-
-        .author-info p {
-            color: #777;
-            font-size: 0.9rem;
-        }
-
-        /* Video Section */
-        .video-section {
-            padding: 80px 0;
-            background: var(--light);
-        }
-
-        .video-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .video-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
-
-        .video-wrapper video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .video-content {
-            padding: 20px;
-        }
-
-        .video-content h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        /* Sravan Section */
-        .sravan-section {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .sravan-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .sravan-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .sravan-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .sravan-content h2 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 2.2rem;
-        }
-
-        .sravan-content p {
-            margin-bottom: 15px;
-            color: #555;
-        }
-
-        /* Activities Section */
-        .activities {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .activities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .activity-card {
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-            height: 250px;
-        }
-
-        .activity-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .activity-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            padding: 20px;
-            color: white;
-        }
-
-        .activity-overlay h3 {
-            margin-bottom: 5px;
-        }
-
-        /* Certifications Section */
-        .certifications {
-            padding: 80px 0;
-            background: var(--light);
-        }
-
-        .certs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .cert-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            padding: 20px;
-        }
-
-        .cert-icon {
-            font-size: 3rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-
-        .cert-card h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        /* Enrollment Section */
-        .enrollment {
-            padding: 80px 0;
-            background: var(--secondary);
-            color: white;
-        }
-
-        .enrollment-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .enrollment-content h2 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-        }
-
-        .enrollment-form {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            color: var(--dark);
-        }
-
-        .enrollment-form h3 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .contact-info {
-            margin-bottom: 30px;
-        }
-
-        .contact-info h3 {
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .contact-details {
-            list-style: none;
-        }
-
-        .contact-details li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .contact-details i {
-            margin-right: 15px;
-            color: var(--secondary);
-            font-size: 1.2rem;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .contact-form textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        /* WhatsApp Floating Button */
-        .whatsapp-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 40px;
-            right: 40px;
-            background-color: #25d366;
-            color: white;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 2px 2px 3px #999;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .whatsapp-float:hover {
-            background-color: #128C7E;
-            transform: scale(1.1);
-        }
-
-        /* AI Chatbot Floating Button */
-        .ai-chat-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 120px;
-            right: 40px;
-            background-color: var(--primary);
-            color: white;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 2px 2px 3px #999;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .ai-chat-float:hover {
-            background-color: var(--secondary);
-            transform: scale(1.1);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 50px 0 20px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--secondary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #bbb;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #bbb;
-            font-size: 0.9rem;
-        }
-
-        /* Mission Vision */
-        .mission-vision {
-            padding: 60px 0;
-            background: var(--light);
-        }
-
-        .mv-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .mv-card {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
-
-        .mv-card i {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-
-        /* AI Modal */
-        .ai-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .ai-modal-content {
-            width: 100%;
-            max-width: 450px;
-            height: 90vh;
-            background: #e5ddd5;
-            border-radius: 30px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .ai-header {
-            background: var(--primary);
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .ai-header h3 {
-            font-size: 1.2rem;
-        }
-
-        .ai-close {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-        }
-
-        .ai-chat-box {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .ai-message {
-            max-width: 85%;
-            padding: 10px 14px;
-            border-radius: 18px;
-            font-size: 14px;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-
-        .ai-message.user {
-            align-self: flex-end;
-            background: #dcf8c6;
-            border-bottom-right-radius: 4px;
-        }
-
-        .ai-message.bot {
-            align-self: flex-start;
-            background: white;
-            border-bottom-left-radius: 4px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .ai-typing {
-            display: none;
-            padding: 10px 15px;
-            background: white;
-            border-radius: 18px;
-            width: fit-content;
-            margin-left: 15px;
-        }
-
-        .ai-input-area {
-            padding: 10px;
-            background: #f0f2f5;
-            display: flex;
-            gap: 10px;
-        }
-
-        .ai-input {
-            flex: 1;
-            padding: 12px;
-            border-radius: 30px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .ai-send {
-            background: var(--primary);
-            border: none;
-            width: 50px;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            font-size: 20px;
-        }
+        .testimonials { padding: 100px 0; background: var(--secondary); position: relative; overflow: hidden; }
+        .testimonials .section-header h2, .testimonials .section-header p { color: white; }
+        .testimonials .section-header p { opacity: 0.7; }
+        .testimonials-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        .testimonial-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 32px; transition: var(--transition); }
+        .testimonial-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-4px); }
+        .testimonial-stars { color: var(--accent); margin-bottom: 16px; font-size: 0.875rem; }
+        .testimonial-text { color: #cbd5e1; line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 14px; }
+        .testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1rem; }
+        .testimonial-info h4 { color: white; font-size: 1rem; }
+        .testimonial-info p { color: #94a3b8; font-size: 0.875rem; }
+
+        /* Gallery Section */
+        .gallery { padding: 100px 0; background: var(--bg); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+        .gallery-item { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid var(--border); background: white; }
+        .gallery-item:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+        .gallery-item img { width: 100%; height: 220px; object-fit: cover; }
+        .gallery-item .gallery-caption { padding: 12px 16px; font-weight: 500; color: var(--secondary); text-align: center; font-size: 0.95rem; background: white; }
+        .gallery-item video { width: 100%; height: 220px; object-fit: cover; background: #000; }
+        .gallery-item .video-wrapper { position: relative; }
+        .gallery-item .video-wrapper .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: rgba(0,0,0,0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; pointer-events: none; }
+
+        /* Certifications */
+        .certifications { padding: 100px 0; background: var(--bg-alt); }
+        .cert-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+        .cert-card { background: white; border-radius: var(--radius-lg); padding: 40px 32px; text-align: center; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid var(--border); }
+        .cert-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .cert-card-icon { width: 80px; height: 80px; border-radius: 20px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2rem; color: var(--primary); }
+        .cert-card h3 { font-size: 1.25rem; color: var(--secondary); margin-bottom: 8px; }
+        .cert-card p { color: var(--text-light); font-size: 0.9375rem; }
+
+        /* Certificate Verification Module */
+        .cert-verify { padding: 100px 0; background: var(--bg); }
+        .verify-card { max-width: 720px; margin: 0 auto; background: white; border-radius: var(--radius-lg); padding: 48px 40px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
+        .verify-card h3 { font-size: 1.75rem; font-weight: 700; color: var(--secondary); margin-bottom: 8px; text-align: center; }
+        .verify-card p { text-align: center; color: var(--text-light); margin-bottom: 32px; }
+        .verify-input-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+        .verify-input-group input { flex: 1; padding: 14px 20px; border: 2px solid var(--border); border-radius: 10px; font-size: 1rem; transition: var(--transition); }
+        .verify-input-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); outline: none; }
+        .verify-result { margin-top: 24px; padding: 20px; border-radius: 10px; display: none; }
+        .verify-result.success { display: block; background: #ecfdf5; border: 1px solid #6ee7b7; color: #065f46; }
+        .verify-result.error { display: block; background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
+        .verify-result .result-icon { font-size: 2rem; margin-bottom: 8px; }
+        .verify-result h4 { font-size: 1.25rem; margin-bottom: 4px; }
+        .verify-result p { margin: 0; }
+
+        /* Admin Panel - Full Page Overlay */
+        .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; padding: 20px; overflow-y: auto; }
+        .admin-overlay.active { display: flex; }
+        .admin-modal { background: white; border-radius: var(--radius-lg); max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 40px; box-shadow: var(--shadow-lg); position: relative; }
+        .admin-modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.5rem; color: var(--text-light); cursor: pointer; transition: var(--transition); }
+        .admin-modal-close:hover { color: var(--secondary); }
+        .admin-modal h2 { font-size: 1.75rem; color: var(--dark-green); margin-bottom: 8px; }
+        .admin-modal .subtitle { color: var(--text-light); margin-bottom: 24px; }
+        .admin-modal .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .admin-modal .admin-card { background: var(--bg-alt); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border); }
+        .admin-modal .admin-card h4 { font-size: 1rem; margin-bottom: 16px; color: var(--secondary); }
+        .admin-modal .form-group { margin-bottom: 12px; }
+        .admin-modal .form-group label { font-size: 0.875rem; font-weight: 600; color: var(--secondary); display: block; margin-bottom: 4px; }
+        .admin-modal .form-group input { width: 100%; padding: 10px 14px; border: 2px solid var(--border); border-radius: 8px; font-size: 0.9375rem; }
+        .admin-modal .form-group input:focus { border-color: var(--primary); outline: none; }
+        .admin-modal .admin-list { max-height: 250px; overflow-y: auto; font-size: 0.9rem; }
+        .admin-modal .admin-list table { width: 100%; border-collapse: collapse; }
+        .admin-modal .admin-list th, .admin-modal .admin-list td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+        .admin-modal .admin-list th { background: var(--primary-light); color: var(--primary-dark); font-weight: 600; }
+        .admin-modal .admin-list .delete-btn { color: #dc2626; cursor: pointer; background: none; border: none; font-size: 1rem; padding: 4px 8px; }
+        .admin-modal .admin-list .delete-btn:hover { color: #b91c1c; }
+        .admin-modal .admin-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+        .admin-modal .admin-status { padding: 10px 16px; border-radius: 8px; margin-bottom: 16px; display: none; }
+        .admin-modal .admin-status.success { display: block; background: #dcfce7; color: #166534; border: 1px solid #6ee7b7; }
+        .admin-modal .admin-status.error { display: block; background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+        .admin-modal .admin-login-box { max-width: 400px; margin: 0 auto; background: var(--bg-alt); padding: 24px; border-radius: var(--radius); border: 1px solid var(--border); }
+        .admin-modal .admin-login-box .login-error { color: #dc2626; font-size: 0.9rem; margin-top: 8px; display: none; }
+        .admin-modal .admin-logged-in { display: none; }
+        .admin-modal .admin-logged-in.show { display: block; }
+
+        .admin-nav-btn { background: none; border: none; font-weight: 500; color: var(--text); font-size: 0.9rem; cursor: pointer; font-family: 'Inter', sans-serif; transition: var(--transition); position: relative; padding: 0; }
+        .admin-nav-btn::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--dark-green); transition: var(--transition); }
+        .admin-nav-btn:hover { color: var(--dark-green); }
+        .admin-nav-btn:hover::after { width: 100%; }
+        .admin-nav-btn .badge-admin { background: var(--dark-green); color: white; font-size: 0.55rem; padding: 2px 8px; border-radius: 9999px; margin-left: 4px; }
+
+        /* CTA */
+        .cta { padding: 100px 0; background: var(--primary); position: relative; overflow: hidden; }
+        .cta-bg { position: absolute; inset: 0; opacity: 0.1; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .cta-content { text-align: center; position: relative; z-index: 1; }
+        .cta-content h2 { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 16px; }
+        .cta-content p { font-size: 1.125rem; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 32px; }
+        .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+
+        /* Contact */
+        .contact { padding: 100px 0; background: var(--bg); }
+        .contact-grid { display: grid; gap: 48px; }
+        .contact-info h2 { font-size: 2.25rem; font-weight: 700; color: var(--secondary); margin-bottom: 16px; }
+        .contact-info > p { color: var(--text-light); margin-bottom: 32px; }
+        .contact-details { display: grid; gap: 20px; }
+        .contact-item { display: flex; align-items: flex-start; gap: 16px; }
+        .contact-item-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.125rem; flex-shrink: 0; }
+        .contact-item h4 { font-size: 1rem; color: var(--secondary); margin-bottom: 4px; }
+        .contact-item p, .contact-item a { font-size: 0.9375rem; color: var(--text-light); transition: var(--transition); }
+        .contact-item a:hover { color: var(--primary); }
+        .map-wrapper { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); height: 400px; }
+        .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+
+        /* Footer - White background, black links */
+        .footer { background: #ffffff; color: var(--text); padding: 60px 0 0; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; gap: 48px; margin-bottom: 48px; }
+        .footer-brand .footer-logo-text { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--dark-green); letter-spacing: 0.5px; }
+        .footer-brand .footer-tagline { font-size: 0.65rem; font-weight: 700; color: #dc2626; letter-spacing: 0.3px; text-transform: uppercase; }
+        .footer-brand p { line-height: 1.8; margin-top: 12px; color: var(--text-light); }
+        .footer-links h4 { color: var(--secondary); font-size: 1.125rem; margin-bottom: 20px; }
+        .footer-links ul { display: flex; flex-direction: column; gap: 12px; }
+        .footer-links a { color: var(--text); transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; }
+        .footer-links a:hover { color: var(--dark-green); transform: translateX(4px); }
+        .footer-links a::before { content: '→'; opacity: 0; transition: var(--transition); font-size: 0.75rem; color: var(--dark-green); }
+        .footer-links a:hover::before { opacity: 1; }
+        .footer-bottom { border-top: 1px solid var(--border); padding: 20px 0; text-align: center; font-size: 0.875rem; color: var(--text-light); }
+        .footer-bottom a { color: var(--text); transition: var(--transition); }
+        .footer-bottom a:hover { color: var(--dark-green); }
+
+        /* WhatsApp Float */
+        .whatsapp-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; width: 60px; height: 60px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); transition: var(--transition); animation: pulse 2s infinite; }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6); }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); } 50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7); } }
+
+        /* Chatbot */
+        .chatbot-toggle { position: fixed; bottom: 100px; right: 24px; z-index: 998; width: 58px; height: 58px; background: var(--dark-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; border: none; box-shadow: 0 4px 20px rgba(11, 94, 58, 0.4); cursor: pointer; transition: var(--transition); }
+        .chatbot-toggle:hover { transform: scale(1.08); }
+        .chatbot-window { position: fixed; bottom: 170px; right: 24px; z-index: 997; width: 360px; max-width: calc(100vw - 48px); max-height: 500px; background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border: 1px solid var(--border); display: none; flex-direction: column; overflow: hidden; }
+        .chatbot-window.open { display: flex; }
+        .chatbot-header { background: var(--dark-green); color: white; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+        .chatbot-header button { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; }
+        .chatbot-messages { flex: 1; padding: 16px; overflow-y: auto; max-height: 320px; background: #f8fafc; }
+        .chatbot-message { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px; }
+        .chatbot-message.bot { justify-content: flex-start; }
+        .chatbot-message.user { justify-content: flex-end; }
+        .chatbot-message .bubble { padding: 10px 14px; border-radius: 12px; max-width: 85%; font-size: 0.9rem; line-height: 1.5; }
+        .chatbot-message.bot .bubble { background: white; border: 1px solid var(--border); color: var(--text); }
+        .chatbot-message.user .bubble { background: var(--dark-green); color: white; }
+        .chatbot-input { display: flex; border-top: 1px solid var(--border); padding: 8px 12px; background: white; }
+        .chatbot-input input { flex: 1; border: none; padding: 10px 12px; font-size: 0.95rem; outline: none; }
+        .chatbot-input button { background: var(--dark-green); color: white; border: none; border-radius: 8px; padding: 8px 16px; cursor: pointer; font-weight: 600; }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .scale-in { opacity: 0; transform: scale(0.95); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .scale-in.visible { opacity: 1; transform: scale(1); }
+        .slide-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .slide-left.visible { opacity: 1; transform: translateX(0); }
+        .slide-right { opacity: 0; transform: translateX(40px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .slide-right.visible { opacity: 1; transform: translateX(0); }
+
+        /* Loader */
+        .loader { position: fixed; inset: 0; background: white; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease, visibility 0.5s ease; }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-spinner { width: 48px; height: 48px; border: 4px solid var(--primary-light); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--primary);
-                flex-direction: column;
-                align-items: center;
-                padding: 20px 0;
-            }
-            nav ul.show {
-                display: flex;
-            }
-            nav ul li {
-                margin: 15px 0;
-            }
-            .mobile-menu-btn {
-                display: block;
-            }
-            .hero h2 {
-                font-size: 2rem;
-            }
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                bottom: 20px;
-                right: 20px;
-                font-size: 24px;
-            }
-            .ai-chat-float {
-                width: 50px;
-                height: 50px;
-                bottom: 85px;
-                right: 20px;
-                font-size: 24px;
-            }
-            .enrollment-container,
-            .sravan-container {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 0.95rem; }
+            .hero-buttons .btn { padding: 10px 20px; font-size: 0.85rem; }
+            .hero-stats { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+            .hero-stat-number { font-size: 1.3rem; }
+            .hero-stat-label { font-size: 0.7rem; }
+            .section-header h2 { font-size: 1.8rem; }
+            .section-header p { font-size: 0.95rem; }
+            .courses-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .cert-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .about-grid { grid-template-columns: 1fr; gap: 32px; }
+            .about-image-main img { height: 250px; }
+            .verify-card { padding: 24px 20px; }
+            .verify-card h3 { font-size: 1.3rem; }
+            .admin-modal { padding: 20px; }
+            .admin-modal .admin-grid { grid-template-columns: 1fr; }
+            .floating-badge { display: none; }
+            .hero-card { padding: 16px; }
+            .code-block { font-size: 0.7rem; padding: 12px; }
+            .chatbot-window { width: calc(100vw - 32px); right: 16px; bottom: 140px; }
+            .logo-text { font-size: 1.1rem; }
+            .logo-tagline { font-size: 0.45rem; }
+            .logo-icon { width: 36px; height: 36px; font-size: 0.9rem; }
+            .gallery-item img, .gallery-item video { height: 180px; }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero-grid { gap: 32px; }
+            .courses-grid { grid-template-columns: 1fr 1fr; }
+            .why-grid { grid-template-columns: 1fr 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr 1fr; }
+            .cert-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-image-main img { height: 300px; }
+            .admin-modal .admin-grid { grid-template-columns: 1fr; }
+            .floating-badge { display: none; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .hero h1 { font-size: 3.2rem; }
+            .courses-grid { grid-template-columns: repeat(2, 1fr); }
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .cert-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1025px) {
+            .nav-desktop { display: block; }
+            .nav-cta { display: block; }
+            .mobile-menu-btn { display: none; }
+            .hero-grid { grid-template-columns: 1fr 1fr; }
+            .hero h1 { font-size: 4rem; }
+            .courses-grid { grid-template-columns: repeat(3, 1fr); }
+            .why-grid { grid-template-columns: repeat(4, 1fr); }
+            .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+            .cert-grid { grid-template-columns: repeat(3, 1fr); }
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+            .about-grid { grid-template-columns: 1fr 1fr; }
+            .contact-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+            .admin-modal .admin-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Bar with Live Date & Time -->
-    <div class="top-bar">
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
         <div class="container">
-            <div class="datetime" id="datetime"></div>
+            <div class="header-inner">
+                <a href="#" class="logo">
+                    <div class="logo-icon">SVR</div>
+                    <div class="logo-text-group">
+                        <div class="logo-text">SVR COMPUTERS</div>
+                        <div class="logo-tagline"> Software Training   &amp;Development</div>
+                    </div>
+                </a>
+                
+                <nav class="nav-desktop">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#why-choose">Why Us</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        
+                        <li><a href="#cert-verify" class="verify-scroll-link"><i class="fas fa-certificate"></i> Verify Certificate</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><button class="admin-nav-btn" id="adminOpenBtn"><i class="fas fa-user-cog"></i> Admin <span class="badge-admin">Panel</span></button></li>
+                    </ul>
+                </nav>
+
+                <div class="nav-cta">
+                    <a href="tel:8500172644" class="btn btn-primary">
+                        <i class="fas fa-phone"></i> Call Now
+                    </a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <div class="logo-text">SVR <span>Computers</span></div>
+            <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul>
+            <li><a href="#home" class="mobile-nav-link">Home</a></li>
+            <li><a href="#about" class="mobile-nav-link">About</a></li>
+            <li><a href="#courses" class="mobile-nav-link">Courses</a></li>
+            <li><a href="#why-choose" class="mobile-nav-link">Why Us</a></li>
+            <li><a href="#testimonials" class="mobile-nav-link">Testimonials</a></li>
+            <li><a href="#gallery" class="mobile-nav-link">Gallery</a></li>
+            <li><a href="#cert-verify" class="mobile-nav-link verify-scroll-link"><i class="fas fa-certificate"></i> Verify Certificate</a></li>
+            <li><a href="#certifications" class="mobile-nav-link">Certifications</a></li>
+            <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+            <li><a href="#" class="mobile-nav-link" id="mobileAdminOpen"><i class="fas fa-user-cog"></i> Admin Panel</a></li>
+        </ul>
+        <a href="tel:8500172644" class="btn btn-primary">
+            <i class="fas fa-phone"></i> Call: 8500172644
+        </a>
+    </nav>
+
+    <!-- Admin Panel - Full Page Overlay -->
+    <div class="admin-overlay" id="adminOverlay">
+        <div class="admin-modal">
+            <button class="admin-modal-close" id="adminCloseBtn">&times;</button>
+            <h2><i class="fas fa-user-cog" style="color: var(--dark-green);"></i> Admin Panel</h2>
+            <p class="subtitle">Manage student certificates and records</p>
+            
+            <div id="adminStatus" class="admin-status"></div>
+            
+            <!-- Login Form -->
+            <div id="adminLoginBox" class="admin-login-box">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="adminUser" value="admin">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="adminPass" value="admin123">
+                </div>
+                <div class="login-error" id="loginError">Invalid username or password. Try again.</div>
+                <button class="btn btn-primary" id="adminLoginBtn" style="width:100%;"><i class="fas fa-sign-in-alt"></i> Login</button>
+            </div>
+            
+            <!-- Admin Content (visible after login) -->
+            <div id="adminContent" class="admin-logged-in">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:8px;">
+                    <span style="color: var(--success);"><i class="fas fa-check-circle"></i> Logged in as Admin</span>
+                    <button class="btn btn-outline" id="adminLogoutBtn" style="padding:8px 20px; font-size:0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+                
+                <div class="admin-grid">
+                    <div class="admin-card">
+                        <h4><i class="fas fa-plus-circle"></i> Add Certificate</h4>
+                        <div class="form-group">
+                            <label>Student Name</label>
+                            <input type="text" id="adminName" placeholder="Full Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Registration / Hall Ticket No</label>
+                            <input type="text" id="adminRegNo" placeholder="e.g. SVR2024003">
+                        </div>
+                        <div class="form-group">
+                            <label>Course</label>
+                            <input type="text" id="adminCourse" placeholder="e.g. Java Programming">
+                        </div>
+                        <div class="form-group">
+                            <label>Year</label>
+                            <input type="text" id="adminYear" placeholder="e.g. 2024">
+                        </div>
+                        <button class="btn btn-success" id="addRecordBtn" style="width:100%;"><i class="fas fa-plus"></i> Add Record</button>
+                    </div>
+                    <div class="admin-card">
+                        <h4><i class="fas fa-list"></i> Manage Records</h4>
+                        <div class="admin-list" id="adminList">
+                            <p style="color: var(--text-light);">Loading records...</p>
+                        </div>
+                        <div class="admin-actions">
+                            <button class="btn btn-outline" id="resetDemoBtn" style="flex:1;"><i class="fas fa-undo"></i> Reset Demo</button>
+                            <button class="btn btn-danger" id="clearAllBtn" style="flex:1;"><i class="fas fa-trash"></i> Clear All</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/918500172644" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- AI Chatbot Floating Button (Icon instead of link) -->
-    <button class="ai-chat-float" id="openAiChatBtn">
-        <i class="fas fa-robot"></i>
-    </button>
-
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-text-only">
-                    <div class="iso-badge">AN ISO 9001:2015 CERTIFIED ORGANIZATION</div>
-                    <h1>SVR COMPUTERS<br><span class="logo-subtitle">Software Training and Development Center</span></h1>
-                </div>
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="#testimonials">Testimonials</a></li>
-                        <li><a href="development.html">Development Center</a></li>
-                        <li><a href="#enrollment">Enroll Now</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <marquee behavior="scroll" direction="left" scrollamount="6">
-            <p>
-                <a href="development.html" style="color:pink; text-decoration:none;">
-                    Click here to Visit our Development Center Page-SVR Innovations-Software & Project Development Wing
-                </a>
-            </p>
-        </marquee>
-       
-    </header>
-
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero" id="home">
+        <div class="hero-bg"></div>
         <div class="container">
-            <div class="hero-content">
-                <h2>Advance Your Career with IT Education</h2>
-                <p>Learn from industry experts and get hands-on experience with the latest technologies</p>
-                <a href="#courses" class="btn">Explore Courses</a>
-                <a href="#enrollment" class="btn btn-accent">Enroll Now</a>
-                <a href="https://wa.me/918500172644" class="btn btn-whatsapp">Chat on WhatsApp</a>
+            <div class="hero-grid">
+                <div class="hero-content fade-in">
+                    <div class="hero-badge">
+                        <i class="fas fa-award"></i>
+                        ISO 9001:2015 Certified Organization
+                    </div>
+                    <h1>Advance Your Career with <span class="highlight">IT Education</span></h1>
+                    <p>Learn from industry experts and get hands-on experience with the latest technologies. Join 500+ successful students who transformed their careers with SVR Computer Education.</p>
+                    <div class="hero-buttons">
+                        <a href="#courses" class="btn btn-primary">
+                            <i class="fas fa-rocket"></i> Explore Courses
+                        </a>
+                        <a href="#cert-verify" class="btn btn-dark-green">
+                            <i class="fas fa-certificate"></i> Verify Your Certificate
+                        </a>
+                        <a href="https://wa.me/918500172644" target="_blank" class="btn btn-white">
+                            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="hero-stat-number" data-count="500">0</div>
+                            <div class="hero-stat-label">Students Trained</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-number" data-count="15">0</div>
+                            <div class="hero-stat-label">Expert Courses</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-number" data-count="4">0</div>
+                            <div class="hero-stat-label">Years of Excellence</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual fade-in">
+                    <div class="hero-card">
+                        <div class="hero-card-header">
+                            <div class="hero-card-avatar">SS</div>
+                            <div class="hero-card-info">
+                                <h4>Learn with SRAVAN Sir, <br>15+ Years Exp in Training </h4>
+                                <p>Master's in Information Systems</p>
+                            </div>
+                        </div>
+                        <div class="code-block">
+                            <span class="comment">// Your journey starts here</span><br>
+                            <span class="keyword">class</span> <span class="function">FutureDeveloper</span> {<br>
+                            &nbsp;&nbsp;<span class="keyword">constructor</span>() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.skills = [];<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">this</span>.passion = <span class="string">"unlimited"</span>;<br>
+                            &nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;<span class="function">learnAtSVR</span>() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">"Success!"</span>;<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                        <div class="floating-badge floating-badge-1">
+                            <div class="floating-badge-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="floating-badge-text">
+                                Placement Ready
+                                <span>100% Practical Training</span>
+                            </div>
+                        </div>
+                        <div class="floating-badge floating-badge-2">
+                            <div class="floating-badge-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="floating-badge-text">
+                                Certified Courses
+                                <span>Industry Recognized</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About Content -->
-    <section class="sravan-section" id="about">
+    <!-- Trusted By -->
+    <section class="trusted">
         <div class="container">
-            <div class="sravan-container">
-                <div class="sravan-img">
-                    <img src="svrwebsite/images/sravan1.jpeg" alt="Sravan">
+            <p class="trusted-label">Recognized & Trusted By</p>
+            <div class="trusted-grid">
+                <div class="trusted-item">ISO 9001:2015</div>
+                <div class="trusted-item">JNCTE Approved</div>
+                <div class="trusted-item"> Telangana Govt. Registered</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image slide-left">
+                    <div class="about-image-accent"></div>
+                    <div class="about-image-accent-2"></div>
+                    <div class="about-image-main">
+                        <img src="C:\Users\User\Desktop\new svr website\svrwebsite\images\sravan2.jpeg" alt="SVR Computer Education Classroom" width="200" height="800">
+                    </div>
                 </div>
-                <div class="sravan-content">
-                    <h2>Our Journey</h2>
-                    <p>Founded in 2021 by <strong>Mr. Aruri Sravan</strong>, SVR Computer Education has grown from a small training center to a leading IT education institute in Hanamkonda.</p>
-                    <p>With a vision to bridge the gap between academic learning and industry requirements, we focus on practical, hands-on training that prepares students for real-world challenges.</p>
-                    <p>Over <strong>500+ students</strong> have successfully completed our courses and are now working in top IT companies across India.</p>
-                    <p><b>🌍 Our Promise </b></p>
-                    <p>At SVR Computer Education, every student is important to us. We are committed to delivering personalized attention, quality learning, and continuous support — helping you achieve your educational and professional goals with confidence.</p>
+                <div class="about-content slide-right">
+                    <span class="badge badge-primary"><i class="fas fa-info-circle"></i> About Us</span>
+                    <h2>Building Future IT Professionals Since 2021</h2>
+                    <p>Founded by <strong>Mr. Aruri Sravan</strong>, SVR Computer Education has grown from a small training center to a leading IT education institute in Hanamkonda, Telangana. With over 15 years of experience in the IT industry and education sector, we bridge the gap between academic learning and industry requirements.</p>
+                    
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div>
+                                <h4>Our Mission</h4>
+                                <p>To provide affordable, high-quality IT education with 100% practical training and placement support.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div>
+                                <h4>Our Vision</h4>
+                                <p>To be the most trusted IT training institute in Telangana, producing job-ready professionals.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div>
+                                <h4>Our Values</h4>
+                                <p>Excellence, Integrity, Innovation, and Student Success drive everything we do.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mission & Vision -->
-    <section class="mission-vision">
-        <div class="container">
-            <div class="mv-grid">
-                <div class="mv-card">
-                    <i class="fas fa-bullseye"></i>
-                    <h3>Our Mission</h3>
-                    <p>To provide affordable, high-quality IT education with 100% practical training and placement support.</p>
-                </div>
-                <div class="mv-card">
-                    <i class="fas fa-eye"></i>
-                    <h3>Our Vision</h3>
-                    <p>To be the most trusted IT training institute in Telangana, producing job-ready professionals.</p>
-                </div>
-                <div class="mv-card">
-                    <i class="fas fa-heart"></i>
-                    <h3>Our Values</h3>
-                    <p>Excellence, Integrity, Innovation, and Student Success.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Courses Section -->
+    <!-- Courses -->
     <section class="courses" id="courses">
         <div class="container">
-            <div class="section-title">
-                <h2>Our Courses</h2>
+            <div class="section-header fade-in">
+                <span class="badge badge-primary"><i class="fas fa-graduation-cap"></i> Our Courses</span>
+                <h2>Industry-Relevant IT Courses</h2>
+                <p>Choose from our wide range of professional courses designed to make you job-ready from day one.</p>
             </div>
-            <div class="course-grid" id="courseGrid"></div>
+            <div class="courses-grid">
+                <!-- Java -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #fff7ed; color: #ea580c;">
+                            <i class="fab fa-java"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #dcfce7; color: #166534;">Popular</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>Java Programming</h3>
+                        <p>Master object-oriented programming, Spring Boot, and enterprise Java development with real-world projects.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 3 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Project Based</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Python -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #fef9c3; color: #a16207;">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #dbeafe; color: #1e40af;">Trending</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>Python Programming</h3>
+                        <p>Learn Python from basics to advanced including data structures, automation, and application development.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 2 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Hands-on</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Dev -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #e0e7ff; color: #4338ca;">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #fce7f3; color: #be185d;">In Demand</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>Web Development</h3>
+                        <p>Build responsive websites with HTML, CSS, JavaScript, React, and modern web technologies.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 3 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Portfolio</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C Programming -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #f3e8ff; color: #7c3aed;">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #f1f5f9; color: #475569;">Foundation</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>C Programming</h3>
+                        <p>Build strong programming fundamentals with C language, data structures, and algorithm concepts.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 1.5 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Beginner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C++ -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #e0f2fe; color: #0369a1;">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #dbeafe; color: #1e40af;">Advanced</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>C++ Programming</h3>
+                        <p>Master object-oriented programming with C++, data structures, algorithms, and system-level programming.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 2 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Advanced</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MS-Office -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #fce7f3; color: #be185d;">
+                            <i class="fas fa-file-word"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #f3e8ff; color: #7c3aed;">Essential</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>MS-Office</h3>
+                        <p>Master Word, Excel, PowerPoint, and Outlook with practical training for professional and office use.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 1 Month</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Practical</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Full Stack Development -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #ecfdf5; color: #059669;">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #dcfce7; color: #166534;">Popular</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>Full Stack Development</h3>
+                        <p>Become a full-stack developer with MERN/MEAN stack, REST APIs, and end-to-end project development.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 5 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Project Based</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Oracle -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #fef3c7; color: #d97706;">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #fef3c7; color: #92400e;">Professional</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>Oracle</h3>
+                        <p>Master Oracle database management, PL/SQL programming, and enterprise database administration.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 2.5 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Certified</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MySQL -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #e0f2fe; color: #0369a1;">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #dbeafe; color: #1e40af;">Essential</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>MySQL</h3>
+                        <p>Learn MySQL database design, queries, optimization, and integration with applications.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 2 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Hands-on</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tally with GST -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #fce7f3; color: #be185d;">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #fce7f3; color: #be185d;">In Demand</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>Tally with GST</h3>
+                        <p>Complete accounting training with Tally ERP 9, GST compliance, and real-world financial management.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 2 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Practical</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Tools -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #ede9fe; color: #7c3aed;">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #ede9fe; color: #7c3aed;">Future Tech</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>AI Tools</h3>
+                        <p>Learn popular AI tools like ChatGPT, Midjourney, Copilot, and AI-powered automation for modern workflows.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 1.5 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Hands-on</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Analytics -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #fef9c3; color: #a16207;">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #fef9c3; color: #92400e;">Trending</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>Data Analytics</h3>
+                        <p>Master data analysis with Python, Pandas, SQL, and visualization tools like Power BI and Tableau.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 3 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Project Based</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #e0e7ff; color: #4338ca;">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #e0e7ff; color: #4338ca;">Advanced</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>Artificial Intelligence</h3>
+                        <p>Learn AI fundamentals, machine learning, neural networks, and AI model deployment with real-world projects.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 4 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Project Based</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PGDCA -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #ecfdf5; color: #059669;">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #dcfce7; color: #166534;">Diploma</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>PGDCA</h3>
+                        <p>Post Graduate Diploma in Computer Applications - comprehensive computer knowledge for career growth.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 6 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Certified</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DCA -->
+                <div class="course-card scale-in">
+                    <div class="course-card-header">
+                        <div class="course-card-icon" style="background: #fef2f2; color: #dc2626;">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <span class="course-card-badge" style="background: #fee2e2; color: #991b1b;">Essential</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>DCA</h3>
+                        <p>Diploma in Computer Applications - essential computer skills for everyday professional use.</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-meta-item"><i class="far fa-clock"></i> 3 Months</span>
+                            <span class="course-card-meta-item"><i class="fas fa-laptop-code"></i> Practical</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    <!-- Why Choose -->
+    <section class="why-choose" id="why-choose">
         <div class="container">
-            <div class="section-title">
-                <h2>Why Choose SVR</h2>
+            <div class="section-header fade-in">
+                <span class="badge badge-accent"><i class="fas fa-star"></i> Why Choose Us</span>
+                <h2>What Makes SVR Different</h2>
+                <p>We don't just teach - we transform careers with a practical, student-first approach.</p>
             </div>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            <div class="why-grid">
+                <div class="why-card scale-in">
+                    <div class="why-card-icon" style="color: #ea580c;">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
                     <h3>Expert Instructors</h3>
-                    <p>Learn from industry professionals with years of teaching and practical experience.</p>
+                    <p>Learn from industry professionals with 15+ years of teaching and practical experience in top IT companies.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-laptop-code"></i></div>
+                <div class="why-card scale-in">
+                    <div class="why-card-icon" style="color: #059669;">
+                        <i class="fas fa-hands"></i>
+                    </div>
                     <h3>Hands-on Training</h3>
-                    <p>Get practical experience with real-world projects and assignments.</p>
+                    <p>Get practical experience with real-world projects, assignments, and live coding sessions every day.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-certificate"></i></div>
-                    <h3>Industry Recognized Certification</h3>
-                    <p>Receive certificates that are valued by employers in the IT industry.</p>
+                <div class="why-card scale-in">
+                    <div class="why-card-icon" style="color: #7c3aed;">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Industry Certification</h3>
+                    <p>Receive ISO 9001:2015 and JNCTE recognized certificates valued by employers across India.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="why-card scale-in">
+                    <div class="why-card-icon" style="color: #2563eb;">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
                     <h3>Placement Assistance</h3>
-                    <p>We help you prepare for interviews and connect with potential employers.</p>
+                    <p>We prepare you for interviews and connect you with potential employers in leading IT companies.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section with ALL original images -->
+    <!-- Testimonials -->
     <section class="testimonials" id="testimonials">
         <div class="container">
-            <div class="section-title">
-                <h2>What Students Say's About us</h2>
+            <div class="section-header fade-in">
+                <span class="badge badge-accent"><i class="fas fa-comments"></i> Testimonials</span>
+                <h2>What Students Say About Us</h2>
+                <p>Hear from our 500+ successful students who transformed their careers.</p>
             </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"I completed the PGDCA course at SVR and it completely transformed my career. The instructors were very supportive and the hands-on training helped me secure a job."</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card scale-in">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
+                    <p class="testimonial-text">"The JAVA course at SVR gave me the skills I needed to become a software developer. The course content was up-to-date and the projects were challenging.."</p>
                     <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/priyanka.png" alt="Priyanka">
-                        </div>
-                        <div class="author-info">
-                            <h4>Priyanka</h4>
-                            <p>PGDCA Student</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"The Java Programming course at SVR gave me the skills I needed to become a software developer. The course content was up-to-date and the projects were challenging and relevant."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/sai.png" alt="Sai">
-                        </div>
-                        <div class="author-info">
+                        <div class="testimonial-avatar">S</div>
+                        <div class="testimonial-info">
                             <h4>Sai</h4>
                             <p>Java Programming Student</p>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"The PGDCA course gave me complete computer application knowledge, building a strong foundation for my future."</p>
+                <div class="testimonial-card scale-in">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
+                    <p class="testimonial-text">"I completed the PGDCA course at SVR and it completely transformed my career. The Sravan Sir were very supportive and the hands-on training helped me secure a job"</p>
                     <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/ajuba.png" alt="Ajuba">
-                        </div>
-                        <div class="author-info">
+                        <div class="testimonial-avatar">A</div>
+                        <div class="testimonial-info">
                             <h4>Ajuba</h4>
                             <p>PGDCA Student</p>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"SVR Computers' DCA course helped me gain essential computer skills that I now use every day with confidence."</p>
+                <div class="testimonial-card scale-in">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
+                    <p class="testimonial-text">"SVR Computers' DCA course helped me gain essential computer skills that I now use every day with confidence. The teaching method is excellent."</p>
                     <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/nandini.png" alt="Nandini">
-                        </div>
-                        <div class="author-info">
+                        <div class="testimonial-avatar">N</div>
+                        <div class="testimonial-info">
                             <h4>Nandini</h4>
                             <p>DCA Student</p>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"SVR Computers made Python easy with practical examples and projects. Now I can apply it in real-world tasks confidently."</p>
+                <div class="testimonial-card scale-in">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
+                    <p class="testimonial-text">"SVR Computers made Python easy with practical examples and projects. Now I can apply it in real-world tasks confidently. Highly recommended!"</p>
                     <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/anudeep.jpeg" alt="Anudeep">
-                        </div>
-                        <div class="author-info">
+                        <div class="testimonial-avatar">A</div>
+                        <div class="testimonial-info">
                             <h4>Anudeep</h4>
                             <p>Python Student</p>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        <p>"I joined the C Programming course at SVR Computer Education with very little knowledge of programming. The way concepts were explained step by step, with real-time examples and practical exercises, made learning so easy and enjoyable."</p>
+                <div class="testimonial-card scale-in">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
+                    <p class="testimonial-text">"I joined the C Programming course with very little knowledge. The step-by-step concepts with real-time examples made learning so easy and enjoyable."</p>
                     <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="svrwebsite/images/bharghavi.png" alt="Bharghavi">
-                        </div>
-                        <div class="author-info">
+                        <div class="testimonial-avatar">B</div>
+                        <div class="testimonial-info">
                             <h4>Bharghavi</h4>
                             <p>C Programming Student</p>
                         </div>
                     </div>
                 </div>
+                <div class="testimonial-card scale-in">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"The web development course covered everything from HTML to React. The portfolio projects I built here helped me land my first developer job!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">R</div>
+                        <div class="testimonial-info">
+                            <h4>Rahul</h4>
+                            <p>Web Development Student</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Video Section -->
-    <section class="video-section">
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
         <div class="container">
-            <div class="section-title">
-                <h2>Training Videos</h2>
+            <div class="section-header fade-in">
+                <span class="badge badge-primary"><i class="fas fa-images"></i> Gallery</span>
+                <h2>Our Institute in Pictures & Videos </h2>
+                <p>Explore the learning environment, classrooms, and activities at SVR Computer Education.</p>
             </div>
-            <div class="video-container">
-                <div class="video-card">
+            <div class="gallery-grid">
+                <!-- Photo 1 -->
+                <div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/2.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">Class Room</div>
+                </div>
+
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/officephoto.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">Student Councelling</div>
+                </div>
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/3.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">Class Room</div>
+                </div>
+
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/6.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">Class Room </div>
+                </div>
+
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/05.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">NIT  Warangal Students </div>
+                </div>
+
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/12.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">OJT </div>
+                </div>
+
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/13.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">OJT </div>
+                </div>
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/14.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">OJT </div>
+                </div>
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/02.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">On Job Training for Govt Degree College , Husnabad </div>
+                </div>
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/03.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">On Job Training for Govt Degree College , Husnabad </div>
+                </div>
+
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/10.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">Food Donation for Disabled  </div>
+                </div>
+
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/11.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">Food Donation for Disabled </div>
+                </div>
+
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/8.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">Free Echo Friendly Ganesh Idol Distribution </div>
+                </div>
+
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/9.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">Free Echo Friendly Ganesh Idol Distribution</div>
+                </div>
+
+<div class="gallery-item scale-in">
+                    <img src="svrwebsite/images/5.jpg?w=600&h=400&fit=crop" alt="Student Councelling">
+                    <div class="gallery-caption">School Children Learning Computers</div>
+                </div>
+
+<!-- Video 1 -->
+                <div class="gallery-item scale-in">
                     <div class="video-wrapper">
-                        <video controls poster="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=500">
-                            <source src="svrwebsite/images/video1.mp4" type="video/mp4">
+                        <video controls>
+                            <source src="C:\Users\User\Desktop\new svr website\svrwebsite\images\video5.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <div class="video-content">
-                        <h3>Introduction to Programming</h3>
-                        <p>Learn the basics of programming concepts and logic building.</p>
-                    </div>
+                    <div class="gallery-caption">To upgrade your Skills, Join in SVR Computers </div>
                 </div>
-                <div class="video-card">
+        
+                <!-- Video 1 -->
+                <div class="gallery-item scale-in">
                     <div class="video-wrapper">
-                        <video controls poster="https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=500">
-                            <source src="svrwebsite/images/video2.mp4" type="video/mp4">
+                        <video controls>
+                            <source src="C:\Users\User\Desktop\new svr website\svrwebsite\images\video2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
                         </video>
                     </div>
-                    <div class="video-content">
-                        <h3>Web Development Tutorial</h3>
-                        <p>Building responsive websites with HTML, CSS and JavaScript.</p>
-                    </div>
+                    <div class="gallery-caption">Classroom Session</div>
                 </div>
-                <div class="video-card">
+              
+                <!-- Video 2 -->
+                <div class="gallery-item scale-in">
                     <div class="video-wrapper">
-                        <video controls poster="https://images.unsplash.com/photo-1542744094-3a31f272c490?w=500">
-                            <source src="svrwebsite/images/video3.mp4" type="video/mp4">
+                        <video controls>
+                            <source src="C:\Users\User\Desktop\new svr website\svrwebsite\images\video1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
                         </video>
                     </div>
-                    <div class="video-content">
-                        <h3>C-Programming</h3>
-                        <p>C Programming was taught so simply and practically write programs with full confidence.</p>
-                    </div>
+                    <div class="gallery-caption">Training Session</div>
                 </div>
+
+ <!-- Video 3 -->
+                <div class="gallery-item scale-in">
+                    <div class="video-wrapper">
+                        <video controls>
+                            <source src="C:\Users\User\Desktop\new svr website\svrwebsite\images\video3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="gallery-caption">Training Session</div>
+                </div>
+
+<!-- Video 4 -->
+                <div class="gallery-item scale-in">
+                    <div class="video-wrapper">
+                        <video controls>
+                            <source src="C:\Users\User\Desktop\new svr website\svrwebsite\images\video4.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="gallery-caption">AI Tools</div>
+                </div>
+              
             </div>
         </div>
     </section>
 
-    <!-- Sravan Section -->
-    <section class="sravan-section">
+    <!-- Certificate Verification -->
+    <section class="cert-verify" id="cert-verify">
         <div class="container">
-            <div class="sravan-container">
-                <div class="sravan-img">
-                    <img src="svrwebsite/images/asravan.jpeg" alt="Sravan">
+            <div class="section-header fade-in">
+                <span class="badge badge-primary"><i class="fas fa-shield-alt"></i> Certificate Verification</span>
+                <h2>Verify Your Certificate</h2>
+                <p>Enter your Registration Number or Hall Ticket Number to verify the authenticity of your certificate.</p>
+            </div>
+            <div class="verify-card fade-in">
+                <h3><i class="fas fa-certificate" style="color: var(--primary);"></i> Verify Certificate</h3>
+                <p>Enter your unique registration number or hall ticket number issued by SVR Computer Education.</p>
+                <div class="verify-input-group">
+                    <input type="text" id="certNumber" placeholder="e.g. SVR2024001 or HT202401" aria-label="Certificate number">
+                    <button class="btn btn-primary" id="verifyBtn"><i class="fas fa-search"></i> Verify Now</button>
                 </div>
-                <div class="sravan-content">
-                    <h3>Learn With Sravan Sir</h3>
-                    <p><b>Mr ARURI SRAVAN,</b> Completed his <b>Master's in Information Systems</b>, is the founder and lead Software Trainer at SVR Computers. With over 15 years of experience in the IT industry and education sector, he is passionate about empowering students with practical IT skills.</p>
-                    <p>His expertise includes programming languages like Java, Python, and C++, database management, web development, and software engineering principles.</p>
-                    <p>Under his guidance, hundreds of students have successfully launched their careers in the IT industry.</p>
-                    <a href="#contact" class="btn">Get in Touch</a>
-                </div>
+                <div id="verifyResult" class="verify-result"></div>
             </div>
         </div>
     </section>
 
-    <!-- Activities Section -->
-    <section class="activities">
+    <!-- Certifications -->
+    <section class="certifications" id="certifications">
         <div class="container">
-            <div class="section-title">
-                <h2>Center Activities</h2>
+            <div class="section-header fade-in">
+                <span class="badge badge-primary"><i class="fas fa-shield-alt"></i> Certifications</span>
+                <h2>Our Recognitions</h2>
+                <p>Trusted and certified by leading organizations for quality education.</p>
             </div>
-            <div class="activities-grid">
-                <div class="activity-card">
-                    <img src="svrwebsite/images/6.jpeg" alt="Classroom Training" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Classroom Training</h3>
-                        <p>Interactive sessions with experienced instructors</p>
+            <div class="cert-grid">
+                <div class="cert-card scale-in">
+                    <div class="cert-card-icon">
+                        <i class="fas fa-certificate"></i>
                     </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/lab.jpg" alt="Lab Sessions" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Lab Sessions</h3>
-                        <p>Hands-on practice with modern computer systems</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/2.jpeg" alt="Group Discussions" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Group Discussions</h3>
-                        <p>Collaborative learning environment</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/7.jpeg" alt="Project Work" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Project Work</h3>
-                        <p>Real-world application of learned concepts</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/13.jpeg" alt="On Job Training" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>On Job Training</h3>
-                        <p>We are proud to conduct internships that bridge the gap between academic knowledge and professional skills.</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/12.jpeg" alt="On Job Training" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>On Job Training</h3>
-                        <p>Through our internship programs, students gain hands-on experience and practical knowledge beyond classroom learning.</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/05.jpeg" alt="Project Completion" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Project Completion</h3>
-                        <p>With NIT Warangal Students</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/2.jpg" alt="Get Together" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Project Completion</h3>
-                        <p>Get Together</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/9.jpeg" alt="Free Distribution" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Free Distribution of Ganesh idols</h3>
-                        <p>Eco Friendly Environment</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/8.jpeg" alt="Free Distribution" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Free Distribution of Ganesh idols</h3>
-                        <p>Eco Friendly Environment</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/10.jpeg" alt="Food Donation" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Food Donation Camp</h3>
-                        <p>for Disabled</p>
-                    </div>
-                </div>
-                <div class="activity-card">
-                    <img src="svrwebsite/images/11.jpeg" alt="Food Donation" class="activity-img">
-                    <div class="activity-overlay">
-                        <h3>Food Donation Camp</h3>
-                        <p>for Disabled</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section class="certifications">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Certifications</h2>
-            </div>
-            <div class="certs-grid">
-                <div class="cert-card">
-                    <div class="cert-icon"><i class="fas fa-award"></i></div>
                     <h3>ISO 9001:2015 Certified</h3>
-                    <p>Quality management system certified</p>
+                    <p>Quality management system certified organization ensuring international standards in education delivery.</p>
                 </div>
-                <div class="cert-card">
-                    <div class="cert-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="cert-card scale-in">
+                    <div class="cert-card-icon" style="background: #ecfdf5; color: #059669;">
+                        <i class="fas fa-university"></i>
+                    </div>
                     <h3>Government Recognized</h3>
-                    <p>Approved by JNCTE (Jawaharlal Nehru Council for Technical Education)</p>
+                    <p>Approved by JNCTE (Jawaharlal Nehru Council for Technical Education) for technical education programs.</p>
                 </div>
-                <div class="cert-card">
-                    <div class="cert-icon"><i class="fas fa-handshake"></i></div>
+                <div class="cert-card scale-in">
+                    <div class="cert-card-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="fas fa-handshake"></i>
+                    </div>
                     <h3>Industry Partnerships</h3>
-                    <p>Collaboration with leading IT companies</p>
+                    <p>Collaboration with leading IT companies and academic institutions for industry-ready training.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Enrollment Section -->
-    <section class="enrollment" id="enrollment">
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-bg"></div>
         <div class="container">
-            <div class="enrollment-container">
-                <div class="enrollment-content">
-                    <h2>Start Your IT Career Today</h2>
-                    <p>Join hundreds of successful students who have transformed their careers with our industry-relevant courses. Our expert instructors and hands-on approach will give you the skills you need to succeed in the IT industry.</p>
-                    <p>Flexible batch timings available to suit your schedule.</p>
-                    <p><b>Note : For faster/quickly assistance , please call us directly @ 8500172644 instead of sending messages.</b></p>
-                </div>
-                <div class="enrollment-form">
-                    <h3>Enquiry Form</h3>
-                    <form action="https://formsubmit.co/svrcomputers.training@gmail.com" method="POST">
-                        <div class="form-group">
-                            <input type="text" name="name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" name="phone" placeholder="Your Phone" required>
-                        </div>
-                        <div class="form-group">
-                            <select name="course" required>
-                                <option value="" disabled selected>Select Course</option>
-                                <option value="dca">DCA</option>
-                                <option value="pgdca">PGDCA</option>
-                                <option value="tally">Tally + GST</option>
-                                <option value="c">C & C++</option>
-                                <option value="java">Java</option>
-                                <option value="python">Python</option>
-                                <option value="web">Web Development</option>
-                                <option value="data-science">Data Science</option>
-                                <option value="mobile">Mobile App Development</option>
-                                <option value="database">Databases (SQL/Oracle/MySQL)</option>
-                                <option value="fullstack">Full Stack Development</option>
-                                <option value="analytics">Data Analytics</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea name="message" placeholder="Your Message"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-accent">Submit Enquiry</button>
-                    </form>
+            <div class="cta-content fade-in">
+                <h2>Start Your IT Career Today</h2>
+                <p>Join hundreds of successful students who have transformed their careers with our industry-relevant courses. Flexible batch timings available to suit your schedule.</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-white">
+                        <i class="fas fa-phone"></i> Contact Us
+                    </a>
+                    <a href="https://wa.me/918500172644" target="_blank" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.4);">
+                        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section class="contact" id="contact">
         <div class="container">
-            <div class="section-title">
-                <h2>Contact Us</h2>
-            </div>
             <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Get in Touch</h3>
-                    <ul class="contact-details">
-                        <li><i class="fas fa-map-marker-alt"></i> <span># 1-9-1266, Beside DIG Building Lane <br> Julywada Junction <br> Hanamkonda 506001</span></li>
-                        <li><i class="fas fa-phone"></i> <span>+91 8500172644</span></li>
-                        <li><i class="fas fa-envelope"></i> <span>svrcomputers.training@gmail.com</span></li>
-                        <li><i class="fas fa-clock"></i> <span>Monday - Saturday: 7:00 AM - 8:00 PM</span></li>
-                    </ul>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://wa.me/918500172644"><i class="fab fa-whatsapp"></i></a>
+                <div class="contact-info slide-left">
+                    <span class="badge badge-primary"><i class="fas fa-map-pin"></i> Contact Us</span>
+                    <h2>Get In Touch</h2>
+                    <p>Have questions about our courses? Reach out to us and we'll get back to you as soon as possible.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Visit Us</h4>
+                                <p>SVR Computer Education, Hanamkonda, Telangana, India</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Call Us</h4>
+                                <a href="tel:8500172644">+91 85001 72644</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email Us</h4>
+                                <a href="mailto:svrcomputertraining@gmail.com">svrcomputertraining@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h4>WhatsApp</h4>
+                                <a href="https://wa.me/918500172644" target="_blank">Chat on WhatsApp</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form action="https://formsubmit.co/svrcomputers.training@gmail.com" method="POST">
-                        <input type="text" name="name" placeholder="Your Name" required>
-                        <input type="email" name="email" placeholder="Your Email" required>
-                        <input type="tel" name="phone" placeholder="Your Phone" required>
-                        <input type="text" name="subject" placeholder="Subject" required>
-                        <textarea name="message" placeholder="Your Message" required></textarea>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
+                
+                <div class="map-wrapper slide-right">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3794.6949490305747!2d79.54551357517902!3d17.99292398300127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a334f3b7e32440d%3A0x6f60978141e562c5!2sSVR%20COMPUTERS%20Job%20Oriented%20Software%20Training%20Centre!5e0!3m2!1sen!2sin!4v1784629468028!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-column">
-                    <h3>SVR COMPUTERS</h3>
-                    <p>Providing quality IT education and training since 2021. Empowering students with skills for the digital age.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                <div class="footer-brand">
+                    <div class="footer-logo-text">SVR COMPUTERS</div>
+                    <div class="footer-tagline">Software Training &amp; Development </div>
+                    <p>Leading IT education institute in Hanamkonda, Telangana. Empowering students with practical skills since 2021. ISO 9001:2015 Certified.</p>
                 </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#courses">Courses</a></li>
                         <li><a href="#about">About Us</a></li>
+                        <li><a href="#courses">Courses</a></li>
                         <li><a href="#testimonials">Testimonials</a></li>
-                        <li><a href="#certifications">Certifications</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#cert-verify">Verify Certificate</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
-                               <div class="footer-column">
-                    <h3>Contact Info</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> # 1-9-1266, Beside DIG Building Lane Julywada Junction Hanamkonda 506001</li>
-                        <li><i class="fas fa-phone"></i> +91 8500172644</li>
-                        <li><i class="fas fa-envelope"></i> svrcomputers.training@gmail.com</li>
-                        <li><i class="fas fa-clock"></i> Mon-Sat: 7AM - 8PM</li>
+                <div class="footer-links">
+                    <h4>Courses</h4>
+                    <ul>
+                        <li><a href="#courses">Java Programming</a></li>
+                        <li><a href="#courses">Python Programming</a></li>
+                        <li><a href="#courses">Web Development</a></li>
+                        <li><a href="#courses">C Programming</a></li>
+                        <li><a href="#courses">PGDCA & DCA</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Development</h4>
+                    <ul>
+                        <li><a href="#">SVR Innovations</a></li>
+                        <li><a href="#">Software Projects</a></li>
+                        <li><a href="#">Internships</a></li>
+                        <li><a href="#">On-Job Training</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2021 SVR Computer Education. All Rights Reserved. | Designed by SVR Computers</p>
+            <div class="footer-bottom">
+                <p>© 2026 SVR COMPUTERS. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ef4444;"></i> for students</p>
             </div>
         </div>
     </footer>
 
-    <!-- AI Chatbot Modal -->
-    <div id="aiModal" class="ai-modal">
-        <div class="ai-modal-content">
-            <div class="ai-header">
-                <h3><i class="fas fa-robot"></i> SVR AI Assistant</h3>
-                <button class="ai-close" id="closeAiModal">&times;</button>
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/918500172644" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Chatbot -->
+    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Chat with us">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <span><i class="fas fa-robot"></i> SVR Assistant</span>
+            <button id="chatbotClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="chatbot-message bot">
+                <div class="bubble">👋 Hello! I'm SVR Assistant. Ask me about courses, fees, admission, or anything about our institute.</div>
             </div>
-            <div id="aiChatBox" class="ai-chat-box"></div>
-            <div id="aiTyping" class="ai-typing">Typing...</div>
-            <div class="ai-input-area">
-                <input type="text" id="aiUserInput" class="ai-input" placeholder="Ask about courses, fees, director...">
-                <button id="aiSendBtn" class="ai-send"><i class="fas fa-paper-plane"></i></button>
-            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbotInput" placeholder="Type your question...">
+            <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <script>
-        // Live Date & Time
-        function updateDateTime() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            document.getElementById('datetime').textContent = now.toLocaleDateString('en-IN', options);
-        }
-        updateDateTime();
-        setInterval(updateDateTime, 1000);
+        // ============================================================
+        // FIREBASE CONFIGURATION
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCkLXVncf-v0q7B_EkrE3PQx4HEJNtseo",
+            authDomain: "svr-computers-ef57e.firebaseapp.com",
+            projectId: "svr-computers-ef57e",
+            storageBucket: "svr-computers-ef57e.firebasestorage.app",
+            messagingSenderId: "412588189990",
+            appId: "1:412588189990:web:5da1cd2bbdfc0200cb79e7"
+        };
 
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('show');
+        // Check if running locally (file:// protocol)
+        const isLocalFile = window.location.protocol === 'file:';
+
+        let db;
+        let isFirebaseReady = false;
+        let certificateDB = [];
+
+        const demoRecords = [
+            { regNo: 'SVR2024001', name: 'Sai', course: 'Java Programming', year: '2024' },
+            { regNo: 'SVR2024002', name: 'Ajuba', course: 'PGDCA', year: '2024' },
+            { regNo: 'HT202401', name: 'Nandini', course: 'DCA', year: '2024' },
+            { regNo: 'SVR2024003', name: 'Anudeep', course: 'Python Programming', year: '2024' },
+            { regNo: 'SVR2024004', name: 'Bharghavi', course: 'C Programming', year: '2024' },
+            { regNo: 'SVR2024005', name: 'Rahul', course: 'Web Development', year: '2024' }
+        ];
+
+        if (!isLocalFile) {
+            try {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+                db.settings({ cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED });
+                
+                db.enablePersistence({ synchronizeTabs: true })
+                    .then(() => {
+                        isFirebaseReady = true;
+                        loadFromFirebase();
+                    })
+                    .catch((err) => {
+                        isFirebaseReady = true;
+                        loadFromFirebase();
+                    });
+            } catch (e) {
+                loadLocalDB();
+                renderAdminList();
+            }
+        } else {
+            loadLocalDB();
+            renderAdminList();
+        }
+
+        function loadLocalDB() {
+            const stored = localStorage.getItem('svr_cert_db');
+            if (stored) {
+                try {
+                    certificateDB = JSON.parse(stored);
+                    if (certificateDB.length === 0) {
+                        certificateDB = [...demoRecords];
+                        saveLocalDB();
+                    }
+                } catch (e) {
+                    certificateDB = [...demoRecords];
+                    saveLocalDB();
+                }
+            } else {
+                certificateDB = [...demoRecords];
+                saveLocalDB();
+            }
+            renderAdminList();
+        }
+
+        function saveLocalDB() {
+            try {
+                localStorage.setItem('svr_cert_db', JSON.stringify(certificateDB));
+            } catch (e) {}
+        }
+
+        async function loadFromFirebase() {
+            if (!isFirebaseReady || isLocalFile) {
+                loadLocalDB();
+                return;
+            }
+            try {
+                const snapshot = await db.collection('certificates')
+                    .orderBy('regNo')
+                    .limit(500)
+                    .get();
+                
+                if (snapshot.empty) {
+                    const batch = db.batch();
+                    demoRecords.forEach(rec => {
+                        const docRef = db.collection('certificates').doc(rec.regNo);
+                        batch.set(docRef, rec);
+                    });
+                    await batch.commit();
+                    certificateDB = [...demoRecords];
+                    saveLocalDB();
+                } else {
+                    certificateDB = [];
+                    snapshot.forEach(doc => {
+                        certificateDB.push(doc.data());
+                    });
+                    saveLocalDB();
+                }
+                renderAdminList();
+            } catch (e) {
+                loadLocalDB();
+            }
+        }
+
+        async function addToFirebase(record) {
+            if (isLocalFile || !isFirebaseReady) {
+                if (certificateDB.some(r => r.regNo === record.regNo)) {
+                    return { success: false, message: 'Registration number already exists!' };
+                }
+                certificateDB.push(record);
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'Certificate added successfully!' };
+            }
+            try {
+                const doc = await db.collection('certificates').doc(record.regNo).get();
+                if (doc.exists) {
+                    return { success: false, message: 'Registration number already exists!' };
+                }
+                await db.collection('certificates').doc(record.regNo).set(record);
+                certificateDB.push(record);
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'Certificate added successfully!' };
+            } catch (e) {
+                if (certificateDB.some(r => r.regNo === record.regNo)) {
+                    return { success: false, message: 'Registration number already exists!' };
+                }
+                certificateDB.push(record);
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'Certificate added (local)!' };
+            }
+        }
+
+        async function deleteFromFirebase(regNo) {
+            if (isLocalFile || !isFirebaseReady) {
+                const index = certificateDB.findIndex(r => r.regNo === regNo);
+                if (index === -1) return { success: false, message: 'Record not found!' };
+                certificateDB.splice(index, 1);
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'Record deleted!' };
+            }
+            try {
+                await db.collection('certificates').doc(regNo).delete();
+                const index = certificateDB.findIndex(r => r.regNo === regNo);
+                if (index !== -1) certificateDB.splice(index, 1);
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'Record deleted!' };
+            } catch (e) {
+                const index = certificateDB.findIndex(r => r.regNo === regNo);
+                if (index !== -1) certificateDB.splice(index, 1);
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'Record deleted (local)!' };
+            }
+        }
+
+        async function resetDemoInFirebase() {
+            if (isLocalFile || !isFirebaseReady) {
+                certificateDB = [...demoRecords];
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'Reset to demo records!' };
+            }
+            try {
+                const snapshot = await db.collection('certificates').get();
+                if (!snapshot.empty) {
+                    const batch = db.batch();
+                    snapshot.forEach(doc => { batch.delete(doc.ref); });
+                    await batch.commit();
+                }
+                const batch = db.batch();
+                demoRecords.forEach(rec => {
+                    const docRef = db.collection('certificates').doc(rec.regNo);
+                    batch.set(docRef, rec);
+                });
+                await batch.commit();
+                certificateDB = [...demoRecords];
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'Reset to demo records!' };
+            } catch (e) {
+                certificateDB = [...demoRecords];
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'Reset to demo (local)!' };
+            }
+        }
+
+        async function clearAllFromFirebase() {
+            if (isLocalFile || !isFirebaseReady) {
+                certificateDB = [];
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'All records cleared!' };
+            }
+            try {
+                const snapshot = await db.collection('certificates').get();
+                if (!snapshot.empty) {
+                    const batch = db.batch();
+                    snapshot.forEach(doc => { batch.delete(doc.ref); });
+                    await batch.commit();
+                }
+                certificateDB = [];
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'All records cleared!' };
+            } catch (e) {
+                certificateDB = [];
+                saveLocalDB();
+                renderAdminList();
+                return { success: true, message: 'All records cleared (local)!' };
+            }
+        }
+
+        async function findInFirebase(regNo) {
+            if (isLocalFile || !isFirebaseReady) {
+                return certificateDB.find(r => r.regNo.toLowerCase() === regNo.toLowerCase());
+            }
+            try {
+                const doc = await db.collection('certificates').doc(regNo).get();
+                if (doc.exists) { return doc.data(); }
+                return null;
+            } catch (e) {
+                return certificateDB.find(r => r.regNo.toLowerCase() === regNo.toLowerCase());
+            }
+        }
+
+        function renderAdminList() {
+            const container = document.getElementById('adminList');
+            if (certificateDB.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-light); text-align:center; padding:20px 0;">No records found. Add a new certificate or reset to demo.</p>';
+                return;
+            }
+            let html = `<table>
+                <thead><tr><th>Reg No</th><th>Name</th><th>Course</th><th>Action</th></tr></thead><tbody>`;
+            certificateDB.forEach((rec, index) => {
+                html += `<tr>
+                    <td><strong>${rec.regNo}</strong></td>
+                    <td>${rec.name}</td>
+                    <td>${rec.course}</td>
+                    <td><button class="delete-btn" data-regno="${rec.regNo}"><i class="fas fa-trash"></i></button></td>
+                </tr>`;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+            container.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const regNo = this.dataset.regno;
+                    if (confirm(`Delete record ${regNo}?`)) {
+                        const result = await deleteFromFirebase(regNo);
+                        showAdminStatus(result.success, result.message);
+                        renderAdminList();
+                    }
+                });
+            });
+        }
+
+        function showAdminStatus(success, message) {
+            const statusEl = document.getElementById('adminStatus');
+            statusEl.className = 'admin-status ' + (success ? 'success' : 'error');
+            statusEl.textContent = message;
+            statusEl.style.display = 'block';
+            setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
+        }
+
+        // ============================================================
+        // LOADER
+        // ============================================================
+        window.addEventListener('load', () => {
+            setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 500);
         });
 
-        // Smooth scrolling
+        // ============================================================
+        // HEADER SCROLL EFFECT
+        // ============================================================
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) { header.classList.add('scrolled'); } 
+            else { header.classList.remove('scrolled'); }
+        });
+
+        // ============================================================
+        // MOBILE MENU
+        // ============================================================
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        const mobileNavClose = document.getElementById('mobileNavClose');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function openMobileNav() {
+            mobileNav.classList.add('active');
+            mobileNavOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileNav() {
+            mobileNav.classList.remove('active');
+            mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileNav);
+        mobileNavClose.addEventListener('click', closeMobileNav);
+        mobileNavOverlay.addEventListener('click', closeMobileNav);
+        mobileNavLinks.forEach(link => link.addEventListener('click', closeMobileNav));
+
+        document.getElementById('mobileAdminOpen').addEventListener('click', function(e) {
+            e.preventDefault();
+            closeMobileNav();
+            setTimeout(() => { document.getElementById('adminOverlay').classList.add('active'); }, 400);
+        });
+
+        // ============================================================
+        // INTERSECTION OBSERVER - ANIMATIONS
+        // ============================================================
+        const animElements = document.querySelectorAll('.fade-in, .scale-in, .slide-left, .slide-right');
+        const animObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+        animElements.forEach(el => animObserver.observe(el));
+
+        // ============================================================
+        // COUNTER ANIMATION
+        // ============================================================
+        const counters = document.querySelectorAll('.hero-stat-number');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-count'));
+                    let current = 0;
+                    const increment = target / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            entry.target.textContent = target + '+';
+                            clearInterval(timer);
+                        } else {
+                            entry.target.textContent = Math.floor(current);
+                        }
+                    }, 30);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // ============================================================
+        // SMOOTH SCROLL
+        // ============================================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
-                }
+                const target = document.querySelector(href);
+                if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
             });
         });
 
-        // Course Data (12 courses as in original)
-        const courses = [
-            { title: "DCA (Diploma in Computer Applications)", desc: "Comprehensive course covering computer fundamentals, MS Office, and basic programming.", duration: "3 Months", level: "Beginner", img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500" },
-            { title: "PGDCA (Post Graduate Diploma in Computer Applications)", desc: "Advanced diploma covering programming, database management, and software engineering.", duration: "6 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500" },
-            { title: "Tally + GST", desc: "Learn accounting with Tally software and Goods and Services Tax implementation.", duration: "3 Months", level: "Beginner", img: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=500" },
-            { title: "C & C++ Programming", desc: "Master the fundamentals of programming with C and object-oriented programming with C++.", duration: "4 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500" },
-            { title: "Java Programming", desc: "Learn Java programming language for building cross-platform applications and web services.", duration: "5 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500" },
-            { title: "Python Programming", desc: "Learn Python for web development, data analysis, artificial intelligence, and more.", duration: "4 Months", level: "Beginner", img: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=500" },
-            { title: "Web Development", desc: "Learn to build responsive websites using HTML, CSS, JavaScript and modern frameworks.", duration: "6 Months", level: "Advanced", img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500" },
-            { title: "Data Science", desc: "Master data analysis, visualization, and machine learning algorithms with Python.", duration: "8 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=500" },
-            { title: "Mobile App Development", desc: "Build native and cross-platform mobile applications for iOS and Android.", duration: "6 Months", level: "Advanced", img: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=500" },
-            { title: "Databases (SQL/Oracle/MySQL)", desc: "Learn database design, implementation, and management with popular database systems.", duration: "4 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500" },
-            { title: "Full Stack Development", desc: "Master both front-end and back-end development to build complete web applications.", duration: "8 Months", level: "Advanced", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500" },
-            { title: "Data Analytics", desc: "Learn to analyze and visualize data to extract meaningful insights for decision making.", duration: "5 Months", level: "Intermediate", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500" }
+        // ============================================================
+        // ADMIN PANEL
+        // ============================================================
+        const adminOverlay = document.getElementById('adminOverlay');
+        const adminLoginBox = document.getElementById('adminLoginBox');
+        const adminContent = document.getElementById('adminContent');
+        const loginError = document.getElementById('loginError');
+        const adminUser = document.getElementById('adminUser');
+        const adminPass = document.getElementById('adminPass');
+        let isAdminLoggedIn = false;
+
+        document.getElementById('adminOpenBtn').addEventListener('click', function() {
+            adminOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        document.getElementById('adminCloseBtn').addEventListener('click', function() {
+            adminOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        adminOverlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                adminOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.getElementById('adminLoginBtn').addEventListener('click', function() {
+            const user = adminUser.value.trim();
+            const pass = adminPass.value.trim();
+            if (user === 'admin' && pass === 'admin123') {
+                isAdminLoggedIn = true;
+                loginError.style.display = 'none';
+                adminLoginBox.style.display = 'none';
+                adminContent.classList.add('show');
+                renderAdminList();
+                showAdminStatus(true, 'Logged in successfully!');
+            } else {
+                loginError.style.display = 'block';
+            }
+        });
+
+        adminPass.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') { document.getElementById('adminLoginBtn').click(); }
+        });
+
+        document.getElementById('adminLogoutBtn').addEventListener('click', function() {
+            isAdminLoggedIn = false;
+            adminLoginBox.style.display = 'block';
+            adminContent.classList.remove('show');
+            loginError.style.display = 'none';
+            adminUser.value = 'admin';
+            adminPass.value = 'admin123';
+            showAdminStatus(true, 'Logged out successfully!');
+        });
+
+        document.getElementById('addRecordBtn').addEventListener('click', async function() {
+            const name = document.getElementById('adminName').value.trim();
+            const regNo = document.getElementById('adminRegNo').value.trim();
+            const course = document.getElementById('adminCourse').value.trim();
+            const year = document.getElementById('adminYear').value.trim() || '2025';
+            if (!name || !regNo || !course) {
+                showAdminStatus(false, 'Please fill Name, Registration No, and Course.');
+                return;
+            }
+            const result = await addToFirebase({ regNo, name, course, year });
+            showAdminStatus(result.success, result.message);
+            if (result.success) {
+                document.getElementById('adminName').value = '';
+                document.getElementById('adminRegNo').value = '';
+                document.getElementById('adminCourse').value = '';
+                document.getElementById('adminYear').value = '';
+                renderAdminList();
+            }
+        });
+
+        document.getElementById('resetDemoBtn').addEventListener('click', async function() {
+            if (confirm('Reset all records to demo data? Current data will be lost.')) {
+                const result = await resetDemoInFirebase();
+                showAdminStatus(result.success, result.message);
+                renderAdminList();
+            }
+        });
+
+        document.getElementById('clearAllBtn').addEventListener('click', async function() {
+            if (confirm('Delete ALL records? This cannot be undone!')) {
+                const result = await clearAllFromFirebase();
+                showAdminStatus(result.success, result.message);
+                renderAdminList();
+            }
+        });
+
+        // ============================================================
+        // VERIFY CERTIFICATE
+        // ============================================================
+        document.getElementById('verifyBtn').addEventListener('click', async function() {
+            const input = document.getElementById('certNumber').value.trim();
+            const resultDiv = document.getElementById('verifyResult');
+            if (!input) {
+                resultDiv.className = 'verify-result error';
+                resultDiv.innerHTML = `<div class="result-icon">⚠️</div><h4>Please enter a registration number</h4><p>Enter the number provided on your certificate.</p>`;
+                return;
+            }
+            const found = await findInFirebase(input);
+            if (found) {
+                resultDiv.className = 'verify-result success';
+                resultDiv.innerHTML = `
+                    <div class="result-icon">✅</div>
+                    <h4>Certificate Verified</h4>
+                    <p><strong>Name:</strong> ${found.name}</p>
+                    <p><strong>Course:</strong> ${found.course}</p>
+                    <p><strong>Year:</strong> ${found.year}</p>
+                    <p><strong>Registration No:</strong> ${found.regNo}</p>
+                    <p style="margin-top:12px;font-size:0.9rem;color:#065f46;">This certificate is issued by SVR Computer Education.</p>
+                `;
+            } else {
+                resultDiv.className = 'verify-result error';
+                resultDiv.innerHTML = `
+                    <div class="result-icon">❌</div>
+                    <h4>Certificate Not Found</h4>
+                    <p>No record found for registration number <strong>${input}</strong>. Please contact SVR Computer Education for assistance.</p>
+                `;
+            }
+        });
+
+        document.getElementById('certNumber').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') { document.getElementById('verifyBtn').click(); }
+        });
+
+        // ============================================================
+        // CHATBOT
+        // ============================================================
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+
+        const qaData = [
+            { keywords: ['hello','hi','hey','greetings'], answer: 'Hello! Welcome to SVR Computer Education. How can I help you today?' },
+            { keywords: ['course','courses','programs','offer'], answer: 'We offer Java, Python, Web Development, C Programming, PGDCA, and DCA courses. All are industry-focused with hands-on training.' },
+            { keywords: ['fee','fees','cost','price','amount'], answer: 'Our course fees are very affordable and competitive. Please contact us at 8500172644 or visit our institute for detailed fee structure.' },
+            { keywords: ['admission','enroll','join','register'], answer: 'Admissions are open! You can visit our center, call us at 8500172644, or chat with us on WhatsApp to start your enrollment.' },
+            { keywords: ['duration','time','months','long'], answer: 'Course durations vary: C (1.5 months), Python (2 months), Java & Web Dev (3 months), DCA (3 months), PGDCA (6 months).' },
+            { keywords: ['placement','job','career','opportunity'], answer: 'We provide 100% placement assistance with interview preparation, resume building, and connections to leading IT companies.' },
+            { keywords: ['certificate','certification','verify'], answer: 'All our courses are ISO 9001:2015 certified. You can verify your certificate using the "Verify Certificate" section on our website.' },
+            { keywords: ['timing','batch','schedule','class'], answer: 'We offer flexible batch timings including morning, afternoon, and weekend batches to suit your schedule.' },
+            { keywords: ['location','address','where','find'], answer: 'We are located in Hanamkonda, Telangana. You can find the exact address in the Contact section.' },
+            { keywords: ['contact','phone','email','reach'], answer: 'You can reach us at +91 85001 72644, email info@svrcomputers.in, or chat with us on WhatsApp.' },
+            { keywords: ['teacher','faculty','instructor','trainer'], answer: 'Our instructors are industry experts with 15+ years of teaching and practical experience in top IT companies.' },
+            { keywords: ['project','practical','hands-on'], answer: 'We focus on practical, hands-on training with real-world projects and live coding sessions every day.' },
+            { keywords: ['thanks','thank you','awesome','great'], answer: 'You\'re welcome! Feel free to ask if you have more questions. We\'re here to help!' },
+            { keywords: ['default'], answer: 'That\'s a great question! For specific details, I\'d recommend contacting our support team at +91 85001 72644 or visiting our center. We\'re always happy to help!' }
         ];
 
-        const courseGrid = document.getElementById('courseGrid');
-        courses.forEach(c => {
-            courseGrid.innerHTML += `
-                <div class="course-card">
-                    <div class="course-img" style="background-image: url('${c.img}'); background-size: cover; background-position: center;"></div>
-                    <div class="course-content">
-                        <h3>${c.title}</h3>
-                        <p>${c.desc}</p>
-                        <div class="course-meta">
-                            <span><i class="far fa-clock"></i> ${c.duration}</span>
-                            <span><i class="fas fa-user-graduate"></i> ${c.level}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-
-        // ========== AI CHATBOT ==========
-        const instituteData = {
-            greetings: { keys: ['hi', 'hello', 'namaste', 'hey', 'good morning', 'help'], reply: '👋 Welcome to **SVR COMPUTERS**! We have been providing quality computer education since 2020. You can ask about our courses, fees, timings, faculty, placements, certifications, and more. How can I help you today?' },
-            director: { keys: ['director', 'owner', 'founder', 'head', 'ceo', 'aruri', 'sravan'], reply: '👨‍💼 **About Our Director / Principal Trainer:**\n\n**Name:** Aruri Sravan\n**Experience:** 15+ years in computer education & training\n**Qualification:** B.C.A, M.Sc.IS (Information Systems)\n**Expertise:** Programming (C, C++, Java, Python), Databases, Web Development, AI Fundamentals\n\n📞 Contact: 8500172644' },
-            trainer: { keys: ['teacher', 'trainer', 'faculty', 'instructor', 'staff', 'mentor'], reply: '👨‍🏫 **Our Trainers & Faculty:**\n\n• **Director & Trainer:** Aruri Sravan (15+ years exp.) – DCA, PGDCA, C, C++, Java, Python, DBMS, AI\n\n📞 Contact for demo: 8500172644' },
-            about: { keys: ['about', 'institute', 'information', 'svr', 'details', 'history'], reply: '🏢 **About SVR COMPUTERS:**\n\n• Established in **2020** (5+ years of excellence)\n• **500+** students trained successfully\n• Director: **Aruri Sravan** (M.Sc Information Systems)\n• **100% practical training** with live projects\n• **Placement assistance** with top companies\n• Located at **Julywada Junction, Hanamkonda**\n\n📞 Contact: 8500172644' },
-            courses: { keys: ['course', 'courses', 'computer course', 'all courses', 'available'], reply: '📚 **Courses Available at SVR COMPUTERS:**\n\n• **DCA** - Diploma in Computer Applications (3 months)\n• **PGDCA** - Post Graduate Diploma (6 months)\n• **TALLY** - Accounting Software with GST (3 months)\n• **MS-OFFICE** - Word, Excel, PowerPoint (2 months)\n• **C Language** - Programming Fundamentals (2 months)\n• **C++** - Object Oriented Programming (2 months)\n• **JAVA** - Core & Advanced Java (4 months)\n• **PYTHON** - Data Science & Development (4 months)\n• **FULL STACK DEVELOPMENT** - HTML, CSS, JavaScript, PHP (6 months)\n• **DATABASE** - Oracle, MySQL (3 months)\n• **SQL** - Structured Query Language (2 months)\n• **AI** - Artificial Intelligence Basics (3 months)\n\n📞 Contact: **8500172644**' },
-            dca: { keys: ['dca', 'diploma computer applications'], reply: '💻 **DCA (Diploma in Computer Applications)**\n\n• **Duration:** 3 Months\n• **Eligibility:** 10th Pass\n• **Syllabus:** Computer Fundamentals, MS-Office, Tally, Internet, C Programming\n• \n📞 For more details: 8500172644' },
-            
-PGDCA: { keys: ['pgdca', 'post graduate diploma'], reply: '🎓 **PGDCA (Post Graduate Diploma in Computer Applications)**\n\n• **Duration:** 6 Months\n• **Eligibility:** Any Degree\n• **Syllabus:** Advanced Programming (C, C++, Java), DBMS, Networking, Web Design, Project Work\n• \n📞 For more details: 8500172644' },
-
-
-            tally: { keys: ['tally', 'accounting', 'gst'], reply: '📊 **TALLY ERP9 + GST**\n\n• **Duration:** 3 Months\n• **Syllabus:** Accounting Basics, Ledgers, Vouchers, Inventory, GST Returns, Payroll\n• \n📞 For more details: 8500172644' },
-            java: { keys: ['java', 'core java'], reply: '☕ **JAVA Programming**\n\n• **Duration:** 4 Months\n• **Topics:** Core Java, OOPs, Multithreading, Collections, JDBC, Servlets, JSP\n• \n📞 For more details: 8500172644' },
-            python: { keys: ['python', 'py'], reply: '🐍 **PYTHON Programming**\n\n• **Duration:** 4 Months\n• **Topics:** Basics, OOPs, Django/Flask, Data Analysis, NumPy, Pandas\n• \n📞 For more details: 8500172644' },
-            fullstack: { keys: ['full stack', 'fullstack', 'web development', 'html', 'css', 'javascript', 'php'], reply: '🌐 **FULL STACK DEVELOPMENT**\n\n• **Duration:** 6 Months\n• **Frontend:** HTML5, CSS3, JavaScript, Bootstrap\n• **Backend:** PHP, MySQL\n•\n📞 For more details: 8500172644' },
-            fees: { keys: ['fee', 'fees', 'cost', 'price', 'charges'], reply: '💰 **Fee Structure:\n\n• Fees may vary depending on the course \n📞 Pls Contact for More Details about fee structure: 8500172644' },
-            timings: { keys: ['time', 'timings', 'batch timings', 'schedule'], reply: '⏰ **Batch Timings:**\n\n• **Morning:** 6:00 AM - 8:00 AM\n• **Day:** 10:00 AM - 1:00 PM\n• **Evening:** 4:00 PM - 8:00 PM\n• **Weekend Batch:** Saturday & Sunday\n\n📞 Contact: 8500172644' },
-            placements: { keys: ['placement', 'placements', 'job', 'career'], reply: '💼 **Placement & Career Support:**\n\n• **100% placement assistance**\n• Resume building workshops\n• Mock interviews with industry experts\n• Internship opportunities\n\n📞 Contact: 8500172644' },
-            contact: { keys: ['contact', 'phone', 'mobile', 'call', 'number'], reply: '📞 **Contact Information:**\n\n• **Phone Number:** 8500172644\n• **WhatsApp:** 8500172644\n• **Email:** svrcomputers.training@gmail.com\n\n**Office Hours:** 9:00 AM - 8:00 PM (Monday to Saturday)' },
-            address: { keys: ['address', 'location', 'where', 'visit', 'julywada'], reply: '📍 **Our Address:**\n**SVR COMPUTERS**\n**Julywada Junction,**\nHanamkonda, Warangal - 506001\n**Landmark:** Near Julywada Junction\n📞 For directions: 8500172644' },
-            thanks: { keys: ['thanks', 'thank you', 'bye', 'goodbye', 'ok', 'okay'], reply: '🙏 Thank you for contacting **SVR COMPUTERS**! Have a great day! 🌟\n\n📞 **24/7 Support:** 8500172644' }
-        };
-
-        const unavailableCourses = ['hardware', 'networking', 'aws', 'cloud', 'devops', 'ethical hacking', 'cyber security'];
-
-        function getAIResponse(text) {
-            const lowerText = text.toLowerCase().trim();
-            
-            for (let uc of unavailableCourses) {
-                if (lowerText.includes(uc)) {
-                    return `😔 Sorry, **${uc.toUpperCase()}** course is currently not available at SVR COMPUTERS.\n\n✅ **Courses we offer:** DCA, PGDCA, TALLY, MS-OFFICE, C, C++, JAVA, PYTHON, WEB DEVELOPMENT, DATABASE, SQL, AI.\n📞 **8500172644**`;
+        function getBotResponse(userMsg) {
+            const lower = userMsg.toLowerCase();
+            for (let item of qaData) {
+                if (item.keywords === 'default') continue;
+                for (let kw of item.keywords) {
+                    if (lower.includes(kw)) { return item.answer; }
                 }
             }
-            
-            if (lowerText.includes('your name') || lowerText.includes('who are you')) {
-                return '🤖 I am **SVR COMPUTERS AI Assistant**, your virtual helper for all queries. How may I assist you?';
-            }
-            
-            if (lowerText.includes('thanks') || lowerText.includes('thank you') || lowerText === 'ok' || lowerText === 'okay' || lowerText.includes('bye') || lowerText.includes('goodbye')) {
-                return instituteData.thanks.reply;
-            }
-            
-            for (const category in instituteData) {
-                if (instituteData[category].keys && instituteData[category].keys.some(key => lowerText.includes(key))) {
-                    return instituteData[category].reply;
-                }
-            }
-            
-            return 'Sorry, I could not understand your question. At **SVR COMPUTERS**, we offer DCA, PGDCA, TALLY, C, C++, JAVA, PYTHON, WEB DEVELOPMENT, DATABASE, SQL, and AI courses. Please ask about courses, fees, timings, placements, or contact **8500172644**.';
+            const def = qaData.find(i => i.keywords === 'default');
+            return def ? def.answer : 'I\'m here to help! Please contact us directly for more information.';
         }
 
-        // AI Modal Logic
-        const modal = document.getElementById('aiModal');
-        const openBtn = document.getElementById('openAiChatBtn');
-        const closeBtn = document.getElementById('closeAiModal');
-        const aiChatBox = document.getElementById('aiChatBox');
-        const aiUserInput = document.getElementById('aiUserInput');
-        const aiSendBtn = document.getElementById('aiSendBtn');
-        const aiTyping = document.getElementById('aiTyping');
-
-        function appendAIMessage(sender, text) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `ai-message ${sender}`;
-            msgDiv.innerHTML = text.replace(/\n/g, '<br>');
-            aiChatBox.appendChild(msgDiv);
-            aiChatBox.scrollTop = aiChatBox.scrollHeight;
+        function addMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = `chatbot-message ${sender}`;
+            div.innerHTML = `<div class="bubble">${text}</div>`;
+            chatbotMessages.appendChild(div);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
         }
 
-        function sendAIMessage() {
-            const msg = aiUserInput.value.trim();
+        function handleChatSend() {
+            const msg = chatbotInput.value.trim();
             if (!msg) return;
-            appendAIMessage('user', msg);
-            aiUserInput.value = '';
-            aiTyping.style.display = 'block';
+            addMessage(msg, 'user');
+            chatbotInput.value = '';
             setTimeout(() => {
-                aiTyping.style.display = 'none';
-                const reply = getAIResponse(msg);
-                appendAIMessage('bot', reply);
-            }, 600);
+                const reply = getBotResponse(msg);
+                addMessage(reply, 'bot');
+            }, 400);
         }
 
-        openBtn.addEventListener('click', () => {
-            modal.style.display = 'flex';
-            if (aiChatBox.children.length === 0) {
-                appendAIMessage('bot', '👋 Welcome to **SVR COMPUTERS AI Assistant**! Ask me about courses, fees, timings, director, placements, and more. How can I help you?');
+        chatbotToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            chatbotWindow.classList.toggle('open');
+        });
+
+        chatbotClose.addEventListener('click', function(e) {
+            e.stopPropagation();
+            chatbotWindow.classList.remove('open');
+        });
+
+        chatbotSend.addEventListener('click', handleChatSend);
+        chatbotInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') { handleChatSend(); }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (chatbotWindow.classList.contains('open')) {
+                if (!chatbotWindow.contains(e.target) && e.target !== chatbotToggle) {
+                    chatbotWindow.classList.remove('open');
+                }
             }
         });
-        closeBtn.addEventListener('click', () => modal.style.display = 'none');
-        modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
-        aiSendBtn.addEventListener('click', sendAIMessage);
-        aiUserInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendAIMessage(); });
+
+        // ============================================================
+        // EXPOSE FUNCTIONS FOR CONSOLE
+        // ============================================================
+        window.addCertificate = addToFirebase;
+        window.deleteCertificate = deleteFromFirebase;
+        window.resetToDemo = resetDemoInFirebase;
+        window.clearAllRecords = clearAllFromFirebase;
+        window.findCertificate = findInFirebase;
+        window.certificateDB = certificateDB;
+        window.renderAdminList = renderAdminList;
+        window.isFirebaseReady = isFirebaseReady;
+        window.isLocalFile = isLocalFile;
     </script>
 </body>
 </html>
