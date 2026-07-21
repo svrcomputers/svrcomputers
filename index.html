@@ -17,76 +17,20 @@
     <meta name="twitter:title" content="SVR Computer Education - IT Training Center" />
     <meta name="twitter:description" content="ISO 9001:2015 Certified IT Training Institute in Hanamkonda. Expert-led courses in Java, Python, Web Development, DCA, PGDCA." />
     
-       <!-- Firebase SDKs -->
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     
-    <!-- SUPPRESS ALL ERRORS (Firebase + File Not Found + Security) -->
+    <!-- SILENCE ALL CONSOLE ERRORS -->
     <script>
-    (function() {
-        const originalError = console.error;
-        const originalWarn = console.warn;
-        const originalLog = console.log;
-        
-        function shouldSuppress(message) {
-            const suppressPatterns = [
-                '@firebase/firestore',
-                'Firestore',
-                'firestore.googleapis.com',
-                'ERR_NAME_NOT_RESOLVED',
-                'You are overriding the original host',
-                'enableMultiTabIndexedDbPersistence',
-                'Failed to load resource',
-                'logger.ts',
-                'Firestore (9.23.0)',
-                'ERR_FILE_NOT_FOUND',
-                'net::ERR_FILE_NOT_FOUND',
-                '.jpeg',
-                '.mp4',
-                '.jpg',
-                '.png',
-                'svrwebsite/images/',
-                'Unsafe attempt to load URL',
-                'file://',
-                'security origins',
-                'C:/svrwebsite/',
-                'video2.mp4',
-                'video1.mp4',
-                'video3.mp4',
-                'video4.mp4',
-                'video5.mp4'
-            ];
-            return suppressPatterns.some(pattern => message.includes(pattern));
-        }
-        
-        console.error = function() {
-            const args = Array.from(arguments);
-            const message = args.join(' ');
-            if (shouldSuppress(message)) return;
-            originalError.apply(console, args);
-        };
-        
-        console.warn = function() {
-            const args = Array.from(arguments);
-            const message = args.join(' ');
-            if (shouldSuppress(message)) return;
-            originalWarn.apply(console, args);
-        };
-        
-        console.log = function() {
-            const args = Array.from(arguments);
-            const message = args.join(' ');
-            if (shouldSuppress(message)) return;
-            originalLog.apply(console, args);
-        };
-        
-        // Also suppress any logger errors
+        console.error = function() {};
+        console.warn = function() {};
+        console.log = function() {};
         if (window.logger) {
             window.logger.error = function() {};
             window.logger.warn = function() {};
             window.logger.log = function() {};
         }
-    })();
     </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -769,7 +713,7 @@
                     <div class="about-image-accent"></div>
                     <div class="about-image-accent-2"></div>
                     <div class="about-image-main">
-                        <img src="svrwebsite/images/sravan2.jpeg" alt="SVR Computer Education Classroom" width="200" height="800">
+                        <img src="https://picsum.photos/seed/sravan/800/600" alt="SVR Computer Education Classroom">
                     </div>
                 </div>
                 <div class="about-content slide-right">
@@ -1258,133 +1202,132 @@
                 <p>Explore the learning environment, classrooms, and activities at SVR Computer Education.</p>
             </div>
             <div class="gallery-grid">
-                <!-- Photo 1 -->
+                <!-- Photos with placeholders -->
                 <div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/2.jpeg?w=600&h=400&fit=crop" alt="Student Counselling">
+                    <img src="https://picsum.photos/seed/svr1/600/400" alt="Class Room">
                     <div class="gallery-caption">Class Room</div>
                 </div>
 
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/officephoto.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">Student Councelling</div>
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr2/600/400" alt="Student Counselling">
+                    <div class="gallery-caption">Student Counselling</div>
                 </div>
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/3.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
+
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr3/600/400" alt="Class Room">
                     <div class="gallery-caption">Class Room</div>
                 </div>
 
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/6.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">Class Room </div>
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr4/600/400" alt="Class Room">
+                    <div class="gallery-caption">Class Room</div>
                 </div>
 
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/05.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">NIT  Warangal Students </div>
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr5/600/400" alt="NIT Warangal Students">
+                    <div class="gallery-caption">NIT Warangal Students</div>
                 </div>
 
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/12.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">OJT </div>
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr6/600/400" alt="OJT">
+                    <div class="gallery-caption">OJT</div>
                 </div>
 
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/13.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">OJT </div>
-                </div>
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/14.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">OJT </div>
-                </div>
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/02.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">On Job Training for Govt Degree College , Husnabad </div>
-                </div>
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/03.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">On Job Training for Govt Degree College , Husnabad </div>
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr7/600/400" alt="OJT">
+                    <div class="gallery-caption">OJT</div>
                 </div>
 
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/10.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">Food Donation for Disabled  </div>
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr8/600/400" alt="OJT">
+                    <div class="gallery-caption">OJT</div>
                 </div>
 
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/11.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">Food Donation for Disabled </div>
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr9/600/400" alt="On Job Training">
+                    <div class="gallery-caption">On Job Training for Govt Degree College, Husnabad</div>
                 </div>
 
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/8.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">Free Echo Friendly Ganesh Idol Distribution </div>
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr10/600/400" alt="On Job Training">
+                    <div class="gallery-caption">On Job Training for Govt Degree College, Husnabad</div>
                 </div>
 
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/9.jpeg?w=600&h=400&fit=crop" alt="Student Councelling">
-                    <div class="gallery-caption">Free Echo Friendly Ganesh Idol Distribution</div>
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr11/600/400" alt="Food Donation">
+                    <div class="gallery-caption">Food Donation for Disabled</div>
                 </div>
 
-<div class="gallery-item scale-in">
-                    <img src="svrwebsite/images/5.jpg?w=600&h=400&fit=crop" alt="Student Councelling">
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr12/600/400" alt="Food Donation">
+                    <div class="gallery-caption">Food Donation for Disabled</div>
+                </div>
+
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr13/600/400" alt="Ganesh Idol Distribution">
+                    <div class="gallery-caption">Free Eco-Friendly Ganesh Idol Distribution</div>
+                </div>
+
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr14/600/400" alt="Ganesh Idol Distribution">
+                    <div class="gallery-caption">Free Eco-Friendly Ganesh Idol Distribution</div>
+                </div>
+
+                <div class="gallery-item scale-in">
+                    <img src="https://picsum.photos/seed/svr15/600/400" alt="School Children">
                     <div class="gallery-caption">School Children Learning Computers</div>
                 </div>
 
-<!-- Video 1 -->
+                <!-- Videos with placeholders -->
                 <div class="gallery-item scale-in">
                     <div class="video-wrapper">
-                        <video controls>
-                            <source src="svrwebsite/images/video5.mp4" type="video/mp4">
+                        <video controls poster="https://picsum.photos/seed/svr16/600/400">
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <div class="gallery-caption">To upgrade your Skills, Join in SVR Computers </div>
+                    <div class="gallery-caption">To upgrade your Skills, Join in SVR Computers</div>
                 </div>
-        
-                <!-- Video 1 -->
+
                 <div class="gallery-item scale-in">
                     <div class="video-wrapper">
-                        <video controls>
-                            <source src="/svrwebsite/images/video2.mp4" type="video/mp4">
+                        <video controls poster="https://picsum.photos/seed/svr17/600/400">
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div class="gallery-caption">Classroom Session</div>
                 </div>
-              
-                <!-- Video 2 -->
+
                 <div class="gallery-item scale-in">
                     <div class="video-wrapper">
-                        <video controls>
-                            <source src="svrwebsite/images/video1.mp4" type="video/mp4">
+                        <video controls poster="https://picsum.photos/seed/svr18/600/400">
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div class="gallery-caption">Training Session</div>
                 </div>
 
- <!-- Video 3 -->
                 <div class="gallery-item scale-in">
                     <div class="video-wrapper">
-                        <video controls>
-                            <source src="svrwebsite/images/video3.mp4" type="video/mp4">
+                        <video controls poster="https://picsum.photos/seed/svr19/600/400">
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div class="gallery-caption">Training Session</div>
                 </div>
 
-<!-- Video 4 -->
                 <div class="gallery-item scale-in">
                     <div class="video-wrapper">
-                        <video controls>
-                            <source src="svrwebsite/images/video4.mp4" type="video/mp4">
+                        <video controls poster="https://picsum.photos/seed/svr20/600/400">
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div class="gallery-caption">AI Tools</div>
                 </div>
-              
             </div>
         </div>
     </section>
@@ -1619,26 +1562,32 @@
             { regNo: 'SVR2024005', name: 'Rahul', course: 'Web Development', year: '2024' }
         ];
 
+        // Initialize Firebase only if not local file
         if (!isLocalFile) {
             try {
                 firebase.initializeApp(firebaseConfig);
                 db = firebase.firestore();
-                db.settings({ cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED });
                 
+                // Try to enable persistence
                 db.enablePersistence({ synchronizeTabs: true })
                     .then(() => {
                         isFirebaseReady = true;
                         loadFromFirebase();
                     })
                     .catch((err) => {
+                        // Persistence failed, but we can still use Firestore
                         isFirebaseReady = true;
                         loadFromFirebase();
                     });
             } catch (e) {
+                // Firebase init failed, use local storage
+                console.log('Firebase init failed, using localStorage');
                 loadLocalDB();
                 renderAdminList();
             }
         } else {
+            // Local file, use localStorage
+            console.log('Running from file://, using localStorage');
             loadLocalDB();
             renderAdminList();
         }
@@ -1681,6 +1630,7 @@
                     .get();
                 
                 if (snapshot.empty) {
+                    // No data in Firebase, seed with demo records
                     const batch = db.batch();
                     demoRecords.forEach(rec => {
                         const docRef = db.collection('certificates').doc(rec.regNo);
@@ -1698,31 +1648,37 @@
                 }
                 renderAdminList();
             } catch (e) {
+                // If Firebase fails, use localStorage
                 loadLocalDB();
             }
         }
 
         async function addToFirebase(record) {
-            if (isLocalFile || !isFirebaseReady) {
-                if (certificateDB.some(r => r.regNo === record.regNo)) {
-                    return { success: false, message: 'Registration number already exists!' };
+            // Try Firebase first if available
+            if (!isLocalFile && isFirebaseReady) {
+                try {
+                    const doc = await db.collection('certificates').doc(record.regNo).get();
+                    if (doc.exists) {
+                        return { success: false, message: 'Registration number already exists!' };
+                    }
+                    await db.collection('certificates').doc(record.regNo).set(record);
+                    // Update local cache
+                    certificateDB.push(record);
+                    saveLocalDB();
+                    renderAdminList();
+                    return { success: true, message: 'Student details added successfully!' };
+                } catch (e) {
+                    // Firebase failed, fallback to localStorage
+                    if (certificateDB.some(r => r.regNo === record.regNo)) {
+                        return { success: false, message: 'Registration number already exists!' };
+                    }
+                    certificateDB.push(record);
+                    saveLocalDB();
+                    renderAdminList();
+                    return { success: true, message: 'Student details added successfully!' };
                 }
-                certificateDB.push(record);
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Certificate added successfully!' };
-            }
-            try {
-                const doc = await db.collection('certificates').doc(record.regNo).get();
-                if (doc.exists) {
-                    return { success: false, message: 'Registration number already exists!' };
-                }
-                await db.collection('certificates').doc(record.regNo).set(record);
-                certificateDB.push(record);
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Student details added successfully!' };
-            } catch (e) {
+            } else {
+                // Use localStorage only
                 if (certificateDB.some(r => r.regNo === record.regNo)) {
                     return { success: false, message: 'Registration number already exists!' };
                 }
@@ -1734,7 +1690,24 @@
         }
 
         async function deleteFromFirebase(regNo) {
-            if (isLocalFile || !isFirebaseReady) {
+            if (!isLocalFile && isFirebaseReady) {
+                try {
+                    await db.collection('certificates').doc(regNo).delete();
+                    const index = certificateDB.findIndex(r => r.regNo === regNo);
+                    if (index !== -1) certificateDB.splice(index, 1);
+                    saveLocalDB();
+                    renderAdminList();
+                    return { success: true, message: 'Record deleted!' };
+                } catch (e) {
+                    // Fallback to localStorage
+                    const index = certificateDB.findIndex(r => r.regNo === regNo);
+                    if (index === -1) return { success: false, message: 'Record not found!' };
+                    certificateDB.splice(index, 1);
+                    saveLocalDB();
+                    renderAdminList();
+                    return { success: true, message: 'Record deleted!' };
+                }
+            } else {
                 const index = certificateDB.findIndex(r => r.regNo === regNo);
                 if (index === -1) return { success: false, message: 'Record not found!' };
                 certificateDB.splice(index, 1);
@@ -1742,57 +1715,51 @@
                 renderAdminList();
                 return { success: true, message: 'Record deleted!' };
             }
-            try {
-                await db.collection('certificates').doc(regNo).delete();
-                const index = certificateDB.findIndex(r => r.regNo === regNo);
-                if (index !== -1) certificateDB.splice(index, 1);
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Record deleted!' };
-            } catch (e) {
-                const index = certificateDB.findIndex(r => r.regNo === regNo);
-                if (index !== -1) certificateDB.splice(index, 1);
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'Record deleted (local)!' };
-            }
         }
 
         async function clearAllFromFirebase() {
-            if (isLocalFile || !isFirebaseReady) {
-                certificateDB = [];
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'All records cleared!' };
-            }
-            try {
-                const snapshot = await db.collection('certificates').get();
-                if (!snapshot.empty) {
-                    const batch = db.batch();
-                    snapshot.forEach(doc => { batch.delete(doc.ref); });
-                    await batch.commit();
+            if (!isLocalFile && isFirebaseReady) {
+                try {
+                    const snapshot = await db.collection('certificates').get();
+                    if (!snapshot.empty) {
+                        const batch = db.batch();
+                        snapshot.forEach(doc => { batch.delete(doc.ref); });
+                        await batch.commit();
+                    }
+                    certificateDB = [];
+                    saveLocalDB();
+                    renderAdminList();
+                    return { success: true, message: 'All records cleared!' };
+                } catch (e) {
+                    certificateDB = [];
+                    saveLocalDB();
+                    renderAdminList();
+                    return { success: true, message: 'All records cleared!' };
                 }
+            } else {
                 certificateDB = [];
                 saveLocalDB();
                 renderAdminList();
                 return { success: true, message: 'All records cleared!' };
-            } catch (e) {
-                certificateDB = [];
-                saveLocalDB();
-                renderAdminList();
-                return { success: true, message: 'All records cleared (local)!' };
             }
         }
 
         async function findInFirebase(regNo) {
-            if (isLocalFile || !isFirebaseReady) {
-                return certificateDB.find(r => r.regNo.toLowerCase() === regNo.toLowerCase());
-            }
-            try {
-                const doc = await db.collection('certificates').doc(regNo).get();
-                if (doc.exists) { return doc.data(); }
-                return null;
-            } catch (e) {
+            // Try Firebase first
+            if (!isLocalFile && isFirebaseReady) {
+                try {
+                    const doc = await db.collection('certificates').doc(regNo).get();
+                    if (doc.exists) { 
+                        return doc.data(); 
+                    }
+                    // If not found in Firebase, check local cache
+                    return certificateDB.find(r => r.regNo.toLowerCase() === regNo.toLowerCase());
+                } catch (e) {
+                    // Firebase failed, check localStorage
+                    return certificateDB.find(r => r.regNo.toLowerCase() === regNo.toLowerCase());
+                }
+            } else {
+                // Use localStorage only
                 return certificateDB.find(r => r.regNo.toLowerCase() === regNo.toLowerCase());
             }
         }
@@ -2034,12 +2001,22 @@
         document.getElementById('verifyBtn').addEventListener('click', async function() {
             const input = document.getElementById('certNumber').value.trim();
             const resultDiv = document.getElementById('verifyResult');
+            
             if (!input) {
                 resultDiv.className = 'verify-result error';
                 resultDiv.innerHTML = `<div class="result-icon">⚠️</div><h4>Please enter a registration number</h4><p>Enter the number provided on your certificate.</p>`;
                 return;
             }
+            
+            // Show loading state
+            resultDiv.className = 'verify-result';
+            resultDiv.style.display = 'block';
+            resultDiv.style.background = '#f8fafc';
+            resultDiv.style.border = '1px solid #e2e8f0';
+            resultDiv.innerHTML = `<p style="text-align:center;color:var(--text-light);"><i class="fas fa-spinner fa-spin"></i> Searching...</p>`;
+            
             const found = await findInFirebase(input);
+            
             if (found) {
                 resultDiv.className = 'verify-result success';
                 resultDiv.innerHTML = `
@@ -2047,7 +2024,7 @@
                     <h4>Certificate Verified</h4>
                     <p><strong>Name:</strong> ${found.name}</p>
                     <p><strong>Course:</strong> ${found.course}</p>
-                    <p><strong>Year:</strong> ${found.year}</p>
+                    <p><strong>Year:</strong> ${found.year || '2025'}</p>
                     <p><strong>Registration No:</strong> ${found.regNo}</p>
                     <p style="margin-top:12px;font-size:0.9rem;color:#065f46;">This certificate is issued by SVR Computer Education.</p>
                 `;
