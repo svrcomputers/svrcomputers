@@ -623,7 +623,7 @@
                         </div>
                         <div class="form-group">
                             <label>Registration / Hall Ticket No</label>
-                            <input type="text" id="adminRegNo" placeholder="e.g. SVR2024003">
+                            <input type="text" id="adminRegNo" placeholder="e.g. 2024003">
                         </div>
                         <div class="form-group">
                             <label>Course</label>
@@ -1384,7 +1384,7 @@
                 <h3><i class="fas fa-certificate" style="color: var(--primary);"></i> Verify Certificate</h3>
                 <p>Enter your unique registration number or hall ticket number issued by SVR Computer Education.</p>
                 <div class="verify-input-group">
-                    <input type="text" id="certNumber" placeholder="e.g. SVR2024001 or HT202401" aria-label="Certificate number">
+                    <input type="text" id="certNumber" placeholder="e.g. Enter Registration Number " aria-label="Certificate number">
                     <button class="btn btn-primary" id="verifyBtn"><i class="fas fa-search"></i> Verify Now</button>
                 </div>
                 <div id="verifyResult" class="verify-result"></div>
@@ -2093,7 +2093,7 @@
             document.getElementById('adminLoginBtn').addEventListener('click', function() {
                 const user = adminUser.value.trim();
                 const pass = adminPass.value.trim();
-                if (user === 'admin' && pass === 'admin123') {
+                if (user === 'svr' && pass === 'svr2109') {
                     isAdminLoggedIn = true;
                     loginError.style.display = 'none';
                     adminLoginBox.style.display = 'none';
