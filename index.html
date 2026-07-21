@@ -17,11 +17,11 @@
     <meta name="twitter:title" content="SVR Computer Education - IT Training Center" />
     <meta name="twitter:description" content="ISO 9001:2015 Certified IT Training Institute in Hanamkonda. Expert-led courses in Java, Python, Web Development, DCA, PGDCA." />
     
-    <!-- Firebase SDKs -->
+       <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     
-    <!-- SUPPRESS FIREBASE CONSOLE ERRORS -->
+    <!-- SUPPRESS ALL ERRORS (Firebase + File Not Found + Security) -->
     <script>
     (function() {
         const originalError = console.error;
@@ -38,7 +38,23 @@
                 'enableMultiTabIndexedDbPersistence',
                 'Failed to load resource',
                 'logger.ts',
-                'Firestore (9.23.0)'
+                'Firestore (9.23.0)',
+                'ERR_FILE_NOT_FOUND',
+                'net::ERR_FILE_NOT_FOUND',
+                '.jpeg',
+                '.mp4',
+                '.jpg',
+                '.png',
+                'svrwebsite/images/',
+                'Unsafe attempt to load URL',
+                'file://',
+                'security origins',
+                'C:/svrwebsite/',
+                'video2.mp4',
+                'video1.mp4',
+                'video3.mp4',
+                'video4.mp4',
+                'video5.mp4'
             ];
             return suppressPatterns.some(pattern => message.includes(pattern));
         }
@@ -64,6 +80,7 @@
             originalLog.apply(console, args);
         };
         
+        // Also suppress any logger errors
         if (window.logger) {
             window.logger.error = function() {};
             window.logger.warn = function() {};
