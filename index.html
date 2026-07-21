@@ -1624,10 +1624,9 @@
                 }
                 db = firebase.firestore();
                 
-                // Enable offline persistence with proper error handling
+                // Enable offline persistence - FIXED: removed experimentalForceOwningTab
                 db.enablePersistence({ 
-                    synchronizeTabs: true,
-                    experimentalForceOwningTab: true 
+                    synchronizeTabs: true  // Only this option
                 })
                 .then(() => {
                     console.log('Firebase persistence enabled');
@@ -1636,6 +1635,7 @@
                 })
                 .catch((err) => {
                     console.warn('Persistence failed, continuing with online mode:', err);
+                    // Still mark as ready so we can try online mode
                     isFirebaseReady = true;
                     loadFromFirebase();
                 });
