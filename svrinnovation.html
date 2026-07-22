@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <!-- ===== FULL SEO SETUP ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    
+    <!-- Primary Meta Tags -->
+    <title>SVR Innovation - Custom Software Development | Websites, Web Apps, AI Solutions</title>
+    <meta name="title" content="SVR Innovation - Custom Software Development | Websites, Web Apps, AI Solutions">
+    <meta name="description" content="SVR Innovation is a custom software development company. We build websites, web applications, AI platforms, and enterprise solutions. IDEA-CODE-SOLUTIONS-IMPACT.">
+    <meta name="keywords" content="custom software development, web development, web applications, AI solutions, SVR Innovation, SVR Computers, website development, Hanamkonda, Telangana">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="author" content="SVR Innovation">
+    <meta name="geo.region" content="IN-TG">
+    <meta name="geo.placename" content="Hanamkonda">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.svrinnovation.com/">
+    <meta property="og:title" content="SVR Innovation - Custom Software Development">
+    <meta property="og:description" content="We build custom websites, web applications, and AI solutions. IDEA -CODE- SOLUTIONS- IMPACT.">
+    <meta property="og:image" content="https://www.svrinnovation.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.svrinnovation.com/">
+    <meta property="twitter:title" content="SVR Innovation - Custom Software Development">
+    <meta property="twitter:description" content="We build custom websites, web applications, and AI solutions. IDEA -CODE- SOLUTIONS- IMPACT.">
+    <meta property="twitter:image" content="https://www.svrinnovation.com/og-image.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.svrinnovation.com/">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "SVR Innovation",
+        "alternateName": "SVR Innovation - IDEA -CODE- SOLUTIONS- IMPACT",
+        "url": "https://www.svrinnovation.com",
+        "logo": "https://www.svrinnovation.com/logo.png",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-8500172644",
+            "contactType": "Sales",
+            "availableLanguage": ["English", "Telugu"]
+        },
+        "sameAs": [
+            "https://www.linkedin.com/company/svr-innovation",
+            "https://github.com/svrinnovation"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Hanamkonda",
+            "addressRegion": "Telangana",
+            "addressCountry": "IN"
+        }
+    }
+    </script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* ===== GLOBAL RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            background: #0b0d1a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a1d2e; }
+        ::-webkit-scrollbar-thumb { background: #f7b731; border-radius: 10px; }
+
+        .btn-gold {
+            background: #f7b731;
+            color: #0b0d1a;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-gold:hover {
+            background: #ffce6b;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(247, 183, 49, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #f7b731;
+            padding: 14px 32px;
+            border: 2px solid #f7b731;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-outline:hover {
+            background: #f7b731;
+            color: #0b0d1a;
+            transform: translateY(-4px);
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(11, 13, 26, 0.95);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(247, 183, 49, 0.2);
+            min-height: 64px;
+        }
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            text-align: left;
+            padding: 0;
+            margin: 0;
+        }
+        .logo .brand-line {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            text-align: left;
+        }
+        .logo .brand-line span { color: #f7b731; }
+        .logo .tagline {
+            display: block;
+            font-size: 0.55rem;
+            font-weight: 400;
+            color: #f7b731;
+            letter-spacing: 2.5px;
+            margin-top: 1px;
+            text-align: left;
+            width: 100%;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover { color: #f7b731; }
+        .hamburger {
+            display: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #fff;
+            padding: 5px;
+            z-index: 1001;
+            background: none;
+            border: none;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px 50px;
+            background: linear-gradient(135deg, #0b0d1a 0%, #1a1d2e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(247, 183, 49, 0.08), transparent 70%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+            animation: pulseGlow 8s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1300px;
+            width: 100%;
+            z-index: 2;
+        }
+        .hero-text h1 {
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .hero-text h1 span { color: #f7b731; }
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #b0b3c9;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .hero-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-image i {
+            font-size: 10rem;
+            color: #f7b731;
+            opacity: 0.9;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        #typed-text { color: #f7b731; font-weight: 600; }
+
+        /* ===== SECTION ===== */
+        section {
+            padding: 60px 24px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 2.4rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .section-title span { color: #f7b731; }
+        .section-sub {
+            text-align: center;
+            color: #b0b3c9;
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+
+        /* ===== JOURNEY ===== */
+        .journey-section {
+            background: linear-gradient(135deg, #0b0d1a 0%, #151a2b 100%);
+            padding: 40px 20px;
+            border-radius: 30px;
+            border: 1px solid #2a2f45;
+            margin: 20px 0 30px;
+        }
+        .journey-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            text-align: center;
+        }
+        .journey-step {
+            padding: 20px 12px;
+            border-radius: 20px;
+            transition: 0.4s ease;
+            border: 1px solid transparent;
+        }
+        .journey-step:hover {
+            border-color: #f7b731;
+            background: rgba(247, 183, 49, 0.05);
+            transform: translateY(-8px);
+        }
+        .journey-step .icon {
+            font-size: 2.5rem;
+            color: #f7b731;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .journey-step .arrow {
+            color: #f7b731;
+            font-size: 1.5rem;
+            opacity: 0.5;
+        }
+        .journey-step h3 {
+            font-size: 1.3rem;
+            color: #f7b731;
+            margin-bottom: 6px;
+        }
+        .journey-step p {
+            color: #b0b3c9;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .journey-step .step-num {
+            display: inline-block;
+            background: #f7b731;
+            color: #0b0d1a;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            line-height: 28px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* ===== SERVICES ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        .service-card {
+            background: #151a2b;
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid #2a2f45;
+            cursor: default;
+        }
+        .service-card:hover {
+            transform: translateY(-12px);
+            border-color: #f7b731;
+            box-shadow: 0 20px 40px rgba(247, 183, 49, 0.1);
+        }
+        .service-card i {
+            font-size: 3rem;
+            color: #f7b731;
+            margin-bottom: 16px;
+        }
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .service-card p {
+            color: #b0b3c9;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        /* ===== PROJECTS ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+        .project-card {
+            background: #151a2b;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #2a2f45;
+            transition: 0.4s ease;
+        }
+        .project-card:hover {
+            transform: scale(1.02);
+            border-color: #f7b731;
+        }
+        .project-img {
+            background: #1f253a;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #f7b731;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .project-info {
+            padding: 16px 20px 24px;
+        }
+        .project-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .project-info p {
+            color: #b0b3c9;
+            margin-bottom: 14px;
+            font-size: 0.85rem;
+        }
+        .project-info a {
+            color: #f7b731;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            word-break: break-all;
+            font-size: 0.9rem;
+        }
+        .project-info a:hover { gap: 15px; }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+        .testimonial-card {
+            background: #151a2b;
+            padding: 24px 20px;
+            border-radius: 20px;
+            border: 1px solid #2a2f45;
+            transition: 0.3s;
+        }
+        .testimonial-card:hover { border-color: #f7b731; }
+        .testimonial-card i {
+            color: #f7b731;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        .testimonial-card p {
+            color: #b0b3c9;
+            font-style: italic;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        .testimonial-card h4 {
+            margin-top: 12px;
+            color: #f7b731;
+            font-size: 0.95rem;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .about-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+        .about-text p {
+            color: #b0b3c9;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .stat-item {
+            text-align: center;
+            background: #151a2b;
+            padding: 16px 10px;
+            border-radius: 16px;
+            border: 1px solid #2a2f45;
+        }
+        .stat-item h3 {
+            font-size: 1.8rem;
+            color: #f7b731;
+        }
+        .stat-item p {
+            color: #b0b3c9;
+            font-size: 0.8rem;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: stretch;
+        }
+        .contact-form {
+            background: #151a2b;
+            padding: 36px 32px;
+            border-radius: 30px;
+            border: 1px solid #2a2f45;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            background: #0b0d1a;
+            border: 1px solid #2a2f45;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #f7b731;
+            outline: none;
+        }
+        .contact-form textarea {
+            height: 130px;
+            resize: vertical;
+        }
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .form-success i {
+            font-size: 3.5rem;
+            color: #25d366;
+            margin-bottom: 12px;
+        }
+        .form-success h3 {
+            font-size: 1.3rem;
+            color: #f7b731;
+            margin-bottom: 8px;
+        }
+        .form-success p { color: #b0b3c9; font-size: 0.9rem; }
+        
+        /* Contact Details Card - Replaces Map */
+        .contact-details-card {
+            background: #151a2b;
+            padding: 36px 32px;
+            border-radius: 30px;
+            border: 1px solid #2a2f45;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 350px;
+        }
+        .contact-details-card .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid #2a2f45;
+        }
+        .contact-details-card .detail-item:last-child {
+            border-bottom: none;
+        }
+        .contact-details-card .detail-item i {
+            font-size: 1.6rem;
+            color: #f7b731;
+            width: 40px;
+            text-align: center;
+        }
+        .contact-details-card .detail-item .info {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-details-card .detail-item .info .label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .contact-details-card .detail-item .info .value {
+            font-size: 0.95rem;
+            color: #fff;
+            font-weight: 500;
+        }
+        .contact-details-card .detail-item .info .value a {
+            color: #f7b731;
+            text-decoration: none;
+        }
+        .contact-details-card .detail-item .info .value a:hover {
+            text-decoration: underline;
+        }
+        .contact-details-card .whatsapp-btn {
+            margin-top: 20px;
+            background: #25d366;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .contact-details-card .whatsapp-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        /* ===== WHATSAPP ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #25d366;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        /* ===== CHATBOT ===== */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 96px;
+            right: 24px;
+            background: #f7b731;
+            color: #0b0d1a;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(247, 183, 49, 0.3);
+            z-index: 999;
+            transition: 0.3s;
+            border: none;
+        }
+        .chatbot-toggle:hover { transform: scale(1.1); }
+        .chatbot-window {
+            position: fixed;
+            bottom: 160px;
+            right: 24px;
+            width: 360px;
+            max-width: 92vw;
+            max-height: 450px;
+            background: #151a2b;
+            border-radius: 20px;
+            border: 1px solid #2a2f45;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chatbot-window.active { display: flex; }
+        .chatbot-header {
+            background: #f7b731;
+            padding: 14px 18px;
+            color: #0b0d1a;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        .chatbot-header .close-btn {
+            background: none;
+            border: none;
+            color: #0b0d1a;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .chatbot-messages {
+            padding: 14px 16px;
+            flex: 1;
+            overflow-y: auto;
+            max-height: 260px;
+            background: #0b0d1a;
+        }
+        .chatbot-messages .msg {
+            margin-bottom: 10px;
+            padding: 10px 14px;
+            border-radius: 16px;
+            max-width: 85%;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .chatbot-messages .bot {
+            background: #1a1d2e;
+            color: #fff;
+            border-bottom-left-radius: 4px;
+        }
+        .chatbot-messages .user {
+            background: #f7b731;
+            color: #0b0d1a;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        .chatbot-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px 12px 12px;
+            background: #0b0d1a;
+            border-top: 1px solid #2a2f45;
+        }
+        .chatbot-options button {
+            background: #1a1d2e;
+            border: 1px solid #2a2f45;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+            flex: 1 1 auto;
+        }
+        .chatbot-options button:hover {
+            background: #f7b731;
+            color: #0b0d1a;
+            border-color: #f7b731;
+        }
+        .chatbot-input {
+            display: flex;
+            padding: 8px 12px 12px;
+            gap: 8px;
+            background: #0b0d1a;
+            border-top: 1px solid #2a2f45;
+        }
+        .chatbot-input input {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 30px;
+            border: 1px solid #2a2f45;
+            background: #1a1d2e;
+            color: #fff;
+            font-size: 0.85rem;
+        }
+        .chatbot-input input:focus {
+            outline: none;
+            border-color: #f7b731;
+        }
+        .chatbot-input button {
+            background: #f7b731;
+            border: none;
+            color: #0b0d1a;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .chatbot-input button:hover { background: #ffce6b; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 50px 24px 20px;
+            border-top: 1px solid #2a2f45;
+            background: #0b0d1a;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 32px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .footer-brand {
+            text-align: left;
+        }
+        .footer-brand h3 {
+            font-size: 1.6rem;
+            color: #fff;
+            text-align: left;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+        .footer-brand h3 span { color: #f7b731; }
+        .footer-brand .brand-tagline {
+            color: #f7b731;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            margin: 2px 0 10px 0;
+            text-align: left;
+            display: block;
+            width: 100%;
+        }
+        .footer-brand p {
+            color: #888;
+            line-height: 1.7;
+            font-size: 0.85rem;
+            max-width: 350px;
+            text-align: left;
+            margin: 0;
+        }
+        .footer-col {
+            text-align: left;
+        }
+        .footer-col h4 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            position: relative;
+            text-align: left;
+        }
+        .footer-col h4::after {
+            content: '';
+            width: 25px;
+            height: 2px;
+            background: #f7b731;
+            display: block;
+            margin-top: 4px;
+        }
+        .footer-col ul {
+            list-style: none;
+            text-align: left;
+            padding: 0;
+        }
+        .footer-col ul li {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        .footer-col ul li a {
+            color: #888;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+        .footer-col ul li a:hover {
+            color: #f7b731;
+            padding-left: 5px;
+        }
+        .footer-col .contact-info {
+            color: #888;
+            font-size: 0.85rem;
+            line-height: 2;
+            text-align: left;
+        }
+        .footer-col .contact-info i {
+            color: #f7b731;
+            width: 20px;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            margin-top: 24px;
+            border-top: 1px solid #1a1d2e;
+            max-width: 1300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .footer-bottom p {
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            text-align: center;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.4rem; }
+            .hero-buttons { justify-content: center; }
+            .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .contact-wrapper { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .journey-steps { grid-template-columns: 1fr 1fr; }
+            .contact-details-card { min-height: auto; }
+            .hero-image i { font-size: 7rem; }
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 14px 18px; min-height: 62px; }
+            .logo .brand-line { font-size: 1.2rem; }
+            .logo .tagline { font-size: 0.5rem; letter-spacing: 2px; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: #0b0d1a;
+                position: absolute;
+                top: 62px;
+                left: 0;
+                width: 100%;
+                padding: 20px 18px;
+                gap: 14px;
+                border-bottom: 2px solid #f7b731;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { font-size: 1rem; padding: 8px 0; }
+            .hamburger { display: block; font-size: 1.6rem; padding: 4px; }
+            
+            .hero { padding: 85px 18px 40px; min-height: auto; }
+            .hero-text h1 { font-size: 2rem; }
+            .hero-text p { font-size: 1rem; }
+            .hero-buttons { flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+            .hero-buttons .btn-gold, .hero-buttons .btn-outline { width: 100%; text-align: center; padding: 14px 24px; font-size: 1rem; }
+            .hero-image i { font-size: 5rem; }
+            
+            section { padding: 45px 18px; }
+            .section-title { font-size: 2rem; }
+            .section-sub { font-size: 0.95rem; margin-bottom: 30px; }
+            
+            .services-grid, .projects-grid, .testimonials-grid { grid-template-columns: 1fr; gap: 18px; }
+            .service-card { padding: 28px 20px; }
+            .service-card i { font-size: 2.8rem; }
+            .service-card h3 { font-size: 1.2rem; }
+            .service-card p { font-size: 0.9rem; }
+            
+            .contact-form { padding: 28px 22px; }
+            .contact-form input, .contact-form textarea { padding: 14px 16px; font-size: 0.95rem; }
+            .contact-details-card { padding: 28px 22px; }
+            .contact-details-card .detail-item { gap: 14px; padding: 14px 0; }
+            .contact-details-card .detail-item i { font-size: 1.5rem; width: 36px; }
+            .contact-details-card .detail-item .info .value { font-size: 0.95rem; }
+            .contact-details-card .whatsapp-btn { font-size: 1rem; padding: 12px 20px; }
+            .contact-details-card h3 { font-size: 1.3rem !important; margin-bottom: 16px !important; }
+            
+            .about-grid { gap: 28px; }
+            .about-text h2 { font-size: 2rem; }
+            .about-text p { font-size: 0.95rem; }
+            .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+            .stat-item { padding: 14px 10px; }
+            .stat-item h3 { font-size: 1.6rem; }
+            .stat-item p { font-size: 0.75rem; }
+            
+            .journey-section { padding: 28px 16px; margin: 12px 0 22px; }
+            .journey-section h2 { font-size: 1.8rem !important; }
+            .journey-section p { font-size: 0.9rem !important; }
+            .journey-steps { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .journey-step { padding: 18px 12px; }
+            .journey-step .icon { font-size: 2.2rem; }
+            .journey-step h3 { font-size: 1.1rem; }
+            .journey-step p { font-size: 0.8rem; }
+            .journey-step .arrow { display: none; }
+            .journey-step .step-num { width: 26px; height: 26px; line-height: 26px; font-size: 0.75rem; }
+            
+            .project-img { height: 90px; font-size: 1.5rem; }
+            .project-info { padding: 16px 18px 20px; }
+            .project-info h3 { font-size: 1.1rem; }
+            .project-info p { font-size: 0.9rem; }
+            
+            .testimonial-card { padding: 22px 18px; }
+            .testimonial-card i { font-size: 1.8rem; }
+            .testimonial-card p { font-size: 0.9rem; }
+            .testimonial-card h4 { font-size: 0.95rem; }
+            
+            .whatsapp-float { width: 58px; height: 58px; font-size: 2.4rem; bottom: 20px; right: 20px; }
+            .chatbot-toggle { bottom: 88px; right: 20px; width: 54px; height: 54px; font-size: 1.8rem; }
+            .chatbot-window { bottom: 152px; right: 14px; width: calc(100vw - 28px); max-height: 400px; }
+            .chatbot-messages { max-height: 210px; }
+            
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                text-align: left; 
+                gap: 28px;
+            }
+            .footer-brand { text-align: left; }
+            .footer-brand h3 { text-align: left; font-size: 1.5rem; }
+            .footer-brand .brand-tagline { text-align: left; }
+            .footer-brand p { text-align: left; max-width: 100%; font-size: 0.9rem; }
+            .footer-col { text-align: left; }
+            .footer-col h4 { text-align: left; }
+            .footer-col h4::after { margin: 4px 0 0; width: 25px; }
+            .footer-col ul { text-align: left; padding: 0; }
+            .footer-col ul li { text-align: left; }
+            .footer-col ul li a { text-align: left; font-size: 0.9rem; }
+            .footer-col .contact-info { text-align: left; font-size: 0.9rem; }
+            footer { padding: 35px 18px 18px; }
+            .footer-bottom p { text-align: center; font-size: 0.7rem; }
+        }
+        @media (max-width: 480px) {
+            .navbar { padding: 12px 14px; min-height: 56px; }
+            .logo .brand-line { font-size: 1.1rem; }
+            .logo .tagline { font-size: 0.45rem; letter-spacing: 1.5px; }
+            .hamburger { font-size: 1.4rem; }
+            .nav-links { top: 56px; padding: 18px 14px; gap: 12px; }
+            .nav-links a { font-size: 0.95rem; padding: 6px 0; }
+            
+            .hero { padding: 72px 14px 30px; }
+            .hero-text h1 { font-size: 1.7rem; }
+            .hero-text p { font-size: 0.9rem; margin-bottom: 20px; }
+            .hero-buttons .btn-gold, .hero-buttons .btn-outline { font-size: 0.9rem; padding: 12px 18px; }
+            .hero-image i { font-size: 4rem; }
+            
+            section { padding: 35px 14px; }
+            .section-title { font-size: 1.7rem; }
+            .section-sub { font-size: 0.85rem; margin-bottom: 24px; }
+            
+            .services-grid, .projects-grid, .testimonials-grid { gap: 14px; }
+            .service-card { padding: 22px 16px; }
+            .service-card i { font-size: 2.4rem; }
+            .service-card h3 { font-size: 1.1rem; }
+            .service-card p { font-size: 0.85rem; }
+            
+            .contact-form { padding: 22px 16px; }
+            .contact-form input, .contact-form textarea { padding: 12px 14px; font-size: 0.9rem; margin-bottom: 14px; }
+            .contact-details-card { padding: 22px 16px; }
+            .contact-details-card .detail-item .info .value { font-size: 0.9rem; }
+            .contact-details-card .detail-item i { font-size: 1.3rem; width: 30px; }
+            .contact-details-card .whatsapp-btn { font-size: 0.9rem; padding: 10px 16px; }
+            .contact-details-card h3 { font-size: 1.2rem !important; margin-bottom: 14px !important; }
+            
+            .about-text h2 { font-size: 1.7rem; }
+            .about-text p { font-size: 0.88rem; }
+            .about-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .stat-item h3 { font-size: 1.3rem; }
+            .stat-item p { font-size: 0.7rem; }
+            
+            .journey-steps { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .journey-step { padding: 14px 10px; }
+            .journey-step .icon { font-size: 1.8rem; margin-bottom: 8px; }
+            .journey-step h3 { font-size: 0.95rem; }
+            .journey-step p { font-size: 0.7rem; }
+            .journey-step .step-num { width: 22px; height: 22px; line-height: 22px; font-size: 0.65rem; }
+            
+            .project-img { height: 70px; font-size: 1.3rem; }
+            .project-info { padding: 14px 14px 18px; }
+            .project-info h3 { font-size: 1rem; }
+            .project-info p { font-size: 0.82rem; margin-bottom: 10px; }
+            .project-info a { font-size: 0.85rem; }
+            
+            .testimonial-card { padding: 18px 14px; }
+            .testimonial-card i { font-size: 1.5rem; }
+            .testimonial-card p { font-size: 0.85rem; }
+            .testimonial-card h4 { font-size: 0.9rem; }
+            
+            .whatsapp-float { width: 52px; height: 52px; font-size: 2.2rem; bottom: 16px; right: 16px; }
+            .chatbot-toggle { bottom: 78px; right: 16px; width: 48px; height: 48px; font-size: 1.6rem; }
+            .chatbot-window { bottom: 134px; right: 10px; width: calc(100vw - 20px); max-height: 360px; }
+            .chatbot-messages { max-height: 170px; padding: 12px 14px; }
+            .chatbot-messages .msg { font-size: 0.8rem; padding: 8px 12px; }
+            .chatbot-options button { font-size: 0.65rem; padding: 5px 10px; }
+            .chatbot-input { padding: 6px 10px 10px; gap: 6px; }
+            .chatbot-input input { font-size: 0.8rem; padding: 8px 10px; }
+            .chatbot-input button { width: 36px; height: 36px; font-size: 0.9rem; }
+            .chatbot-header { padding: 12px 14px; font-size: 0.9rem; }
+            .chatbot-header .close-btn { font-size: 1.1rem; }
+            
+            .footer-grid { gap: 22px; }
+            .footer-brand h3 { font-size: 1.3rem; }
+            .footer-brand .brand-tagline { font-size: 0.55rem; letter-spacing: 2px; }
+            .footer-brand p { font-size: 0.82rem; }
+            .footer-col h4 { font-size: 0.95rem; margin-bottom: 12px; }
+            .footer-col ul li a { font-size: 0.82rem; }
+            .footer-col .contact-info { font-size: 0.82rem; }
+            .footer-bottom p { font-size: 0.6rem; }
+            footer { padding: 28px 14px 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <span class="brand-line">SVR <span>Innovation</span></span>
+            <span class="tagline"> IDEA -CODE- SOLUTIONS- IMPACT</span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
+                <h1>Build <span>Innovative</span> Solutions<br>with <span id="typed-text"></span></h1>
+                <p>We craft custom websites, web applications, and enterprise software with modern UI/UX, animations, and robust backend — tailored to your business needs.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-gold"><i class="fas fa-rocket"></i> Start Your Project</a>
+                    <a href="#projects" class="btn-outline">View Our Work</a>
+                </div>
+            </div>
+            <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
+                <i class="fas fa-code"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== JOURNEY ===== -->
+    <section class="journey-section" data-aos="fade-up" data-aos-duration="800">
+        <div style="text-align:center; margin-bottom:24px;">
+            <h2 style="font-size:2rem; color:#f7b731;">SVR Innovation</h2>
+            <p style="color:#b0b3c9; font-size:1rem; letter-spacing:4px;">IDEA -CODE- SOLUTIONS- IMPACT</p>
+        </div>
+        <div class="journey-steps">
+            <div class="journey-step" data-aos="zoom-in" data-aos-delay="100">
+                <span class="step-num">1</span>
+                <span class="icon"><i class="fas fa-lightbulb"></i></span>
+                <h3>IDEA</h3>
+                <p>We listen to your vision, understand your business needs, and conceptualize the perfect digital solution.</p>
+                <span class="arrow">→</span>
+            </div>
+            <div class="journey-step" data-aos="zoom-in" data-aos-delay="200">
+                <span class="step-num">2</span>
+                <span class="icon"><i class="fas fa-code"></i></span>
+                <h3>CODE</h3>
+                <p>Our developers write clean, scalable, and secure code using the latest technologies and frameworks.</p>
+                <span class="arrow">→</span>
+            </div>
+            <div class="journey-step" data-aos="zoom-in" data-aos-delay="300">
+                <span class="step-num">3</span>
+                <span class="icon"><i class="fas fa-check-circle"></i></span>
+                <h3>SOLUTIONS</h3>
+                <p>We deliver robust, user-friendly applications that solve real problems and streamline your operations.</p>
+                <span class="arrow">→</span>
+            </div>
+            <div class="journey-step" data-aos="zoom-in" data-aos-delay="400">
+                <span class="step-num">4</span>
+                <span class="icon"><i class="fas fa-rocket"></i></span>
+                <h3>IMPACT</h3>
+                <p>Your business grows, your customers are delighted, and your digital transformation is complete.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="services" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title">Our <span>Services</span></h2>
+        <p class="section-sub">End-to-end custom software development — from idea to deployment</p>
+        <div class="services-grid">
+            <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Web Development</h3>
+                <p>Responsive, high-performance websites with modern UI/UX, animations, and SEO-friendly code.</p>
+            </div>
+            <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Apps</h3>
+                <p>Cross-platform mobile apps (React Native, Flutter) with native-like experience.</p>
+            </div>
+            <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-database"></i>
+                <h3>Custom Applications</h3>
+                <p>ERP, CRM, inventory, billing, school management — any custom business software.</p>
+            </div>
+            <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Cloud & API</h3>
+                <p>Cloud deployment (AWS, GCP), REST APIs, third-party integrations, and automation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title">Recent <span>Projects</span></h2>
+        <p class="section-sub">Here are some of our latest works — each built with care and precision</p>
+        <div class="projects-grid">
+            <div class="project-card" data-aos="flip-up" data-aos-delay="100">
+                <div class="project-img">Daffodils</div>
+                <div class="project-info">
+                    <h3>Daffodils High School</h3>
+                    <p>Complete school website with admissions, gallery, and contact system.</p>
+                    <a href="https://www.daffodilshighschoolhnk.com" target="_blank">Visit <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card" data-aos="flip-up" data-aos-delay="200">
+                <div class="project-img">CK HIRING</div>
+                <div class="project-info">
+                    <h3>CK Hiring Solutions</h3>
+                    <p>Recruitment and job placement platform with admin dashboard.</p>
+                    <a href="https://ckhiringsol.com/" target="_blank">Visit <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card" data-aos="flip-up" data-aos-delay="300">
+                <div class="project-img">Lokonex</div>
+                <div class="project-info">
+                    <h3>Lokonex</h3>
+                    <p>Business services and consulting website with dynamic content.</p>
+                    <a href="https://www.lokonex.com" target="_blank">Visit <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card" data-aos="flip-up" data-aos-delay="400">
+                <div class="project-img">SVR Computers</div>
+                <div class="project-info">
+                    <h3>SVR Computers Education</h3>
+                    <p>Computer education institute website with courses and enrollment.</p>
+                    <a href="https://www.svrcomputers.in" target="_blank">Visit <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card" data-aos="flip-up" data-aos-delay="500">
+                <div class="project-img">AI Exam</div>
+                <div class="project-info">
+                    <h3>SVR Smart AI Exam</h3>
+                    <p>AI-powered online examination platform with real-time results.</p>
+                    <a href="https://svr-smart-ai-exam.streamlit.app" target="_blank">Visit <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card" data-aos="flip-up" data-aos-delay="600">
+                <div class="project-img">Mana Vijay Anna</div>
+                <div class="project-info">
+                    <h3>Mana Vijay Anna</h3>
+                    <p>Professional portfolio website with modern design and interactive elements.</p>
+                    <a href="https://www.manavijayanna.com" target="_blank">Visit <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section id="testimonials" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title">Client <span>Testimonials</span></h2>
+        <p class="section-sub">What our clients say about our work</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-quote-left"></i>
+                <p>"SVR Innovation delivered our school website on time with all the features we needed. Very professional and responsive team."</p>
+                <h4>Mrs. Uma</h4>
+            </div>
+            <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-quote-left"></i>
+                <p>"They built our hiring platform with a clean UI and smooth backend. We have received great feedback from our users."</p>
+                <h4>Mr. Chandra Kanth</h4>
+            </div>
+            <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-quote-left"></i>
+                <p>"The AI exam platform developed by SVR Innovation is a game-changer. It's fast, reliable, and easy to manage."</p>
+                <h4>Mr. Rama Rao</h4>
+            </div>
+            <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fas fa-quote-left"></i>
+                <p>"SVR Innovation created a stunning portfolio website for me. Their attention to detail and creativity is outstanding."</p>
+                <h4>VP Reddy</h4>
+            </div>
+            <div class="testimonial-card" data-aos="zoom-in" data-aos-delay="500">
+                <i class="fas fa-quote-left"></i>
+                <p>"Professional team with excellent communication. They understood my requirements perfectly and delivered beyond expectations."</p>
+                <h4>Mr. Rakesh Kumar</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" data-aos="fade-up" data-aos-duration="800">
+        <div class="about-grid">
+            <div class="about-text" data-aos="fade-right">
+                <h2>Who We <span>Are</span></h2>
+                <p><strong>SVR Innovation</strong> is a custom software development startup founded with a mission to deliver high-quality, scalable, and future-ready digital solutions. We specialize in <strong>websites, web applications, and enterprise systems</strong> — built from scratch using modern tech stacks.</p>
+                <p>Whether you're a startup, small business, or enterprise — we turn your ideas into powerful, user-friendly products. No templates, no shortcuts — just pure code and innovation.</p>
+                <div class="about-stats">
+                    <div class="stat-item"><h3>11+</h3><p>Projects Delivered</p></div>
+                    <div class="stat-item"><h3>8+</h3><p>Happy Clients</p></div>
+                    <div class="stat-item"><h3>4.9★</h3><p>Client Rating</p></div>
+                </div>
+            </div>
+            <div style="display:flex; justify-content:center;" data-aos="fade-left">
+                <i class="fas fa-users-gear" style="font-size:8rem; color:#f7b731;"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT (WORKING WITH WEB3FORMS) ===== -->
+    <section id="contact" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title">Let's <span>Build Together</span></h2>
+        <p class="section-sub">Have a project in mind? Reach out and let's create something amazing.</p>
+        <div class="contact-wrapper">
+            <div class="contact-form" data-aos="zoom-in">
+                <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
+                    <!-- Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="a4f5328b-6ca4-43ec-9a61-6827021e2fb4">
+                    
+                    <!-- Form Fields -->
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="text" name="subject" placeholder="Subject">
+                    <textarea name="message" placeholder="Tell us about your project..." required></textarea>
+                    
+                    <!-- Redirect after success -->
+                    <input type="hidden" name="redirect" value="https://www.svrinnovation.com/#contact?success=true">
+                    
+                    <button type="submit" class="btn-gold" style="width:100%;" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+                <div class="form-success" id="formSuccess">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Message Sent Successfully!</h3>
+                    <p>Thank you for reaching out. We will get back to you within 24 hours. 🙏</p>
+                </div>
+            </div>
+            
+            <!-- Contact Details Card - Replaces Google Map -->
+            <div class="contact-details-card" data-aos="zoom-in" data-aos-delay="200">
+                <h3 style="color:#f7b731; font-size:1.3rem; margin-bottom:20px; text-align:center;">Get in Touch</h3>
+                
+                <div class="detail-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="info">
+                        <span class="label">Phone</span>
+                        <span class="value"><a href="tel:+918500172644">+91 8500172644</a></span>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <i class="fas fa-envelope"></i>
+                    <div class="info">
+                        <span class="label">Email</span>
+                        <span class="value"><a href="mailto:svrinnovationhnk@gmail.com">svrinnovationhnk@gmail.com</a></span>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="info">
+                        <span class="label">Address</span>
+                        <span class="value">Hanamkonda, Telangana, India</span>
+                    </div>
+                </div>
+                
+                <div class="detail-item" style="border-bottom: none; padding-bottom: 0;">
+                    <i class="fab fa-whatsapp" style="color:#25d366;"></i>
+                    <div class="info">
+                        <span class="label">WhatsApp</span>
+                        <span class="value"><a href="https://wa.me/918500172644" target="_blank" style="color:#25d366;">Chat with us</a></span>
+                    </div>
+                </div>
+                
+                <a href="https://wa.me/918500172644?text=Hi%20SVR%20Innovation%2C%20I%20am%20interested%20in%20discussing%20a%20project." target="_blank" class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>SVR <span>Innovation</span></h3>
+                <div class="brand-tagline">IDEA -CODE- SOLUTIONS- IMPACT</div>
+                <p>We deliver innovative, custom-built digital solutions — websites, applications, and enterprise software — with a focus on quality and client satisfaction.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone-alt"></i> +91 8500172644</p>
+                    <p><i class="fas fa-envelope"></i> svrinnovationhnk@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Hanamkonda, Telangana, India</p>
+                    <p style="margin-top:8px;">
+                        <a href="https://wa.me/918500172644?text=Hi%20SVR%20Innovation%2C%20I%20am%20interested%20in%20discussing%20a%20project." target="_blank" style="color:#25d366; text-decoration:none; font-weight:600;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp Us
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 <strong>SVR Innovation</strong>. All rights Reserved. Developed By SVR Innovation, Hanamkonda.</p>
+        </div>
+    </footer>
+
+    <!-- ===== WHATSAPP ===== -->
+    <a href="https://wa.me/918500172644?text=Hi%20SVR%20Innovation%2C%20I%20am%20interested%20in%20discussing%20a%20project." class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ===== CHATBOT ===== -->
+    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Chat with us">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <span><i class="fas fa-robot"></i> SVR Innovation Bot</span>
+            <button class="close-btn" id="chatbotClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="msg bot">👋 Hi there! Welcome to SVR Innovation. I'm your official AI Assistant. How can I help you today?</div>
+        </div>
+        <div class="chatbot-options" id="quickOptions">
+            <button onclick="sendQuickReply('services')">💻 Services</button>
+            <button onclick="sendQuickReply('tech')">⚙️ Tech</button>
+            <button onclick="sendQuickReply('start project')">🚀 Start</button>
+            <button onclick="sendQuickReply('pricing')">💰 Pricing</button>
+            <button onclick="sendQuickReply('support')">📞 Support</button>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+            <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script>
+        // ===== AOS =====
+        AOS.init({ once: false, duration: 800, easing: 'ease-in-out' });
+
+        // ===== TYPED =====
+        new Typed('#typed-text', {
+            strings: ['Websites', 'Web Apps', 'Custom Software', 'Innovation'],
+            typeSpeed: 80,
+            backSpeed: 50,
+            backDelay: 1500,
+            loop: true
+        });
+
+        // ===== MOBILE MENU =====
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const navbar = document.getElementById('navbar');
+        const menuIcon = hamburger.querySelector('i');
+
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            if (navLinks.classList.contains('active')) {
+                menuIcon.className = 'fas fa-times';
+            } else {
+                menuIcon.className = 'fas fa-bars';
+            }
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuIcon.className = 'fas fa-bars';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (navbar && !navbar.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuIcon.className = 'fas fa-bars';
+            }
+        });
+
+        // ===== CONTACT FORM - Show success message on redirect =====
+        const contactForm = document.getElementById('contactForm');
+        const formSuccess = document.getElementById('formSuccess');
+
+        // Check if redirected with success parameter
+        if (window.location.href.includes('success=true')) {
+            if (contactForm) contactForm.style.display = 'none';
+            if (formSuccess) formSuccess.style.display = 'block';
+        }
+
+        // Show loading state on submit
+        if (contactForm) {
+            contactForm.addEventListener('submit', function() {
+                const submitBtn = document.getElementById('submitBtn');
+                if (submitBtn) {
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    submitBtn.disabled = true;
+                }
+            });
+        }
+
+        // ===== CHATBOT WITH ENHANCED KNOWLEDGE BASE =====
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+
+        chatbotToggle.addEventListener('click', () => {
+            chatbotWindow.classList.toggle('active');
+        });
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.classList.remove('active');
+        });
+
+        // Comprehensive knowledge base for SVR Innovation
+        const faq = {
+            // Services - Exact match for "services" button
+            'services': 'We provide a wide range of services including:\n\n🌐 Website Development\n📱 Mobile App Development (Android & iOS)\n🛒 E-Commerce Websites\n🏫 School Management Software\n🏥 Hospital Management Software\n🎓 College Management Software\n📊 ERP & CRM Development\n💰 Billing & Inventory Software\n🤖 AI Chatbot Development\n💬 WhatsApp Business API Integration\n🔗 API Development & Integration\n🎨 UI/UX & Graphic Design\n📛 Logo Design\n🌍 Domain Registration & Hosting\n📧 Email Hosting\n🔧 Website Maintenance & Redesign\n📈 SEO & Digital Marketing\n☁️ Cloud Deployment\n🛠️ Technical Support\n\nWould you like a FREE consultation?',
+            
+            // Tech - Exact match for "tech" button
+            'tech': 'We use modern technologies to build robust solutions:\n\n🖥️ Frontend: HTML5, CSS3, JavaScript, React, Next.js, Vue.js, Angular\n⚙️ Backend: Node.js, Python (Django), PHP (Laravel), Java, .NET\n📱 Mobile: React Native, Flutter, Kotlin (Android), Swift (iOS)\n🗄️ Database: MySQL, PostgreSQL, MongoDB, Firebase, SQLite\n☁️ Cloud: AWS, Google Cloud Platform, Azure\n🔧 DevOps: Docker, Kubernetes, CI/CD, GitHub Actions\n🛠️ Tools: Git, VS Code, Postman, Figma, Adobe XD\n🤖 AI/ML: OpenAI API, ChatGPT, TensorFlow, PyTorch\n\nWe choose the best tech stack based on your project requirements. Would you like a FREE consultation?',
+            
+            // Location & Address
+            'where are you located': 'We are located in Hanamkonda, Telangana, India.',
+            'address': 'Our address is Hanamkonda, Telangana, India.',
+            'location': 'We are based in Hanamkonda, Telangana, India.',
+            
+            // Greetings & Farewells
+            'bye': 'Goodbye! Thank you for contacting SVR Innovation. If you have any more questions, feel free to reach out. Have a great day!',
+            'goodbye': 'Goodbye! Thank you for contacting SVR Innovation. If you have any more questions, feel free to reach out. Have a great day!',
+            'see you': 'See you later! Thank you for visiting SVR Innovation. We hope to hear from you soon. Have a great day!',
+            'see you later': 'See you later! Thank you for visiting SVR Innovation. We hope to hear from you soon. Have a great day!',
+            'thank you': 'You are welcome! Thank you for contacting SVR Innovation. We are always here to help. Have a great day!',
+            'thanks': 'You are welcome! Thank you for contacting SVR Innovation. We are always here to help. Have a great day!',
+            'thank u': 'You are welcome! Thank you for contacting SVR Innovation. We are always here to help. Have a great day!',
+            
+            // Company Info
+            'who are you': 'I am the official AI Assistant for SVR Innovation, a professional Web Development and Software Development Company. We specialize in building custom websites, software applications, and digital solutions.',
+            'what services do you provide': 'We provide a wide range of services including: Website Development, Custom Software Development, Mobile App Development (Android & iOS), E-Commerce Websites, School Management Software, Hospital Management Software, College Management Software, ERP & CRM Development, Billing Software, Inventory Management, AI Chatbot Development, WhatsApp Business API Integration, API Development & Integration, UI/UX Design, Graphic Design, Logo Design, Domain Registration, Web Hosting, Email Hosting, Website Maintenance, Website Redesign, SEO, Digital Marketing, Google Business Profile Setup, Cloud Deployment, and Technical Support.',
+            'how can i contact you': 'You can contact us via phone at +91 8500172644, email at svrinnovationhnk@gmail.com, or WhatsApp us at the same number. You can also fill out the contact form on this page.',
+            'why choose svr innovation': 'SVR Innovation delivers high-quality, scalable, and future-ready digital solutions built from scratch using modern tech stacks. We provide end-to-end services with a focus on quality, client satisfaction, and innovation. No templates, no shortcuts — just pure code and innovation.',
+            'how do we start': 'To start a project, simply fill out the contact form on this page, WhatsApp us at 8500172644, or call us. We\'ll schedule a free consultation to understand your requirements and provide a custom quotation.',
+            'do you provide support': 'Yes, we provide comprehensive technical support, maintenance, and after-sales services for all our projects.',
+            'do you provide maintenance': 'Yes, we offer website maintenance, software updates, bug fixes, performance optimization, security updates, and backup services.',
+            'do you sign nda': 'Yes, we can sign Non-Disclosure Agreements (NDA) to protect your business ideas and data.',
+            'will my data be secure': 'Absolutely. We follow industry best practices for data security and privacy. Your data is safe with us.',
+            'do you use latest technologies': 'Yes, we use modern technologies including React, Node.js, Python, Django, PHP, Flutter, React Native, AWS, and more. We choose the best stack for your project.',
+            
+            // Website Questions
+            'how much does a website cost': 'The cost depends on your project requirements such as features, pages, integrations, and complexity. Please share: • Project Type • Required Features • Number of Pages • Budget • Expected Delivery Date. Our team will prepare a customized quotation.',
+            'how many days will it take': 'Delivery time depends on the project scope. Simple Website: 3–7 Days, Business Website: 7–15 Days, E-Commerce: 2–4 Weeks, Custom Software: Depends on requirements.',
+            'can you redesign my website': 'Yes, we can redesign your existing website with modern UI/UX, better performance, mobile responsiveness, and SEO optimization.',
+            'do you build custom websites': 'Yes, we build 100% custom websites from scratch with your specific requirements. No templates, no shortcuts.',
+            'do you make responsive websites': 'Yes, all websites we build are fully responsive and work perfectly on all devices including mobile, tablet, and desktop.',
+            'will it work on mobile': 'Yes, every website we develop is mobile-friendly and fully responsive.',
+            'can you build an ecommerce website': 'Yes, we build full-featured e-commerce websites with payment gateway integration, product management, shopping cart, and order management systems.',
+            'can you build a portfolio website': 'Yes, we create stunning portfolio websites with modern design, animations, and interactive elements.',
+            'can you build a school website': 'Yes, we specialize in school management systems and school websites with admissions, gallery, contact system, and more.',
+            'can you build a hospital website': 'Yes, we build hospital websites and hospital management software with appointment booking, patient records, and more.',
+            'can you clone another website': 'We can create a similar design concept but we do not copy other websites. We build unique solutions tailored to your brand.',
+            'can you integrate payment gateways': 'Yes, we integrate various payment gateways including Razorpay, Paytm, Stripe, and more.',
+            'can you add online booking': 'Yes, we can integrate online booking systems for appointments, reservations, and services.',
+            'can you add login system': 'Yes, we implement secure login systems with authentication and authorization.',
+            'can you add admin panel': 'Yes, we develop admin panels for managing content, users, orders, and all website data.',
+            'can you add blogs': 'Yes, we can integrate blogs with content management systems for easy article publishing.',
+            'can you create multilingual websites': 'Yes, we build multilingual websites supporting multiple languages.',
+            'can you connect whatsapp': 'Yes, we integrate WhatsApp Business API for customer communication.',
+            'can you integrate maps': 'Yes, we integrate Google Maps and other mapping services.',
+            'can you integrate apis': 'Yes, we build custom APIs and integrate third-party APIs.',
+            
+            // Software Questions
+            'school management': 'Yes, we develop comprehensive School Management Software with features for admissions, attendance, exams, fees management, student portal, and more.',
+            'hospital management': 'Yes, we build Hospital Management Systems with patient registration, appointment scheduling, billing, pharmacy management, and more.',
+            'erp': 'Yes, we develop ERP systems customized for your business needs including finance, HR, inventory, and more.',
+            'crm': 'Yes, we build CRM systems for managing customer relationships, sales, and support.',
+            'inventory': 'Yes, we develop inventory management software for tracking stock, orders, and supplies.',
+            'billing': 'Yes, we create billing and invoicing software with GST support and payment tracking.',
+            'attendance': 'Yes, we build attendance management systems with biometric integration and reporting.',
+            'payroll': 'Yes, we develop payroll management software with salary calculations and tax management.',
+            'library': 'Yes, we build library management systems for book tracking and member management.',
+            'online exam': 'Yes, we develop online examination platforms with real-time results and analytics.',
+            'student portal': 'Yes, we create student portals for accessing courses, results, and communication.',
+            'employee portal': 'Yes, we build employee portals for attendance, leave management, and communication.',
+            'hrms': 'Yes, we develop HRMS for managing employee records, recruitment, and performance.',
+            'accounting software': 'Yes, we build accounting software with ledger management, GST, and financial reporting.',
+            'desktop software': 'Yes, we develop desktop applications using modern technologies.',
+            'cloud software': 'Yes, we build cloud-based software with secure hosting and scalability.',
+            
+            // App Development
+            'android apps': 'Yes, we develop native Android apps with modern design and features.',
+            'iphone apps': 'Yes, we build iOS apps for iPhone and iPad.',
+            'hybrid apps': 'Yes, we develop hybrid apps using Flutter and React Native.',
+            'flutter': 'Yes, we use Flutter for cross-platform mobile app development.',
+            'react native': 'Yes, we develop apps using React Native for iOS and Android.',
+            'native apps': 'Yes, we build native apps for both Android and iOS platforms.',
+            'play store publishing': 'Yes, we help publish your apps on Google Play Store.',
+            'app maintenance': 'Yes, we provide app maintenance, updates, and support.',
+            'push notifications': 'Yes, we integrate push notifications in mobile apps.',
+            'gps': 'Yes, we integrate GPS and location services in apps.',
+            'camera': 'Yes, we integrate camera functionality in mobile apps.',
+            'payment gateway': 'Yes, we integrate payment gateways in mobile apps.',
+            'otp login': 'Yes, we implement OTP-based login and authentication.',
+            
+            // AI Questions
+            'ai chatbots': 'Yes, we develop AI-powered chatbots using ChatGPT and other AI technologies.',
+            'chatgpt integration': 'Yes, we integrate ChatGPT and OpenAI APIs for AI-powered features.',
+            'voice bot': 'Yes, we build voice-enabled bots and voice assistants.',
+            'whatsapp bot': 'Yes, we develop WhatsApp bots for automated customer communication.',
+            'ai automation': 'Yes, we create AI automation solutions for business processes.',
+            'document ai': 'Yes, we implement Document AI for document processing and analysis.',
+            'ocr': 'Yes, we integrate OCR for text extraction from images and documents.',
+            'speech recognition': 'Yes, we implement speech recognition features.',
+            'image recognition': 'Yes, we integrate image recognition and computer vision.',
+            
+            // Domain & Hosting
+            'domain registration': 'Yes, we help you register domains and manage domain services.',
+            'hosting': 'Yes, we provide reliable web hosting services.',
+            'ssl': 'Yes, we provide SSL certificates for website security.',
+            'business email': 'Yes, we set up professional business email accounts.',
+            'migration': 'Yes, we help migrate your website to our hosting or to the cloud.',
+            'cloud hosting': 'Yes, we provide cloud hosting solutions on AWS and GCP.',
+            'vps': 'Yes, we provide VPS hosting solutions.',
+            'dedicated server': 'Yes, we offer dedicated server hosting.',
+            'renewal': 'Yes, we handle domain and hosting renewals.',
+            
+            // SEO & Marketing
+            'seo': 'Yes, we provide SEO services to improve your Google rankings.',
+            'google ranking': 'Yes, we help improve your Google search rankings.',
+            'google business': 'Yes, we set up and optimize Google Business Profile.',
+            'backlinks': 'Yes, we build quality backlinks for SEO.',
+            'keywords': 'Yes, we do keyword research and optimization.',
+            'digital marketing': 'Yes, we provide digital marketing services.',
+            'facebook ads': 'Yes, we run Facebook ad campaigns.',
+            'instagram ads': 'Yes, we run Instagram ad campaigns.',
+            'google ads': 'Yes, we run Google Ads campaigns.',
+            
+            // Support Questions
+            'website down': 'Please contact us immediately. We provide urgent support for website downtime.',
+            'bug fixes': 'Yes, we fix bugs and issues in websites and software.',
+            'update website': 'Yes, we provide website update services.',
+            'maintenance': 'Yes, we offer ongoing website and software maintenance.',
+            'new features': 'Yes, we can add new features to your existing website or software.',
+            'performance': 'Yes, we optimize website and software performance.',
+            'speed': 'Yes, we optimize loading speed and performance.',
+            'security': 'Yes, we implement security measures and updates.',
+            'backup': 'Yes, we provide regular backup services.',
+            'recovery': 'Yes, we provide data and website recovery services.',
+            
+            // Pricing & Timeline
+            'price': 'The cost depends on your project requirements such as features, pages, integrations, and complexity. Please share: • Project Type • Required Features • Number of Pages • Budget • Expected Delivery Date. Our team will prepare a customized quotation.',
+            'cost': 'The cost depends on your project requirements such as features, pages, integrations, and complexity. Please share your requirements for a custom quotation.',
+            'pricing': 'The cost depends on your project requirements such as features, pages, integrations, and complexity. Please share: • Project Type • Required Features • Number of Pages • Budget • Expected Delivery Date. Our team will prepare a customized quotation.',
+            'delivery time': 'Delivery time depends on the project scope. Simple Website: 3–7 Days, Business Website: 7–15 Days, E-Commerce: 2–4 Weeks, Custom Software: Depends on requirements.',
+            'timeline': 'Delivery time depends on the project scope. Simple Website: 3–7 Days, Business Website: 7–15 Days, E-Commerce: 2–4 Weeks, Custom Software: Depends on requirements.',
+            
+            // Portfolio
+            'portfolio': 'We\'d be happy to share our recent projects. Please let us know the type of project you\'re interested in (Business Website, School, Hospital, E-commerce, Mobile App, etc.), and we\'ll show similar work.',
+            'show your work': 'We\'d be happy to share our recent projects. Please let us know the type of project you\'re interested in, and we\'ll show similar work.',
+            
+            // Start Project
+            'start project': 'To start a project, simply fill out the contact form on this page or WhatsApp us at 8500172644. We\'ll schedule a free consultation. Would you like to schedule a FREE consultation?',
+            'schedule a meeting': 'Yes, we can schedule a meeting. Please share your preferred date and time. Would you like to schedule a FREE consultation?',
+            'free consultation': 'Yes, we offer a FREE consultation. Please contact us via WhatsApp at 8500172644 or fill out the contact form, and we\'ll schedule it.',
+            
+            // Support
+            'support': 'You can reach our support team via:\n📞 Phone: +91 8500172644\n📧 Email: svrinnovationhnk@gmail.com\n💬 WhatsApp: +91 8500172644\n\nOur team is available to help you with any technical issues, questions, or project inquiries. Would you like a FREE consultation?',
+            
+            // Common Questions
+            'hi': 'Hello! Welcome to SVR Innovation. How can I help you today? Would you like a FREE consultation?',
+            'hello': 'Hello! Welcome to SVR Innovation. How can I help you today? Would you like a FREE consultation?',
+            'hey': 'Hey there! Welcome to SVR Innovation. How can I assist you? Would you like a FREE consultation?',
+            'good morning': 'Good morning! Welcome to SVR Innovation. How can I help you today? Would you like a FREE consultation?',
+            'good afternoon': 'Good afternoon! Welcome to SVR Innovation. How can I assist you? Would you like a FREE consultation?',
+            'good evening': 'Good evening! Welcome to SVR Innovation. How can I help you? Would you like a FREE consultation?',
+            'namaste': 'Namaste! Welcome to SVR Innovation. How can I help you today? Would you like a FREE consultation?',
+            'నమస్తే': 'నమస్తే! SVR Innovation కి స్వాగతం. నేను మీకు ఎలా సహాయం చేయగలను? మీకు ఉచిత సంప్రదింపులు కావాలా?',
+            'హాయ్': 'హాయ్! SVR Innovation కి స్వాగతం. నేను మీకు ఎలా సహాయం చేయగలను? మీకు ఉచిత సంప్రదింపులు కావాలా?'
+        };
+
+        function getBotReply(input) {
+            const msg = input.toLowerCase().trim();
+            
+            // Check for exact matches first
+            for (let [key, value] of Object.entries(faq)) {
+                if (msg === key || msg.includes(key) || key.includes(msg)) {
+                    return value;
+                }
+            }
+            
+            // Check for partial matches
+            for (let [key, value] of Object.entries(faq)) {
+                if (key.split(' ').some(word => msg.includes(word))) {
+                    return value;
+                }
+            }
+            
+            // Check for specific keywords
+            if (msg.match(/website|site|web|page|domain|hosting|ecommerce|e-commerce|shop|store/i)) {
+                return "We offer comprehensive website development services. Whether you need a business website, e-commerce store, portfolio, or custom web application, we can build it. Would you like a FREE consultation?";
+            }
+            if (msg.match(/software|app|application|system|solution|platform/i)) {
+                return "We develop custom software solutions including school management, hospital management, ERP, CRM, inventory, billing, and more. Would you like a FREE consultation?";
+            }
+            if (msg.match(/mobile|android|iphone|ios|app|play store|apple/i)) {
+                return "Yes, we develop mobile apps for Android and iOS using native technologies, Flutter, and React Native. We also handle Play Store and App Store publishing. Would you like a FREE consultation?";
+            }
+            if (msg.match(/ai|chatbot|artificial intelligence|machine learning|automation/i)) {
+                return "Yes, we offer AI solutions including chatbots, ChatGPT integration, voice bots, WhatsApp bots, document AI, OCR, and automation. Would you like a FREE consultation?";
+            }
+            if (msg.match(/seo|marketing|digital|ads|google ranking|facebook|instagram/i)) {
+                return "We provide comprehensive SEO and digital marketing services including Google ranking, Facebook ads, Instagram ads, and Google Ads. Would you like a FREE consultation?";
+            }
+            
+            // Check for farewell messages
+            if (msg.match(/bye|goodbye|see you|see u|tata|tata bye|byee/i)) {
+                return "Goodbye! Thank you for contacting SVR Innovation. If you have any more questions, feel free to reach out. Have a great day!";
+            }
+            
+            // If no match found - ask to contact at 8500172644
+            return "I couldn't understand your question. For immediate assistance, please contact us at 8500172644. Our team will be happy to help you.";
+        }
+
+        function addMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = 'msg ' + sender;
+            div.textContent = text;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function sendChatMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            addMessage(text, 'user');
+            chatInput.value = '';
+            setTimeout(() => {
+                const reply = getBotReply(text);
+                addMessage(reply, 'bot');
+            }, 400);
+        }
+
+        function sendQuickReply(text) {
+            addMessage(text, 'user');
+            setTimeout(() => {
+                const reply = getBotReply(text);
+                addMessage(reply, 'bot');
+            }, 400);
+        }
+    </script>
+
+</body>
+</html>
